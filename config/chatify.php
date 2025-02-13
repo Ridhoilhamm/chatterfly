@@ -83,12 +83,13 @@ return [
     |-------------------------------------
     */
     'attachments' => [
-        'folder' => 'attachments',
-        'download_route_name' => 'attachments.download',
-        'allowed_images' => (array) ['png','jpg','jpeg','gif'],
-        'allowed_files' => (array) ['zip','rar','txt'],
-        'max_upload_size' => env('CHATIFY_MAX_FILE_SIZE', 150), // MB
-    ],
+    'folder' => 'attachments',
+    'download_route_name' => 'attachments.download',
+    'allowed_images' => (array) ['png', 'jpg', 'jpeg', 'gif','mp4','mov'],
+    'allowed_files' => (array) ['zip', 'rar', 'txt', 'mp4', 'mov', 'avi', 'mkv'],
+    'max_upload_size' => env('CHATIFY_MAX_FILE_SIZE', 150), // MB
+],
+
 
     /*
     |-------------------------------------

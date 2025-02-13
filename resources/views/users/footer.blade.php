@@ -1,6 +1,6 @@
-<div class="m-1">
+<div>
 
-    ppp
+
     <footer class="fixed-bottom bg-white py-2 d-flex justify-content-around border-top">
         <!-- Menu Utama -->
         <div class="d-flex flex-column align-items-center justify-content-center">

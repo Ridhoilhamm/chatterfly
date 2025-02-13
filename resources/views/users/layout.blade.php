@@ -10,7 +10,7 @@
 </head>
 <body>
     <div style="font-family: 'Ubuntu', sans-serif;">
-        <div>
+        {{-- <div>
             
             @yield('styles')
 
@@ -22,7 +22,7 @@
                 @include('users.footer')
             @endif
             @stack('scripts')
-        </div>
+        </div> --}}
 
     </div>
 

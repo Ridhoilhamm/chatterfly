@@ -99,6 +99,20 @@ Route::post('/setActiveStatus', 'MessagesController@setActiveStatus')->name('act
 
 
 
+Route::get('/storage/attachments/{filename}', function ($filename) {
+    $path = storage_path("app/public/attachments/{$filename}");
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => mime_content_type($path), 
+        'Content-Disposition' => 'inline',
+    ]);
+})->where('filename', '.*');
+
+
 
 
 /*

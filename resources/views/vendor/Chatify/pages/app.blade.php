@@ -1,12 +1,29 @@
+<style>
+    
+    .messenger-sendForm {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+}
+
+
+</style>
 @include('Chatify::layouts.headLinks')
-<div class="messenger">
+
+<div class="messenger" style="padding-bottom: 0px; font-family: 'Ubuntu', sans-serif;">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="#"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-message-chatbot"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-4.724l-4.762 2.857a1 1 0 0 1 -1.508 -.743l-.006 -.114v-2h-1a4 4 0 0 1 -3.995 -3.8l-.005 -.2v-8a4 4 0 0 1 4 -4zm-2.8 9.286a1 1 0 0 0 -1.414 .014a2.5 2.5 0 0 1 -3.572 0a1 1 0 0 0 -1.428 1.4a4.5 4.5 0 0 0 6.428 0a1 1 0 0 0 -.014 -1.414m-5.69 -4.286h-.01a1 1 0 1 0 0 2h.01a1 1 0 0 0 0 -2m5 0h-.01a1 1 0 0 0 0 2h.01a1 1 0 0 0 0 -2" /></svg> <span class="messenger-headTitle">Chat</span> </a>
-                {{-- header buttons --}}
+                <a href="#">
+                        <img src="{{ asset('storage/assets/logo pictorial1.png') }}" alt="Chat Icon" style="height:35px; width:30px;">
+                        <span class="messenger-headTitle" style="font-family: 'Ubuntu', sans-serif;">Chatterfly</span>
+                    
+                </a>
+                
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
                     <a href="#" class="listView-x"><i class="fas fa-times"></i></a>
@@ -19,7 +36,11 @@
                 <a href="#" class="active-tab" data-view="users">
                     <span class="far fa-user"></span> Contacts</a>
             </div> --}}
+            <ul id="groupList"></ul>
+
         </div>
+      
+
         {{-- tabs and lists --}}
         <div class="m-body contacts-container">
            {{-- Lists [Users/Group] --}}
@@ -46,10 +67,12 @@
                 </div>
              </div>
         </div>
+        <div style="margin-top: 10px;">
+            @include("Chatify::layouts.navbar")
+        </div>
     </div>
-
     {{-- ----------------------Messaging side---------------------- --}}
-    <div class="messenger-messagingView">
+    <div class="messenger-messagingView mb-0" style="padding-bottom:0px">
         {{-- header title [conversation name] amd buttons --}}
         <div class="m-header m-header-messaging">
             <nav class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
@@ -95,7 +118,12 @@
 
         </div>
         {{-- Send Message Form --}}
-        @include('Chatify::layouts.sendForm')
+       
+
+            @include('Chatify::layouts.sendForm')
+            
+            <script src="{{ asset('js/chatify-custom.js') }}"></script>
+
     </div>
     {{-- ---------------------- Info side ---------------------- --}}
     <div class="messenger-infoView app-scroll ">
@@ -107,6 +135,7 @@
         {!! view('Chatify::layouts.info')->render() !!}
     </div>
 </div>
+
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
