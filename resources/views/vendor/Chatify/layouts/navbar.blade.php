@@ -1,52 +1,37 @@
-<nav class="navbar navbar-custom d-lg-none">
-
-    <ul class="navbar-nav  w-100 ">
-        <li class="nav-item flex-grow-1 ms-3">
-            <a class="nav-link" href="/chatify" id="chatLink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-message">
+<div>
+    <footer class="fixed-bottom py-2 d-flex justify-content-around border-top "
+        style=" background-color: hsl(210, 17%, 93%); border-radius: 20px 20px 0 0;">
+        <!-- Menu Utama -->
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <a href="/chatterfly" class="{{ request()->is('chatterfly') ? 'text-success' : 'text-secondary' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                    class="icon icon-tabler icons-tabler-filled icon-tabler-message-circle">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M8 9h8" />
-                    <path d="M8 13h6" />
                     <path
-                        d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
+                        d="M5.821 4.91c3.899 -2.765 9.468 -2.539 13.073 .535c3.667 3.129 4.168 8.238 1.152 11.898c-2.841 3.447 -7.965 4.583 -12.231 2.805l-.233 -.101l-4.374 .931l-.04 .006l-.035 .007h-.018l-.022 .005h-.038l-.033 .004l-.021 -.001l-.023 .001l-.033 -.003h-.035l-.022 -.004l-.022 -.002l-.035 -.007l-.034 -.005l-.016 -.004l-.024 -.005l-.049 -.016l-.024 -.005l-.011 -.005l-.022 -.007l-.045 -.02l-.03 -.012l-.011 -.006l-.014 -.006l-.031 -.018l-.045 -.024l-.016 -.011l-.037 -.026l-.04 -.027l-.002 -.004l-.013 -.009l-.043 -.04l-.025 -.02l-.006 -.007l-.056 -.062l-.013 -.014l-.011 -.014l-.039 -.056l-.014 -.019l-.005 -.01l-.042 -.073l-.007 -.012l-.004 -.008l-.007 -.012l-.014 -.038l-.02 -.042l-.004 -.016l-.004 -.01l-.017 -.061l-.007 -.018l-.002 -.015l-.005 -.019l-.005 -.033l-.008 -.042l-.002 -.031l-.003 -.01v-.016l-.004 -.054l.001 -.036l.001 -.023l.002 -.053l.004 -.025v-.019l.008 -.035l.005 -.034l.005 -.02l.004 -.02l.018 -.06l.003 -.013l1.15 -3.45l-.022 -.037c-2.21 -3.747 -1.209 -8.391 2.413 -11.119z" />
                 </svg>
-                <p class="nav-text m-0 p-0">Chat</p>
             </a>
-        </li>
-        <li class="nav-item flex-grow-1">
-            <a class="nav-link" href="/profile" id="pageLink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 26 26" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+            <h6 class="m-0 {{ request()->is('') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+                Chat
+            </h6>
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <a href="/profile" class="{{ request()->is('profile') ? 'text-success' : 'text-secondary' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-article">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                    <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
-                    <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                    <path d="M17 10h2a2 2 0 0 1 2 2v1" />
-                    <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                    <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
+                    <path
+                        d="M19 3a3 3 0 0 1 2.995 2.824l.005 .176v12a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-12a3 3 0 0 1 2.824 -2.995l.176 -.005h14zm-2 12h-10l-.117 .007a1 1 0 0 0 0 1.986l.117 .007h10l.117 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm0 -4h-10l-.117 .007a1 1 0 0 0 0 1.986l.117 .007h10l.117 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm0 -4h-10l-.117 .007a1 1 0 0 0 0 1.986l.117 .007h10l.117 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
                 </svg>
-                <p class="nav-text pt-1">Grup</p>
             </a>
-        </li>
-        <li class="nav-item flex-grow-1">
-            <a class="nav-link" href="/pageuser" id="pageLink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
-                    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-                    <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                </svg>
-                <p class="nav-text pt-1">Lock</p>
-            </a>
-        </li>
-        <li class="nav-item flex-grow-1">
-            <a class="nav-link" href="/pageuser" id="groupLink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+            <h6 class="m-0 {{ request()->is('') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+                Page
+            </h6>
+        </div>
+        <!-- Menu Lapangan -->
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <a href="/pageuser" class="{{ request()->is('page') ? 'text-success' : 'text-secondary' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -55,150 +40,20 @@
                     <path d="M19 16v6" />
                     <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
                 </svg>
-                <p class="nav-text">Add</p>
             </a>
-        </li>
-    </ul>
-</nav>
+            <h6 class="m-0 {{ request()->is('page') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+                Teman
+            </h6>
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <a href="/pagelock" class="{{ request()->is('lock') ? 'text-success' : 'text-secondary' }}">
+                <i class="bi bi-person"></i>
+            </a>
+            <h6 class="m-0 {{ request()->is('lock') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+                Bio
+            </h6>
+        </div>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentPath = window.location.pathname;
-
-        const links = [{
-                path: '/chatify',
-                id: 'chatLink'
-            },
-            {
-                path: '/page',
-                id: 'pageLink'
-            },
-            {
-                path: '/group',
-                id: 'groupLink'
-            },
-            {
-                path: '/lock',
-                id: 'lockLink'
-            },
-            {
-                path: '/bio',
-                id: 'bioLink'
-            }
-        ];
-
-        links.forEach(link => {
-            const element = document.getElementById(link.id);
-
-            // Menghapus kelas active dari semua elemen
-            element.classList.remove('active');
-
-            // Menambahkan kelas active hanya pada elemen yang sesuai
-            if (currentPath === link.path) {
-                element.classList.add('active');
-            }
-        });
-    });
-</script>
-
-
-{{-- DISABLE RIGHT CLICK  --}}
-
-<script>
-    var isNS = (navigator.appName == "Netscape") ? 1 : 0;
-
-    if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
-
-    function mischandler() {
-        return false;
-    }
-
-    function mousehandler(e) {
-        var myevent = (isNS) ? e : event;
-        var eventbutton = (isNS) ? myevent.which : myevent.button;
-        if ((eventbutton == 2) || (eventbutton == 3)) return false;
-    }
-    document.oncontextmenu = mischandler;
-    document.onmousedown = mousehandler;
-    document.onmouseup = mousehandler;
-</script>
-
-
-<style>
-    .navbar-nav {
-        display: flex;
-        justify-content: center;
-        /* Pusatkan item */
-        align-items: center;
-        gap: 10px;
-        /* Beri jarak antar item */
-        width: 100%;
-    }
-
-    .nav-item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-    }
-
-
-    .nav-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #596170;
-        text-decoration: none;
-        font-size: 12px;
-        transition: color 0.3s, transform 0.3s;
-    }
-
-    .nav-link i {
-        font-size: 25px;
-        margin-bottom: 4px;
-        transition: transform 0.3s, color 0.3s;
-    }
-
-    .nav-link.active {
-        color: #ffffff;
-        transform: scale(1.1);
-    }
-
-    .nav-link.active i {
-        color: #ffffff;
-        font-size: 28px;
-        transform: scale(1.2);
-    }
-
-    .nav-link.active .nav-text {
-        color: #ffffff;
-    }
-
-    .nav-text {
-        font-size: 10px;
-        line-height: 1;
-        margin: 0;
-        transition: color 0.3s;
-    }
-
-    .navbar-custom {
-        background-color: #eff2f6;
-        padding: 10px 0;
-        border-radius: 20px 20px 0 0;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
-        z-index: 10;
-        display: flex;
-        justify-content: center;
-    }
-
-    @media (min-width: 768px) {
-        .navbar-custom {
-            display: none;
-        }
-    }
-</style>
+    </footer>
+</div>

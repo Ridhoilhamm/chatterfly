@@ -30,10 +30,11 @@ class Login extends Component implements HasForms
                 ->required(),
         ]);
     }
-public function mount()
-{
-    session()->put('hideNavbar', true); // Sembunyikan navbar di halaman login
-}
+    public function mount()
+    {
+        session()->put('hideNavbar', true);
+        session()->put('hideFooter', true); 
+    }
 
     public function login()
     {
@@ -64,9 +65,7 @@ public function mount()
     {
         return view('livewire.login')
             ->extends('layouts.app')
-            
+
             ->section('content');
     }
 }
-
-

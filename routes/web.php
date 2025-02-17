@@ -25,7 +25,7 @@ Route::get('/registrasi', Register::class)->name('registrasi');
 
 // halaman page 
 Route::get('/pageuser', Page::class)->name('page');
-Route::get('/profile', Profile::class)->name('profile');
+Route::get('/profile', Profile::class)->name('profile')->middleware('auth');
 Route::get('/pagelock', LockPage::class)->name('lock');
 
 

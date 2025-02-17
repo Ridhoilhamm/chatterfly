@@ -13,6 +13,7 @@ class Page extends Component
     public function mount()
     {
         session()->put('hideNavbar', true);
+        session()->forget('hideFooter'); //
         $this->users = User::where('id', '!=', Auth::id())->get();
     }
 

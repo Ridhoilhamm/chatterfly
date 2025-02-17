@@ -102,7 +102,7 @@
                         <!-- Avatar -->
                         <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" 
                             alt="User Avatar" 
-                            class="rounded-circle mb-2 user-avatar">
+                            class="rounded mb-2 user-avatar">
         
                         <!-- Nama -->
                         <h6 class="card-title user-name">{{ Str::limit($user->name, 10, '...') }}</h6>

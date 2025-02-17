@@ -1,11 +1,12 @@
 <div class="container h-100">
     <div class="row d-flex justify-content-center">
         <div class="col-12 p-0"
-            style="background: linear-gradient(to bottom, #44AD9F, #2E7D74) !important; border-radius: 0 0 20px 20px;">
-
-
+            style="background: linear-gradient(to bottom, #44AD9F 50%, #2E7D74 100%) !important; 
+           border-radius: 0 0 20px 20px;">
+            {{-- <div>
+            </div> --}}
             <div class="text-center">
-                <p class="mt-3  text-white" style="font-size:16px padding:5px 10px; border-radius:5px;">
+                <p class="mt-3 text-white" style="font-size:16px padding:5px 10px; border-radius:5px;">
                     {{ Str::title(Auth::user()->name) }}
                 </p>
             </div>
@@ -34,7 +35,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
 
 
-            <div class=" text-white d-flex align-items-center p-4"
+            <div class=" text-white d-flex align-items-center p-2"
                 style="background-color: #44AD9F; height: 170px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
 
                 <div class="ms-3 mt-3 d-flex flex-column align-items-center">
@@ -42,7 +43,6 @@
                         style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
 
                 </div>
-
                 <div class="ms-3 mt-3">
                     <div class=" justify-content-end text-center text-white">
                         <div class="d-flex justify-content-end text-center py-1">
@@ -80,8 +80,6 @@
                                 <p class="mb-0 text-dark" style="font-size: 13px;">Undang</p>
                             </div>
                         </div>
-
-
                     </div>
                     <div>
                     </div>
@@ -89,86 +87,194 @@
             </div>
         </div>
 
-        <div class="card-body p-4 text-black bg-white mt-3 "
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-            <div class="d-flex justify-content-center gap-5 mb-4 position-relative">
-                <!-- Grid Icon -->
-                <div class="menu-item active" onclick="setActive(this)">
-                    <i class="bi bi-grid-3x3-gap-fill fs-3 text-secondary"></i>
+
+        {{-- content  --}}
+        <div class="card-body p-2 text-black bg-white mt-3"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
+
+            <!-- NAVIGATION BUTTONS -->
+            <div class="d-flex justify-content-center gap-5 mb-2 position-relative">
+                <div class="menu-item active" onclick="scrollToSection(0)">
+                    <i class="bi bi-grid-3x3-gap-fill fs-3"></i>
                 </div>
-                <!-- Video Icon -->
-                <div class="menu-item" onclick="setActive(this)">
-                    <i class="bi bi-camera-reels fw-semibold fs-3 text-secondary"></i>
+                <div class="menu-item" onclick="scrollToSection(1)">
+                    <i class="bi bi-camera-reels fw-semibold fs-3"></i>
                 </div>
-                <!-- Profile Icon -->
-                <div class="menu-item" onclick="setActive(this)">
-                    <i class="bi bi-person-square fs-3 text-secondary"></i>
+                <div class="menu-item" onclick="scrollToSection(2)">
+                    <i class="bi bi-person-square fs-3"></i>
                 </div>
             </div>
 
-            <div class="mt-3" style="padding-bottom: 30px">
-                <div class="gallery">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" class="large">
-                    <div class="small-images">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp">
+            <!-- SCROLLABLE CONTENT -->
+            <div class="content-container" onscroll="highlightActiveSection()">
+                <div class="content-section">
+                    <div class="gallery">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                            class="large">
+                        <div class="small-images">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
+                        </div>
+                    </div>
+                    <div class="gallery">
+                        <div class="small-images mt-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
+                        </div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                            class="large">
                     </div>
                 </div>
-                <div class="gallery mt-2">
-                    <div class="small-images">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp">
+
+                <div class="content-section">
+                    <div class="gallery">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(115).webp"
+                            class="large">
+                        <div class="small-images mt-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(117).webp">
+                        </div>
                     </div>
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" class="large">
+                    <div class="gallery mt-2">
+                        <div class="small-images">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
+                        </div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                            class="large">
+                    </div>
                 </div>
 
-                <style>
-                    .gallery {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 10px;
-                    }
-
-                    .gallery img {
-                        width: 100%;
-                        border-radius: 15px;
-                        object-fit: cover;
-                    }
-
-                    .large {
-                        grid-row: span 2;
-                        height: 100%;
-                    }
-
-                    .small-images {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;
-                    }
-
-                    .small-images img {
-                        height: 50%;
-                    }
-                </style>
-
+                <div class="content-section">
+                    <div class="gallery">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(118).webp"
+                            class="large">
+                        <div class="small-images">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(119).webp">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(120).webp">
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
 
+        <style>
+            .content-container {
+                max-height: 400px;
+                overflow-y: auto;
+                scroll-behavior: smooth;
+            }
 
-    {{-- modals --}}
+            .menu-item {
+                cursor: pointer;
+                padding: 10px;
+                position: relative;
+            }
+
+            .menu-item.active::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 50%;
+                width: 50%;
+                height: 3px;
+                background-color: #007bff;
+                transform: translateX(-50%);
+                border-radius: 3px;
+            }
+
+            .menu-item.active i {
+                color: #007bff !important;
+            }
+
+            .content-container {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .content-section {
+                min-width: 100%;
+                scroll-snap-align: start;
+                padding: 20px;
+            }
+
+            .gallery {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .gallery img {
+                width: 100%;
+                border-radius: 15px;
+                object-fit: cover;
+            }
+
+            .large {
+                grid-row: span 2;
+                height: 100%;
+            }
+
+            .small-images {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .small-images img {
+                height: 50%;
+            }
+        </style>
+
+        <script>
+            function scrollToSection(index) {
+                const container = document.querySelector('.content-container');
+                const sections = document.querySelectorAll('.content-section');
+                container.scrollTo({
+                    left: sections[index].offsetLeft,
+                    behavior: "smooth"
+                });
+
+                updateActiveButton(index);
+            }
+
+            function highlightActiveSection() {
+                const container = document.querySelector('.content-container');
+                const sections = document.querySelectorAll('.content-section');
+                let currentIndex = 0;
+
+                sections.forEach((section, index) => {
+                    if (container.scrollLeft >= section.offsetLeft - section.offsetWidth / 2) {
+                        currentIndex = index;
+                    }
+                });
+
+                updateActiveButton(currentIndex);
+            }
+
+            function updateActiveButton(index) {
+                document.querySelectorAll('.menu-item').forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
+            }
+        </script>
+
+
+
+        {{-- modals --}}
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
-                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <input type="file" id="videoInput" class="form-control" accept="video/*">
-                        
+
                         <video id="videoPreview" class="mt-3 d-none" width="100%" controls></video>
                     </div>
                     <div class="modal-footer">
@@ -179,18 +285,18 @@
         </div>
 
 
-        <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="videoModalLabel">Upload Video</h5>
-                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <!-- Input File Video -->
                         <input type="file" id="videoInput" class="form-control" accept="video/*">
-                        
+
                         <!-- Preview Video -->
                         <video id="videoPreview" class="mt-3 d-none" width="100%" controls></video>
                     </div>
@@ -203,57 +309,108 @@
 
 
 
-        <div class="container custom-navbar d-flex justify-content-between">
-            <!-- Upload Foto -->
-            <button class="nav-btn " style="padding-bottom: 10p" id="photoBtn" onclick="setActive('photo')"
-                data-toggle="modal" data-target="#exampleModal">📷</button>
+        <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between">
+            <button class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
+                data-modal="#exampleModal">
+                📷
+            </button>
+            <button class="nav-home active" id="homeBtn" x-text="homeText"
+                x-on:mouseenter="setActive($event, 'home')">
+                Unggah
+            </button>
+            <button class="nav-btn" id="videoBtn" x-on:mouseenter="setActive($event, 'video')"
+                data-modal="#videoModal">
+                🎥
+            </button>
 
-
-            <!-- Home -->
-            <button class="nav-home active" id="homeBtn" onclick="setActive('home')"
-                style="color: rgba(0, 0, 0, 0.789)">Unggah</button>
-
-            <!-- Upload Video -->
-            <button class="nav-btn" id="videoBtn" onclick="setActive('video')"   data-toggle="modal" data-target="#video">🎥</button>
+            <div class="active-indicator" x-ref="indicator"></div>
         </div>
 
+        <!-- Modal Foto -->
+        <div class="modal fade" id="exampleModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Upload Foto</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        Konten modal foto
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Video -->
+        <div class="modal fade" id="videoModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Upload Video</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        Konten modal video
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const buttons = document.querySelectorAll(".nav-btn, .nav-home");
-                const navbar = document.querySelector(".custom-navbar");
-                const activeIndicator = document.createElement("div");
+            function navbarHandler() {
+                return {
+                    homeText: "Unggah",
+                    activeBtn: null,
 
-                activeIndicator.classList.add("active-indicator");
-                navbar.appendChild(activeIndicator);
+                    setActive(event, type) {
+                        let btn = event.target;
+                        this.activeBtn = btn;
+                        this.updateIndicator(btn);
+                        this.homeText = type === 'home' ? "Unggah" : "";
+                        let modalId = btn.getAttribute("data-modal");
+                        if (modalId) {
+                            this.showModal(modalId);
+                        }
+                    },
 
-                function updateIndicator(btn) {
-                    const btnWidth = btn.offsetWidth;
-                    const btnHeight = btn.offsetHeight;
-                    const btnLeft = btn.offsetLeft;
+                    updateIndicator(btn) {
+                        this.$nextTick(() => {
+                            let indicator = this.$refs.indicator;
+                            indicator.style.width = `${btn.offsetWidth}px`;
+                            indicator.style.height = `${btn.offsetHeight}px`;
+                            indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
+                        });
+                    },
 
-                    activeIndicator.style.width = `${btnWidth}px`;
-                    activeIndicator.style.height = `${btnHeight}px`;
-                    activeIndicator.style.transform = `translateX(${btnLeft}px)`;
-                }
+                    showModal(modalId) {
+                        let modal = document.querySelector(modalId);
+                        if (modal) {
+                            $(modal).modal("show");
+                            $(modal).on("hidden.bs.modal", () => {
+                                this.setActive({
+                                    target: document.getElementById('homeBtn')
+                                }, 'home');
+                            });
+                        }
+                    },
 
-                buttons.forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                        updateIndicator(btn);
-                    });
-                });
-
-                const homeBtn = document.querySelector(".nav-home.active");
-                if (homeBtn) {
-                    updateIndicator(homeBtn);
-                }
-            });
+                    init() {
+                        let homeBtn = document.getElementById("homeBtn");
+                        if (homeBtn) {
+                            this.updateIndicator(homeBtn);
+                        }
+                    }
+                };
+            }
         </script>
 
         <style>
             .active-indicator {
                 position: absolute;
-                bottom: 20%;
-                transform: translateY(50%);
+                bottom: 20px;
                 left: 0;
                 width: 50px;
                 height: 50px;
@@ -266,15 +423,6 @@
             .nav-btn {
                 position: relative;
                 top: -5px;
-            }
-
-
-
-            .gallery img {
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-                border-radius: 15px;
             }
 
             .custom-navbar {
@@ -292,7 +440,6 @@
                 max-width: 350px;
             }
 
-
             .nav-btn {
                 width: 50px;
                 height: 50px;
@@ -307,7 +454,6 @@
             }
 
             .nav-btn:hover {
-
                 color: black;
             }
 
@@ -320,6 +466,9 @@
                 border-radius: 20px;
             }
         </style>
+
+
+
 
 
     </div>
