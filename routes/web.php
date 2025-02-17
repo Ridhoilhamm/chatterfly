@@ -3,6 +3,7 @@
 use App\Http\Controllers\sosialmedia as ControllersSosialmedia;
 use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\sosmed;
+use App\Livewire\DaftarPengguna;
 use App\Livewire\LockPage;
 use App\Livewire\Login;
 use App\Livewire\Page;
@@ -25,8 +26,11 @@ Route::get('/registrasi', Register::class)->name('registrasi');
 
 // halaman page 
 Route::get('/pageuser', Page::class)->name('page');
-Route::get('/profile', Profile::class)->name('profile')->middleware('auth');
+Route::get('/profile', Profile::class)->name('profile');
 Route::get('/pagelock', LockPage::class)->name('lock');
+
+//halaman detail
+Route::get('/detailpengguna/{userId}',DaftarPengguna::class)->name('detailpengguna');
 
 
 // halaman chat

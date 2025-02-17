@@ -14,8 +14,6 @@
             </svg>
         </button>
     </form>
-
-
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -39,15 +37,15 @@
 
 
     <section class="px-3 pt-2 " style="margin-top:85px; margin-bottom:10px;">
-      <p>
-        Rekomendasi
-      </p>
+        <p>
+            Rekomendasi
+        </p>
         <div style="overflow-x: auto; white-space: nowrap; position: relative;">
             <div style="display: inline-flex; min-width: 100%; width: fit-content;">
                 <a href="#">
                     <div style="flex-shrink: 0; width: 120px; margin-right: 10px; position: relative;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                            alt="User 1" class="rounded d-block"
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="User 1"
+                            class="rounded d-block"
                             style="height: 140px; width: 100%; border: none; box-shadow: none; object-fit: cover;">
                         <div class="mt-1 text-center">
                             <p class="mb-0 limit-text" style="font-size: 12px">Status A</p>
@@ -68,7 +66,8 @@
 
                 <a href="#">
                     <div style="flex-shrink: 0; width: 120px; margin-right: 10px; position: relative;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="User 3" class="rounded d-block"
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="User 3"
+                            class="rounded d-block"
                             style="height: 140px; width: 100%; border: none; box-shadow: none; object-fit: cover;">
                         <div class="mt-1 text-center">
                             <p class="mb-0 limit-text" style="font-size: 12px">Status C</p>
@@ -78,7 +77,8 @@
 
                 <a href="#">
                     <div style="flex-shrink: 0; width: 120px; position: relative;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="User 4" class="rounded d-block"
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="User 4"
+                            class="rounded d-block"
                             style="height: 140px; width: 100%; border: none; box-shadow: none; object-fit: cover;">
                         <div class="mt-1 text-center">
                             <p class="mb-0 limit-text" style="font-size: 12px">Status D</p>
@@ -92,59 +92,58 @@
 
 
 
-    <div class="container bg-white">
-      <div class=" row d-flex flex-wrap justify-content-center gap-1" style="padding-top:10px;">
+    <div class=" bg-white">
         <p>Mungkin Anda Kenal</p>
-        @foreach ($users as $user)
-            <div class="container col-6 col-sm-6  col-lg-3 user-card mb-2 bg-white card">
-                
-                    <div class=" card-body text-center d-flex flex-column align-items-center">
-                        <!-- Avatar -->
-                        <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" 
-                            alt="User Avatar" 
-                            class="rounded mb-2 user-avatar">
-        
-                        <!-- Nama -->
-                        <h6 class="card-title user-name">{{ Str::limit($user->name, 10, '...') }}</h6>
-                    </div>
-                
-            </div>
-        @endforeach
-    </div>
-    
-  </div>
-  
-  <style>
-    @media (max-width: 576px) {
-        .user-card {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-    }
-    .fixed-card {
-        height: 180px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-  
-    .user-avatar {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-    }
-  
-    .user-name {
-        max-width: 100px; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .user-avatar {
-    width: 60px;  
-    height: 60px;
-    object-fit: cover;
-}
 
-  </style>
+        <div class="d-flex flex-wrap justify-content-center gap-3" style="padding-top: 10px;">
+            @foreach ($users as $user)
+                <div class="col-2 col-sm-2 col-lg-2 user-card card bg-white p-3 mb-3 text-center" 
+                     wire:click="selectUser({{ $user->id }})" 
+                     style="cursor: pointer;">
+                    <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" 
+                        alt="User Avatar" 
+                        class="rounded-circle mb-2 user-avatar" 
+                        style="width: 60px; height: 60px; object-fit: cover;">
+                    <h6 class="card-title user-name">{{ Str::limit($user->name, 6, '...') }}</h6>
+                </div>
+            @endforeach
+        </div>
+        
+
+    </div>
+
+    <style>
+        @media (max-width: 576px) {
+            .user-card {
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+        }
+
+        .fixed-card {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .user-name {
+            max-width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+    </style>
 </div>

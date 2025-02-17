@@ -30,8 +30,16 @@
         </div>
         <!-- Menu Lapangan -->
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/pageuser" class="{{ request()->is('page') ? 'text-success' : 'text-secondary' }}">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M16 19h6" /><path d="M19 16v6" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /></svg>
+            <a href="/pageuser" class="{{ request()->is('page') ? '#44AD9F' : 'text-secondary' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M16 19h6" />
+                    <path d="M19 16v6" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                </svg>
             </a>
             <h6 class="m-0 {{ request()->is('page') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
                 Teman
@@ -39,13 +47,19 @@
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
             <a href="/pagelock" class="{{ request()->is('lock') ? 'text-success' : 'text-secondary' }}">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                </svg>
             </a>
             <h6 class="m-0 {{ request()->is('lock') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
-                Lock
+                Bio
             </h6>
         </div>
 
-    
+
     </footer>
 </div>

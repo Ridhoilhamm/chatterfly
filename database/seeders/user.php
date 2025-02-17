@@ -17,11 +17,12 @@ class user extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(11, 20) as $index) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('password123'),
+                'avatar' => 'https://ui-avatars.com/api/?name='.urlencode($faker->name),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -16,7 +16,7 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/profile" class="{{ request()->is('profile') ? 'text-success' : 'text-secondary' }}">
+            <a href="/profile" class="{{ request()->is('profile') ? '#44AD9F' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-article">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
