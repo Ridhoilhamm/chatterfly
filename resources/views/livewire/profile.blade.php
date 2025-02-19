@@ -50,40 +50,30 @@
                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
 
-                    <div class="ms-3 mt-3" style="margin-left:20px;">
+                    <div class="ms-3" style="margin-left:20px;">
                         <div class="justify-content-end text-center text-white">
-                            <div class="d-flex justify-content-end text-center py-1">
+                            <div class="d-flex justify-content-end text-center">
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">253</p>
-                                    <p class="small mb-0">Photos</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{(Auth::user()->postingan)}}</p>
+                                    <p class="small mb-0">Postingan</p>
                                 </div>
                                 <div class="px-3">
-                                    <p class="mb-1 h5" style="font-size:14px;">1026</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{Auth::user()->followers}}</p>
                                     <p class="small mb-0">Followers</p>
                                 </div>
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">478</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{Auth::user()->following}}</p>
                                     <p class="small mb-0">Following</p>
                                 </div>
                             </div>
 
-                            <div class="d-flex gap-2 justify-content-center flex-wrap">
-                                <a href="/pageuser">
-                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-1 text-center flex-grow-1 border border-success border-2"
-                                        style="max-width: 100px; height: 35px; margin-right:4px; border-color: #44AD9F !important;">
-                                        <p class="mb-0  text-white" style="font-size: 13px;">Cari Teman</p>
+                            <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
+                                <a href={{route('page')}}>
+                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-2 text-center flex-grow-1 border border-success border-2"
+                                        style="max-width: 250px; width: 200px; height: 40px; margin-right:5px; border-color: #44AD9F !important; ">
+                                        <p class="mb-0 text-white" style="font-size: 13px;">Cari Teman</p>
                                     </div>
                                 </a>
-
-
-                                <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-1 text-center flex-grow-1 border border-success border-2"
-                                    style="max-width: 100px; height: 35px; margin-right:4px; border-color: #44AD9F !important;"">
-                                    <p class="mb-0  text-white" style="font-size: 13px;">Message</p>
-                                </div>
-                                <div class="bg-white rounded-pill d-flex align-items-center justify-content-center p-1 text-center flex-grow-1 rounded"
-                                    style="max-width: 100px; height: 35px;">
-                                    <p class="mb-0 text-dark" style="font-size: 13px;">Undang</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -170,7 +160,7 @@
 
                 .menu-item {
                     cursor: pointer;
-                    padding: 40px;
+                    padding:50px;
                     padding-bottom:10px;
                     position: relative;
                 }
@@ -182,13 +172,13 @@
                     left: 50%;
                     width: 50%;
                     height: 3px;
-                    background-color: #007bff;
+                    background-color: #44AD9F;
                     transform: translateX(-50%);
                     border-radius: 3px;
                 }
 
                 .menu-item.active i {
-                    color: #007bff !important;
+                    color: #44AD9F !important;
                 }
 
                 .content-container {
@@ -382,9 +372,6 @@
             </div>
 
 
-           
-        
-
             <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between"
                 x-on:touchstart="startSwipe($event)" x-on:touchmove="moveSwipe($event)" x-on:touchend="endSwipe()">
                 <button class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
@@ -402,7 +389,6 @@
 
                 <div class="active-indicator" x-ref="indicator"></div>
             </div>
-
             <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
@@ -482,6 +468,8 @@
 
 
             <style>
+
+                /* css  */
                 .active-indicator {
                     position: absolute;
                     bottom: 20px;

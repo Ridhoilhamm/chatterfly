@@ -25,9 +25,9 @@ Route::get('/registrasi', Register::class)->name('registrasi');
 
 
 // halaman page 
-Route::get('/pageuser', Page::class)->name('page');
+Route::get('/page', Page::class)->name('page');
 Route::get('/profile', Profile::class)->name('profile');
-Route::get('/pagelock', LockPage::class)->name('lock');
+Route::get('/bio', LockPage::class)->name('bio');
 
 //halaman detail
 Route::get('/detailpengguna/{userId}',DaftarPengguna::class)->name('detailpengguna');

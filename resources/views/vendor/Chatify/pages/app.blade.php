@@ -1,15 +1,4 @@
-<style>
-    
-    .messenger-sendForm {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: white;
-    z-index: 1000;
-}
 
-
-</style>
 @include('Chatify::layouts.headLinks')
 
 <div class="messenger" style="padding-bottom: 0px; font-family: 'Ubuntu', sans-serif;">

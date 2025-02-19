@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\banners;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,7 @@ class Page extends Component
     public function mount()
     {
         session()->put('hideNavbar', true);
-        session()->forget('hideFooter'); //
+        session()->forget('hideFooter'); 
         $this->users = User::where('id', '!=', Auth::id())->get();
     }
 
@@ -28,7 +29,9 @@ class Page extends Component
 
     public function render()
     {
-        return view('livewire.page')
+        $users = Auth::user();
+        $banners = banners::all();
+        return view('livewire.page',compact('users','banners'))
         ->extends('layouts.app')
         ->section('content');
     }

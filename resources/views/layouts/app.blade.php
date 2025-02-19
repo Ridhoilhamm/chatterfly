@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.11/dist/js/splide.min.js"></script>
 
     @livewireStyles
 </head>
@@ -43,7 +45,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
 
+    <script>
+        function initSplide() {
+            var splide = new Splide('.splide', {
+                type: 'loop',
+                autoplay: false,
+                interval: 3000,
+                perPage: 1,
+                pagination: true,
+                arrows: false,
+                snap: true,
+            });
+
+            splide.mount();
+        }
+
+        document.addEventListener('DOMContentLoaded', initSplide);
+        Livewire.hook('message.processed', () => {
+            initSplide();
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </body>
 
 </html>

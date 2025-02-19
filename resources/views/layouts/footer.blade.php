@@ -28,25 +28,26 @@
                 Page
             </h6>
         </div>
-        <!-- Menu Lapangan -->
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/pageuser" class="{{ request()->is('page') ? '#44AD9F' : 'text-secondary' }}">
+            <a href="/page" class="{{ request()->is('page') ? 'text-success' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                    <path d="M16 19h6" />
-                    <path d="M19 16v6" />
-                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                    <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                    <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
+                    <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                    <path d="M17 10h2a2 2 0 0 1 2 2v1" />
+                    <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                    <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
                 </svg>
             </a>
             <h6 class="m-0 {{ request()->is('page') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
-                Teman
+                Group
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/pagelock" class="{{ request()->is('lock') ? 'text-success' : 'text-secondary' }}">
+            <a href="/bio" class="{{ request()->is('bio') ? 'text-success' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-user">
@@ -55,7 +56,7 @@
                     <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                 </svg>
             </a>
-            <h6 class="m-0 {{ request()->is('lock') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+            <h6 class="m-0 {{ request()->is('bio') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
                 Bio
             </h6>
         </div>
