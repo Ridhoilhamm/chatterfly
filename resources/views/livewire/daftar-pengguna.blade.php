@@ -14,11 +14,12 @@
                 <div class="d-flex justify-content-between align-items-center position-relative">
                     <div class="d-flex align-items-center">
                         <div class="container">
-                            <a href="{{route('page')}}">
+                            <a href="{{ route('page') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left" style="color: white">
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"
+                                    style="color: white">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M5 12l14 0" />
                                     <path d="M5 12l6 6" />
@@ -31,6 +32,7 @@
                             {{ Str::limit($user->name, 6, '.') }}
                         </p>
                     </div>
+                   
 
                     <div x-data="{ open: false }" class="position-absolute" style="top: 15px; right: 10px;">
                         <button @click="open = !open" class="border-0 bg-transparent text-white">
@@ -71,24 +73,23 @@
                                     <p class="small mb-0">Photos</p>
                                 </div>
                                 <div class="px-3">
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->followers }}</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->followers()->count() }}</p>
                                     <p class="small mb-0">Followers</p>
                                 </div>
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->following }}</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->following()->count() }}</p>
                                     <p class="small mb-0">Following</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-2 jflex-wrap mt-3">
                                 <a href="/pageuser">
-                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-1 text-center flex-grow-1 border border-success border-2"
+                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-1 text-center flex-grow-1 border border-success"
                                         style="max-width: 250px; width: 80px; height: 40px; margin-right:5px; border-color: #44AD9F !important; ">
                                         <p class="mb-0 text-white" style="font-size: 13px;">Obrolan</p>
                                     </div>
                                 </a>
-                                <div class="bg-white rounded-pill d-flex align-items-center justify-content-center p-1 text-center flex-grow-1 rounded"
-                                    style="max-width: 250px; width: 80px; height: 40px;">
-                                    <p class="mb-0" style="font-size: 13px; color:#44AD9F">Undang</p>
+                                <div >
+                                 <livewire:follow-button :user="$user" />
                                 </div>
 
                             </div>
@@ -121,7 +122,7 @@
 
 
                 {{-- content --}}
-                <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
+                {{-- <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
                     <div class="content-section">
                         <div class="gallery">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
@@ -170,10 +171,45 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
+
+                {{-- nyambung ke database --}}
+                <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
+                    @foreach($posts as $post)
+                        <div class="content-section">
+                            <div class="gallery">
+                                @if($post->media_type === 'image')
+                                <img src="{{ asset('storage/uploads' . $post->media_path) }}" class="large">
+                                @elseif($post->media_type === 'video')
+                                    <video class="large" controls>
+                                        <source src="{{ asset($post->media_path) }}" type="video/mp4">
+                                        Browser Anda tidak mendukung tag video.
+                                    </video>
+                                @endif
+                
+                                <div class="small-images mt-2">
+                                    @foreach($post->additional_media_paths ?? [] as $media)
+                                        @if(strpos($media, '.mp4') !== false)
+                                            <video class="small" controls>
+                                                <source src="{{ asset($media) }}" type="video/mp4">
+                                            </video>
+                                        @else
+                                            <img src="{{ asset($media) }}">
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+                
             </div>
 
             <style>
+                .a {
+                    text-decoration: none;
+                }
+
                 .menu-item {
                     cursor: pointer;
                     padding: 55px;

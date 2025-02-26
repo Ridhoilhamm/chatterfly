@@ -12,63 +12,70 @@
             background-size: cover; 
             background-position: center;">
 
-                <div class="d-flex justify-content-center ">
-
-                    <p class="mt-0 text-white"
-                        style="font-size:16px padding:5px 10px; border-radius:5px; padding-top:15px">
+                <div id="header" class="position-fixed w-100 top-0 start-0 p-4" style="position: relative;">
+                    <p class="m-0 text-center"
+                        style="font-size:16px; padding:5px 10px; border-radius:5px; position: absolute; left:50%; top:50%; transform: translate(-50%, -50%);">
                         {{ Str::title(Auth::user()->name) }}
                     </p>
 
-                    <div x-data="{ open: false }" class="position-absolute " style="top: 15px; right: 10px;">
-                        <!-- Tombol Hamburger -->
-                        <button @click="open = !open" class="border-0 bg-transparent text-white">
+                    <div x-data="{ open: false }" class="position-absolute"
+                        style="top:50%; right:10px; transform: translateY(-50%);">
+                        <button @click="open = !open" class="border-0 bg-transparent" style="color: inherit;">
                             <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                fill="white" class="bi bi-list">
+                                fill="currentColor" class="bi bi-list mt-2">
                                 <path fill-rule="evenodd"
                                     d="M3 12a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1zm0-5a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1zm0 10a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1z" />
                             </svg>
                             <svg x-show="open" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                fill="white" class="bi bi-x">
+                                fill="currentColor" class="bi bi-x">
                                 <path fill-rule="evenodd"
                                     d="M4.646 4.646a.5.5 0 0 1 .708 0L12 11.293l6.646-6.647a.5.5 0 1 1 .708.708L12.707 12l6.647 6.646a.5.5 0 0 1-.708.708L12 12.707l-6.646 6.647a.5.5 0 0 1-.708-.708L11.293 12 4.646 5.354a.5.5 0 0 1 0-.708z" />
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false"
-                            class="position-absolute bg-white text-black rounded shadow p-2"
-                            style="right: 0; top: 40px; min-width: 150px; border: 1px solid white;">
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-black">Profile</a>
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-black">Settings</a>
-                            <a href="" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
+                            class="bg-white text-black rounded shadow p-2 mt-2"
+                            style="min-width: 150px; border: 1px solid white; margin-top:10px;">
+                            <a href="#" class="d-block px-3 py-2 text-decoration-none">Profile</a>
+                            <a href="#" class="d-block px-3 py-2 text-decoration-none">Settings</a>
+                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
                         </div>
                     </div>
+
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
                 </div>
 
-                <div class="d-flex justify-content-center p-4">
+
+
+
+
+
+                <div class="d-flex justify-content-center " style="padding-top: 100px;">
                     <div class="d-flex justify-content-center align-items-center">
                         <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}" alt="User Avatar"
                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
 
-                    <div class="ms-3" style="margin-left:20px;">
+                    <div class="ms-3" style="margin-left:20px;" style="margin-top:100px;">
                         <div class="justify-content-end text-center text-white">
                             <div class="d-flex justify-content-end text-center">
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{(Auth::user()->postingan)}}</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->postingan }}</p>
                                     <p class="small mb-0">Postingan</p>
                                 </div>
                                 <div class="px-3">
-                                    <p class="mb-1 h5" style="font-size:14px;">{{Auth::user()->followers}}</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->followers()->count() }}
+                                    </p>
                                     <p class="small mb-0">Followers</p>
                                 </div>
-                                <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{Auth::user()->following}}</p>
+                                <div data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->following()->count() }}
+                                    </p>
                                     <p class="small mb-0">Following</p>
                                 </div>
                             </div>
 
                             <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
-                                <a href={{route('page')}}>
+                                <a href={{ route('page') }}>
                                     <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-2 text-center flex-grow-1 border border-success border-2"
                                         style="max-width: 250px; width: 200px; height: 40px; margin-right:5px; border-color: #44AD9F !important; ">
                                         <p class="mb-0 text-white" style="font-size: 13px;">Cari Teman</p>
@@ -79,9 +86,42 @@
                     </div>
                 </div>
 
-
             </div>
 
+            {{-- modals menampilkan followes dan following --}}
+            {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Pengikut</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Pengikut:</h3>
+                            <ul>
+                                @if ($user)
+                                    @forelse ($user->followers as $follower)
+                                        <li>{{ $follower->name }} - {{ $follower->email }}</li> {{-- Tampilkan Nama & Email --}}
+                                    {{-- @empty
+                                        <li>Tidak ada pengikut</li>
+                                    @endforelse
+                                @else
+                                    <li>Silakan pilih pengguna terlebih dahulu</li>
+                                @endif
+                            </ul>
+                        </div>
+                        
+                        
+                        
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div> - --}}
 
 
             {{-- content  --}}
@@ -102,7 +142,7 @@
                 </div>
 
 
-                <!-- SCROLLABLE CONTENT -->
+                {{-- content --}}
                 <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
                     <div class="content-section">
                         <div class="gallery">
@@ -141,7 +181,6 @@
                                 class="large">
                         </div>
                     </div>
-
                     <div class="content-section">
                         <div class="gallery">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(118).webp"
@@ -155,13 +194,47 @@
                 </div>
             </div>
 
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var header = document.getElementById("header");
+                    window.addEventListener("scroll", function() {
+                        if (window.scrollY > 50) { // atur threshold sesuai kebutuhan
+                            header.classList.add("scrolled");
+                        } else {
+                            header.classList.remove("scrolled");
+                        }
+                    });
+                });
+            </script>
+
+
+
             <style>
                 .content-container {}
 
+                #header {
+                    background: transparent;
+                    color: white;
+                    transition: background 0.3s, color 0.3s;
+                }
+
+                #header.scrolled {
+                    background: white;
+                    color: black;
+                }
+
+                #header svg {
+                    transition: color 0.3s;
+                }
+
+
+
+
                 .menu-item {
                     cursor: pointer;
-                    padding:50px;
-                    padding-bottom:10px;
+                    padding: 50px;
+                    padding-bottom: 10px;
                     position: relative;
                 }
 
@@ -191,7 +264,7 @@
                 .content-section {
                     min-width: 100%;
                     scroll-snap-align: start;
-                    padding: 20px;
+                    padding: 10px;
                 }
 
                 .gallery {
@@ -468,7 +541,6 @@
 
 
             <style>
-
                 /* css  */
                 .active-indicator {
                     position: absolute;

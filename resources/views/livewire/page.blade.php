@@ -3,23 +3,25 @@
         <div id="header"
             class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-3"
             style="color:white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M15 6l-6 6l6 6" />
-            </svg>
+            <a href="/profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M15 6l-6 6l6 6" />
+                </svg>
+            </a>
 
             <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-search"
-                    style="margin-right:5px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    style="margin-right:10px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                     <path d="M21 21l-6 -6" />
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-filter" data-bs-toggle="modal"
                     data-bs-target="#modalsfiltering">
@@ -29,25 +31,43 @@
                 </svg>
             </div>
         </div>
-        {{-- modals --}}
+    {{-- modals --}}
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content " style="margin-top: 60px;">
+                <div class="modal-content" style="margin-top: 60px;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
                     </div>
                     <div class="modal-body d-flex">
-                        <input type="text" name="query" class="form-control mt-2 ms-2 rounded btn btn-outline-dark"
-                            style="padding: 10px 10px; font-size: 14px; margin-right:5px;" placeholder="Cari Lapangan"
-                            value="{{ request()->query('query') }}">
-                        <button class="btn btn-outline-dark ms-2 mt-2 me-2"
-                            style="padding: 10px 10px;  font-size: 14px;" type="submit">
+                        <input type="text" wire:model.debounce.300ms="query"
+                            class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
+                            style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black"
+                            placeholder="Cari User">
+                        <button type="button" data-bs-dismiss="modal" wire:click="searchUser"
+                            class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px; font-size: 14px;">
                             Cari
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            window.livewire.on('closeModal', () => {
+                const modalEl = document.getElementById('exampleModal');
+                let modalInstance = bootstrap.Modal.getInstance(modalEl);
+                if (!modalInstance) {
+                    modalInstance = new bootstrap.Modal(modalEl);
+                }
+                modalInstance.hide();
+            });
+
+            // Setelah modal tersembunyi, hapus backdrop
+            document.getElementById('exampleModal').addEventListener('hidden.bs.modal', function() {
+                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            });
+        </script>
+
 
         {{-- modals filtering --}}
         <div class="modal fade" id="modalsfiltering" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -58,8 +78,9 @@
                         <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px">Filtering User</h5>
                     </div>
                     <div class="modal-body d-flex">
-                        <input type="text" name="query" class="form-control mt-2 ms-2 rounded btn btn-outline-dark"
-                            style="padding: 10px 10px; font-size: 14px; margin-right:5px;"
+                        <input type="text" name="query"
+                            class="form-control mt-2 ms-2 rounded btn btn-outline-dark  bg-white"
+                            style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black;"
                             placeholder="Cari Bersadarkan Usia" value="{{ request()->query('query') }}">
                         <button class="btn btn-outline-dark ms-2 mt-2 me-2"
                             style="padding: 10px 10px;  font-size: 14px;" type="submit">
@@ -69,8 +90,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <script>
         function filteredUsers() {
@@ -105,7 +124,7 @@
 
     <section class="px-3 pt-2 bg-white" style="margin-top:10px; padding-bottom:20px; margin-bottom:10px">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mt-3 mb-0" style="font-size: 16px;">Selebriti</h5>
+            <h5 class="mt-3 mb-0" style="font-size: 16px;">Selebritis</h5>
             <a href="/kategory" class="mt-4 mb-1" style="color: #44AD9F;">Semua</a>
         </div>
 
@@ -114,38 +133,71 @@
             <div style="display: inline-flex; min-width: 100%; width: fit-content;">
 
                 @foreach ($users as $user)
-                <a href="{{ route('detailpengguna', $user->id) }}"">
-                    <div style="flex-shrink: 0; width: 160px; margin-right: 10px; position: relative;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                            alt="User 1" class="rounded d-block"
-                            style="height: 120px; width: 100%; object-fit: cover;">
-                        <div class="d-flex justify-content-center">
+                    <a href="{{ route('detailpengguna', $user->id) }}"">
+                        <div style="flex-shrink: 0; width: 160px; margin-right: 10px; position: relative;">
+                            <div class="d-block"
+                                style="
+         border-radius: 10px;
+         height: 120px;
+         width: 100%;
+         background: 
+    linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141)) bottom,
+    url('https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp');
+background-size: 100% 60%, cover;
+background-position: bottom, center;
+background-repeat: no-repeat;
+     ">
 
-                            <div
-                                style="position: absolute; bottom: 5px; left: 5px; 
-                         color: white; 
-                            padding: 3px 6px; font-size: 12px; border-radius: 4px;">
-                                <span>{{ Str::limit($user->name, 6, '...') }}</span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                    viewBox="0 0 24 24" fill="currentColor"
-                                    class="icon icon-tabler icons-tabler-filled icon-tabler-user ">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                    <path
-                                        d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
-                                </svg><span class="mb-1"> {{$user->followers}}</span></span>
+
                             </div>
 
-                            <button class="btn btn-primary rounded"
-                                style="background: rgba(68, 173, 159, 0.8); border: none; color: white; font-size: 18px; padding: 5px; 
-           position: absolute; top: 75px; left: 85%; transform: translateX(-60%);
-           border-radius: 4px; width: 40px; height: 40px;">
-                                +
-                            </button>
 
+                            <div class="">
+
+                                <div
+                                    style="position: absolute; bottom: 1px; left: 5px; 
+                                             color: white; padding: 3px 6px; 
+                                              font-size: 12px; border-radius: 4px;">
+                                    <span style="display: block;">{{ Str::limit($user->name, 6, '...') }}</span>
+                                    <span style="display: block; height: 25px; line-height: 25px;" class="mt-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                            viewBox="0 0 24 24" fill="currentColor"
+                                            class="icon icon-tabler icons-tabler-filled icon-tabler-user ">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                                            <path
+                                                d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
+                                        </svg>
+                                        <span>
+                                            {{ $user->followers >= 1000000
+                                                ? number_format($user->followers / 1000000, 1) . 'm'
+                                                : ($user->followers >= 1000
+                                                    ? number_format($user->followers / 1000, 1) . 'k'
+                                                    : $user->followers) }}</span>
+                                        <span class="py-1"></span>
+                                    </span>
+                                </div>
+
+
+                                <button class="btn btn-primary rounded"
+                                    style="background:white; border: none; color:black ; font-size: 18px; padding: 2px; 
+           position: absolute; top: 79px; left: 85%; transform: translateX(-60%);
+           border-radius: 4px; width: 30px; height: 30px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus" style="color:#44AD9F">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                        <path d="M16 19h6" />
+                                        <path d="M19 16v6" />
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                                    </svg>
+                                </button>
+
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 @endforeach
 
             </div>
@@ -159,14 +211,14 @@
         <div style="overflow-x: auto; white-space: nowrap; position: relative; justify-content-center">
             <div style="display: inline-flex; min-width: 100%; width: fit-content;">
                 @foreach ($users as $user)
-                <a href="{{ route('detailpengguna', $user->id) }}"">
+                    <a href="{{ route('detailpengguna', $user->id) }}"">
                         <div
                             style="flex-shrink: 0; width: 90px; margin-right: 10px; position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
                             <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="avatar user"
                                 class="rounded-circle d-block"
                                 style="height: 90px; width: 90px; border: none; box-shadow: none; object-fit: cover; border-radius: 50%;">
-                            <p class="mb-0" style="font-size:12px"> {{ Str::limit($user->name, 6, '...') }}</p>
-                            <div class="d-flex justify-content-center">
+                            <p class="mb-0 mt-1" style="font-size:12px"> {{ Str::limit($user->name, 6, '...') }}</p>
+                            <div class="d-flex justify-content-center mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                     viewBox="0 0 24 24" fill="currentColor"
                                     class="icon icon-tabler icons-tabler-filled icon-tabler-user ">
@@ -175,45 +227,81 @@
                                     <path
                                         d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
                                 </svg>
-                                <p class="mt-1 mb-0" style="font-size: 12px">{{ $user->followers }}</p>
+                                <p class="mt-1 mb-0" style="font-size: 12px">
+                                    {{ $user->followers >= 1000000
+                                        ? number_format($user->followers / 1000000, 1) . 'm'
+                                        : ($user->followers >= 1000
+                                            ? number_format($user->followers / 1000, 1) . 'k'
+                                            : $user->followers) }}
+                                </p>
                             </div>
                         </div>
                     </a>
                 @endforeach
             </div>
         </div>
-
-
-
     </section>
-
-
     <div class="container bg-white">
-        <p class=" mb-2" style="padding-top: 10px; font-size:16px;">Mari berteman</p>
+        <p class=" mb-2" style="padding-top: 10px; font-size:16px;">Cari Teman</p>
 
-        <div class="row row-cols-2 g-0">
-            @foreach ($users as $user)
-            <a href="{{ route('detailpengguna', $user->id) }}">
-                <div class="col d-flex mb-4">
-                    <div class="card shadow-sm" style="width: 175px; min-height: 190px;">
-                        <div class="position-relative">
-                            <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="{{ $user->name }}"
-                                class="rounded-top w-100" style="height: 130px; object-fit: cover;">
+        <div class="justify-content-center row row-cols-2 gx-1 ">
+            @if ($users->count())
+                @foreach ($users as $user)
+                    <a href="{{ route('detailpengguna', $user->id) }}">
+                        <div class="col d-flex mb-2">
+                            <div class="card shadow-sm"
+                                style="width: 185px; min-height: 190px; border-radius: 15px; overflow: hidden;">
+                                <div class="position-relative">
+                                    <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}"
+                                        alt="{{ $user->name }}" class="w-100"
+                                        style="height: 170px; object-fit: cover;">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-title text-truncate" style="font-size: 14px; min-height: 20px;">
+                                        {{ $user->name }}
+                                    </h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="m-0 d-flex align-items-center"
+                                            style="height: 30px; line-height: 30px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                viewBox="0 0 24 24" fill="currentColor"
+                                                class="icon icon-tabler icons-tabler-filled icon-tabler-user">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 2a5 5 0 1 1 -5 5l.005-.217a5 5 0 0 1 4.995-4.783z" />
+                                                <path
+                                                    d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5h4z" />
+                                            </svg>
+                                            <span class="ms-2 mt-3" style="font-size: 14px;">
+                                                {{ $user->followers >= 1000000
+                                                    ? number_format($user->followers / 1000000, 1) . 'm'
+                                                    : ($user->followers >= 1000
+                                                        ? number_format($user->followers / 1000, 1) . 'k'
+                                                        : $user->followers) }}
+                                            </span>
+                                        </p>
+                                        <button type="button" class="btn"
+                                            style="height: 27px; font-size: 12px; padding: 0; line-height: 30px; background-color: #44AD9F; color: white;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus" style="color:#44AD9F">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                        <path d="M16 19h6" />
+                                        <path d="M19 16v6" />
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                                    </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <h6 class="card-title text-truncate text-center"
-                                style="font-size: 14px; min-height: 20px;">
-                                {{ $user->name }}
-                            </h6>
-                            <button type="button" class="btn w-100"
-                                style="height: 30px; font-size: 12px; padding: 0; line-height: 1; background-color: #44AD9F; color:white">
-                                Tambah Teman
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            @endforeach
+                    </a>
+                @endforeach
+            @else
+                <p>Tidak ada user yang ditemukan.</p>
+            @endif
+
         </div>
     </div>
 
@@ -221,9 +309,9 @@
         window.addEventListener("scroll", function() {
             const header = document.getElementById("header");
             if (window.scrollY > 50) {
-                header.classList.add("scrolled"); // Tambahkan background saat di-scroll
+                header.classList.add("scrolled");
             } else {
-                header.classList.remove("scrolled"); // Hapus background jika di atas
+                header.classList.remove("scrolled");
             }
         });
     </script>
@@ -265,7 +353,7 @@
 
         .splide__image {
             width: 100%;
-            height: 250px;
+            height: 350px;
 
         }
 
@@ -307,7 +395,7 @@
             }
         }
 
-        a {
+        .a {
             color: inherit;
             text-decoration: none;
         }
@@ -352,18 +440,25 @@
             .user-card {
                 flex: 0 0 23%;
                 max-width: 23%;
-                /* Pastikan card tidak melebihi 23% */
                 margin-left: 5px;
             }
         }
 
-        /* Menjamin di layar lebih besar tetap 4 card per baris */
         @media (min-width: 577px) {
             .user-card {
                 flex: 0 0 23%;
-                /* Sesuaikan card menjadi 4 per baris */
                 max-width: 23%;
             }
+        }
+
+        .a {
+            text-decoration: none;
+        }
+
+
+        .col {
+            padding-left: 5px;
+            padding-right: 5px;
         }
     </style>
 </div>
