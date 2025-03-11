@@ -15,7 +15,6 @@
         .navbar-link h5, .navbar-link p {
             margin-bottom: 0; 
         }
-    
         </style>
     <div class="bg-white fixed-top p-2">
 

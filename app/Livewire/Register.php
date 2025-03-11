@@ -27,7 +27,7 @@ class Register extends Component
 
         Auth::login($user);
 
-        return redirect()->route('dashboard'); // Sesuaikan dengan halaman setelah login
+        return redirect()->route('profile'); // Sesuaikan dengan halaman setelah login
     }
     public function render()
     {

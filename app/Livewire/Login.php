@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -36,6 +37,21 @@ class Login extends Component implements HasForms
         session()->put('hideFooter', true); 
     }
 
+    public function sendResetLink()
+    {
+        $this->validate([
+            'email' => 'required|email'
+        ]);
+
+        $status = Password::sendResetLink(['email' => $this->email]);
+
+        if ($status === Password::RESET_LINK_SENT) {
+            $this->alert('success', 'Link reset password telah dikirim!');
+        } else {
+            session()->flash('error', 'Email tidak ditemukan.');
+        }
+    }
+
     public function login()
     {
         $this->validate([
@@ -45,14 +61,10 @@ class Login extends Component implements HasForms
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             session()->regenerate();
-
-            // Alert sukses login
             $this->alert('success', 'Berhasil login');
 
             return redirect()->route('chatterfly');
         }
-
-        // Alert gagal login
         $this->alert('error', 'Email atau password salah');
 
         Notification::make()

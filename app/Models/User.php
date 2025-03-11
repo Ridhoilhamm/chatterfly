@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'bio',
-        'pin'
+        'pin',
+        'is_private'
     ];
 
     /**
@@ -63,8 +65,56 @@ class User extends Authenticatable
     {
         return $this->following()->where('following_id', $user->id)->exists();
     }
-    public function followerss()
+    // Permintaan yang dikirim user
+    public function followRequests(): HasMany
     {
-        return $this->hasMany(followers::class, 'follower_id'); // Sesuaikan dengan nama tabel
+        return $this->hasMany(FollowRequest::class, 'follower_id');
+    }
+
+    // Permintaan yang diterima user
+    public function pendingFollowRequests(): HasMany
+    {
+        return $this->hasMany(FollowRequest::class, 'followed_id');
+    }
+
+    public function hasSentFollowRequestTo(User $user): bool
+    {
+        return $this->followRequests()->where('followed_id', $user->id)->exists();
+    }
+
+    // Cek apakah user menerima permintaan
+    public function hasPendingFollowRequestFrom(User $user): bool
+    {
+        return $this->pendingFollowRequests()->where('follower_id', $user->id)->exists();
+    }
+
+    public function totalLikes()
+    {
+        return $this->hasManyThrough(Like::class, post_foto::class, 'user_id', 'post_foto_id', 'id', 'id');
+    }
+
+    public function postFotoCount()
+    {
+        return $this->hasMany(post_foto::class, 'user_id', 'id');
+    }
+
+    // rekomendasi teman
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
+                    ->wherePivot('status', 'accepted');
+    }
+
+    // Mendapatkan "teman dari teman"
+    public function friendsOfFriends()
+    {
+        return User::whereHas('friends', function ($query) {
+            $query->whereIn('id', $this->friends()->pluck('id'));
+        })->where('id', '!=', $this->id)->get();
+    }
+
+    public function mutualFriends(User $user)
+    {
+        return $this->friends()->whereIn('id', $user->friends()->pluck('id'));
     }
 }

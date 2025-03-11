@@ -32,7 +32,6 @@
                             {{ Str::limit($user->name, 6, '.') }}
                         </p>
                     </div>
-                   
 
                     <div x-data="{ open: false }" class="position-absolute" style="top: 15px; right: 10px;">
                         <button @click="open = !open" class="border-0 bg-transparent text-white">
@@ -50,9 +49,9 @@
                         <div x-show="open" @click.away="open = false"
                             class="position-absolute bg-white text-black rounded shadow p-2"
                             style="right: 0; top: 40px; min-width: 150px; border: 1px solid white;">
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-black">Profile</a>
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-black">Settings</a>
-                            <a href="" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
+                            <a href="/profile" class="d-block px-3 py-2 text-decoration-none text-black">Profile</a>
+                            <a href="/bio" class="d-block px-3 py-2 text-decoration-none text-black">Settings</a>
+                            <a href="/logout" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -65,31 +64,38 @@
                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
 
-                    <div class="ms-3 mt-0" style="margin-left:20px;">
-                        <div class="justify-content-end text-center text-white">
-                            <div class="d-flex justify-content-end text-center">
+                    <div class="ms-3 mt-0" style="margin-left:5px;">
+                        <div class="justify-content-center text-center text-white">
+                            <div class="d-flex justify-content-center text-center">
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->postingan }}</p>
-                                    <p class="small mb-0">Photos</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->postFotoCount()->count() }}</p>
+                                    <p class="small mb-0">Postingan</p>
                                 </div>
-                                <div class="px-3">
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->followers()->count() }}</p>
-                                    <p class="small mb-0">Followers</p>
-                                </div>
+                                <a href="{{ route('pertemanan', $user->id) }}">
+                                    <div class="px-3">
+                                        @php
+                                            $friendCount = \App\Models\Friendship::where('status', 'approved')
+                                                ->where(function ($query) use ($user) {
+                                                    $query
+                                                        ->where('user_id', $user->id)
+                                                        ->orWhere('friend_id', $user->id);
+                                                })
+                                                ->count();
+                                        @endphp
+
+                                        <p class="mb-1 h5" style="font-size:14px;">
+                                            {{ $friendCount }}</p>
+                                        <p class="small mb-0">Pertemanan</p>
+                                    </div>
+                                </a>
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ $user->following()->count() }}</p>
-                                    <p class="small mb-0">Following</p>
+                                    <p class="mb-1 h5" style="font-size:14px;"> {{ $user->totalLikes()->count() }}</p>
+                                    <p class="small mb-0">Disenangi</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-2 jflex-wrap mt-3">
-                                <a href="/pageuser">
-                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-1 text-center flex-grow-1 border border-success"
-                                        style="max-width: 250px; width: 80px; height: 40px; margin-right:5px; border-color: #44AD9F !important; ">
-                                        <p class="mb-0 text-white" style="font-size: 13px;">Obrolan</p>
-                                    </div>
-                                </a>
-                                <div >
-                                 <livewire:follow-button :user="$user" />
+                                <div>
+                                    <livewire:friendships />
                                 </div>
 
                             </div>
@@ -103,8 +109,10 @@
 
 
 
-            {{-- content  --}}
-            <div class="card-body p-0 text-black bg-white mt-3"
+            {{-- <livewire:hightlight /> --}}
+            @livewire('hightlight', ['userId' => $user->id])
+
+            <div class="card-body p-0 text-black bg-white"
                 style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
 
 
@@ -121,91 +129,111 @@
                 </div>
 
 
-                {{-- content --}}
-                {{-- <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
-                    <div class="content-section">
-                        <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                        </div>
-                        <div class="gallery">
-                            <div class="small-images mt-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
-                        </div>
-                    </div>
 
-                    <div class="content-section">
-                        <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(115).webp"
-                                class="large">
-                            <div class="small-images mt-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(117).webp">
-                            </div>
-                        </div>
-                        <div class="gallery mt-2">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(118).webp"
-                                class="large">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(119).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(120).webp">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{-- nyambung ke database --}}
                 <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
-                    @foreach($posts as $post)
-                        <div class="content-section">
-                            <div class="gallery">
-                                @if($post->media_type === 'image')
-                                <img src="{{ asset('storage/uploads' . $post->media_path) }}" class="large">
-                                @elseif($post->media_type === 'video')
-                                    <video class="large" controls>
-                                        <source src="{{ asset($post->media_path) }}" type="video/mp4">
-                                        Browser Anda tidak mendukung tag video.
-                                    </video>
+
+
+
+                    <style>
+                        .gallery {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 10px;
+                        }
+
+                        .gallery-item {
+                            overflow: hidden;
+                            border-radius: 10px;
+                        }
+
+                        .gallery-item img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
+
+                        .large {
+                            grid-row: span 2;
+                        }
+
+                        .blurred img {
+                            filter: blur(5px);
+                        }
+                    </style>
+                    <div class="content-section">
+                        <div class="gallery">
+                            @foreach ($postFotos as $index => $foto)
+                                @if ($foto->isBlurred)
+                                    <div
+                                        class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                        <img src="{{ asset($foto->image_path) }}" alt="Foto">
+                                    </div>
+                                @else
+                                    <a
+                                        href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                        <div
+                                            class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                            <img src="{{ asset($foto->image_path) }}" alt="Foto">
+                                        </div>
                                 @endif
-                
-                                <div class="small-images mt-2">
-                                    @foreach($post->additional_media_paths ?? [] as $media)
-                                        @if(strpos($media, '.mp4') !== false)
-                                            <video class="small" controls>
-                                                <source src="{{ asset($media) }}" type="video/mp4">
-                                            </video>
-                                        @else
-                                            <img src="{{ asset($media) }}">
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
+                            @endforeach
+                            </a>
                         </div>
-                    @endforeach
+                    </div>
+                    <div class="content-section d-flex flex-wrap justify-content-center">
+                        @if ($postVideos->isEmpty())
+                            <p class="text-center text-black w-100">Belum ada video yang diunggah.</p>
+                        @else
+                            @foreach ($postVideos as $video)
+                                <div class="video-container">
+                                    @if ($video->isBlurred)
+                                        <video class="blurred-video" style="filter: blur(10px);">
+                                            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                        </video>
+                                    @else
+                                    <a
+                                    href="{{ route('detailvideo', ['user' => $foto->user->id, 'post' => $video->id]) }}">
+                                    <video controls>
+                                        <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                    </video>
+                                    </a>
+                                    @endif
+                                </div>
+                            @endforeach
+
+                        @endif
+                    </div>
+
+                    <div class="content-section">
+                        <div class="d-flex justify-content-center mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-x">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                <path
+                                    d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                <path d="M10 12l4 4m0 -4l-4 4" />
+                            </svg>
+                            <p>
+                                Belum Ada Tandai
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
-                
             </div>
 
             <style>
+                .blurred img {
+                    filter: blur(10px);
+                    transition: filter 0.3s ease-in-out;
+                }
+
+
                 .a {
                     text-decoration: none;
                 }
@@ -248,6 +276,13 @@
                 }
 
                 .gallery {
+
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                }
+
+                .gallery_b {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                     gap: 10px;
@@ -272,6 +307,39 @@
 
                 .small-images img {
                     height: 50%;
+                }
+
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    color: inherit;
+                }
+
+                .video-container {
+                    width: calc(50% - 10px);
+                    max-width: 187px;
+                    aspect-ratio: 9 / 16;
+                    margin: 5px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .video-container video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    /* Supaya video tetap full dalam frame */
+                    border-radius: 10px;
+                }
+
+                /* Responsif: jika layar kecil, hanya 1 kolom */
+                @media (max-width: 600px) {
+                    .video-container {
+                        width: 100%;
+                    }
                 }
             </style>
 

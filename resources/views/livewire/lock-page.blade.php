@@ -5,27 +5,35 @@
                 padding: 20px 0;  position: relative; margin: 0; color: white; 
                 backdrop-filter: blur(10px);">
             <div style="position: relative; display: inline-block; margin-top: 10px;">
-                <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}" alt="User Avatar"
-                    style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; display: block;">
-                <div x-data="{ fileName: '', pickFile() { this.$refs.fileInput.click() }, handleFile() { this.fileName = this.$refs.fileInput.files[0]?.name || '' } }">
-                    <!-- Input File (Hidden) -->
-                    <input type="file" x-ref="fileInput" @change="handleFile" accept="image/*" style="display: none;">
-                    <div @click="pickFile"
-                        style="position: absolute; bottom: 15px; left: 50%; transform: translateX(70%);
-                            background: white; border-radius: 50%; padding: 5px; width: 30px; height: 30px; 
-                            display: flex; align-items: center; justify-content: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                            fill="none" stroke="black" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-camera">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path
-                                d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-                            <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                        </svg>
-                    </div>
-                    <p x-text="fileName" style="margin-top: 10px;"></p>
+                <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}"" alt="User Avatar"
+                    style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; display: block;"
+                    wire:key="{{ now()->timestamp }}">
+                <input type="file" wire:model="avatar" accept="image/*" style="display: none;" id="avatarInput">
+
+                <!-- Tombol Edit Avatar -->
+                <div onclick="document.getElementById('avatarInput').click()"
+                    style="position: absolute; bottom: 15px; left: 50%; transform: translateX(70%);
+                        background: rgba(255, 255, 255, 0.8); border-radius: 50%; padding: 5px; width: 40px; height: 40px; 
+                        display: flex; align-items: center; justify-content: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-camera">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                        <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                    </svg>
                 </div>
+
+                @if (session()->has('success'))
+                    <p style="margin-top: 10px; color: green;">{{ session('success') }}</p>
+                @endif
+
+                @error('avatar')
+                    <p style="color: red;">{{ $message }}</p>
+                @enderror
             </div>
+
             <h4 class="mt-2 mb-0" style="font-size:16px;">{{ Str::title(Auth::user()->name) }}</h4>
             <h4 class="mt-0 mb-0" style="font-size:16px;">{{ Str::title(Auth::user()->email) }}</h4>
             <p class="text-muted"></p>
@@ -43,9 +51,8 @@
                 </linearGradient>
             </defs>
         </svg>
-
         <div class="container" style="padding-bottom:30px;">
-            <div class="list-group mt-1" style="font-size:12px">
+            <div class="list-group mt-0" style="font-size:12px">
                 <a href=""class="list-group-item list-group-item-action mb-2 mt-2 d-flex align-items-center justify-content-between gap-2  "
                     style="font-size: 16px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
                    padding: 15px; border-radius: 10px; color: white; border: none;"
@@ -67,7 +74,6 @@
                             <path d="M9 6l6 6l-6 6" />
                         </svg>
                     </div>
-
                 </a>
                 <a href="#"
                     class="list-group-item list-group-item-action mb-2 mt-2 d-flex align-items-center justify-content-between gap-2"
@@ -94,7 +100,6 @@
                             <path d="M9 6l6 6l-6 6" />
                         </svg>
                     </div>
-
                 </a>
 
                 <a href="#"
@@ -266,8 +271,7 @@
                             <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                         </svg>
                     </div>
-
-                    <h5 class="mt-2 mb-3">Ubah Password</h5>
+                    <h5 class="mt-2 mb-3">Ubah Kata Sandi</h5>
                     @if (session()->has('message'))
                         <div class="alert alert-success">{{ session('message') }}</div>
                     @elseif (session()->has('error'))
@@ -275,7 +279,6 @@
                     @endif
 
                     <div class=" w-100 mb-0">
-                        <!-- Password Lama -->
                         <div class="position-relative">
                             <input type="password" class="form-control w-100 pe-5 mb-2" wire:model="oldPassword"
                                 placeholder="Masukkan Password Lama"
@@ -328,7 +331,6 @@
             </div>
         </div>
     </div>
-
 
     {{-- modals lupa password --}}
     <div wire:ignore.self class="modal fade" id="changepassword" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -467,31 +469,36 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
-                <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
-                    <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
-                        style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24"
-                            fill="currentColor">
-                            <path
-                                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l362.8 0c-5.4-9.4-8.6-20.3-8.6-32l0-128c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7l-91.4 0zM528 240c17.7 0 32 14.3 32 32l0 48-64 0 0-48c0-17.7 14.3-32 32-32zm-80 32l0 48c-17.7 0-32 14.3-32 32l0 128c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
-                        </svg>
+                <div class="modal-body justify-content-center align-items-center text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
+                            style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24"
+                                fill="currentColor">
+                                <path
+                                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l362.8 0c-5.4-9.4-8.6-20.3-8.6-32l0-128c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7l-91.4 0zM528 240c17.7 0 32 14.3 32 32l0 48-64 0 0-48c0-17.7 14.3-32 32-32zm-80 32l0 48c-17.7 0-32 14.3-32 32l0 128c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="mt-2">
-                        Keamanan
+                        Pengaturan 
                     </div>
-                    <div class="modal-body p-4 bg-light rounded">
-
+                    <div class=" p-2 bg-light rounded">
                         <div class="list-group">
+                            <a href="/request">
+                                <button class="list-group-item list-group-item-action d-flex align-items-center"
+                                    data-bs-toggle="modal" data-bs-target="#notifikasipertemanan">
+                                    <i class="bi bi-bell-fill" style="margin-right:10px;"></i>
+                                    <span class="fw-semibold">Notifikasi Pertemanan</span>
+                                </button>
+                            </a>
                             <button class="list-group-item list-group-item-action d-flex align-items-center">
-                                <i class="bi bi-bell-fill"></i>
-                                <span class="fw-semibold">Notifikasi Pertemanan</span>
-                            </button>
-                            <button class="list-group-item list-group-item-action d-flex align-items-center">
-                                <i class="bi bi-fingerprint fs-4 text-primary me-3"></i>
+                                <i class="bi bi-fingerprint fs-4 text-primary me-3" style="margin-right:10px"></i>
                                 <span class="fw-semibold">Tambahkan Sidik Jari</span>
                             </button>
 
-                            <button class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#tambahpin">
+                            <button class="list-group-item list-group-item-action d-flex align-items-center"
+                                data-bs-toggle="modal" data-bs-target="#tambahpin">
                                 <i class="bi bi-key-fill fs-4 text-danger me-3"></i>
                                 <span class="fw-semibold">Tambahkan PIN Private</span>
                             </button>
@@ -517,26 +524,28 @@
         </div>
     </div>
 
-
     {{-- modals Logout --}}
     <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
-                <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-alert-square-rounded">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
-                        <path d="M12 8v4" />
-                        <path d="M12 16h.01" />
-                    </svg>
-                    <div class="mt-2">
-                        Apakah Anda Yakin Untuk Keluar?
+                <div class="d-flex justify-content-center mt-2">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
+                    style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-alert-square-rounded">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                            <path d="M12 8v4" />
+                            <path d="M12 16h.01" />
+                        </svg>
                     </div>
                 </div>
+                    <div class="mt-2 mb-2 d-flex justify-content-center">
+                        Apakah Anda Yakin Untuk Keluar?
+                    </div>
                 <div class="mb-3 justify-content-center align-items-center text-center ">
                     <button class="btn"
                         style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
@@ -594,6 +603,7 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             transform: translateX(100%);
         }
+
         #tambahpin.modal.fade .modal-dialog {
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             transform: translateX(100%);
@@ -602,6 +612,7 @@
         #tambahpin.modal.show .modal-dialog {
             transform: translateX(0);
         }
+
         #changepassword.modal.show .modal-dialog {
             transform: translateX(0);
         }

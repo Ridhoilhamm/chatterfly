@@ -2,37 +2,29 @@
 
 namespace App\Livewire;
 
+use App\Models\post_foto;
 use App\Models\User;
 use Livewire\Component;
 
 class DetailPostingan extends Component
 {
-    public $users;
-    public $selectedUserId;
-    public $posts = [];
+    public $user;
+    public $posts;
 
-    public function mount()
+    public function mount($user)
     {
-        $this->users = User::all();
+        $this->user = User::findOrFail($user);
+        $this->posts = post_foto::where('user_id', $this->user->id)->get();
         session()->put('hideNavbar', true);
-        session()->put('hideFooter', true);  
-    }
-
-    public function updatedSelectedUserId()
-    {
-        if ($this->selectedUserId) {
-            $this->posts = User::find($this->selectedUserId)?->posts ?? [];
-        }
+        session()->put('hideFooter', true); 
     }
 
     public function render()
     {
         return view('livewire.detail-postingan', [
-            'users' => $this->users,
+            'user' => $this->user,
             'posts' => $this->posts
-        ])
-        ->extends('layouts.app')
-        ->section('content');
+        ])->extends('layouts.app')
+          ->section('content');
     }
 }
-

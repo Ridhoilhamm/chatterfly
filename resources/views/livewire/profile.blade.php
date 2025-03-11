@@ -12,41 +12,52 @@
             background-size: cover; 
             background-position: center;">
 
-                <div id="header" class="position-fixed w-100 top-0 start-0 p-4" style="position: relative;">
+
+                <div id="header" class="position-fixed w-100 top-0 start-0 p-2" style="position: relative;">
+                    <p wire:click="togglePrivacy" class="mt-2" style="margin-left:10px;">
+                        @if ($isPrivate)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                                <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                            </svg>
+                        @else
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open-2">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M3 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+                                <path d="M9 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                                <path d="M13 11v-4a4 4 0 1 1 8 0v4" />
+                            </svg>
+                        @endif
+                    </p>
+
                     <p class="m-0 text-center"
                         style="font-size:16px; padding:5px 10px; border-radius:5px; position: absolute; left:50%; top:50%; transform: translate(-50%, -50%);">
                         {{ Str::title(Auth::user()->name) }}
                     </p>
 
-                    <div x-data="{ open: false }" class="position-absolute"
+                    <div data-bs-toggle="modal" data-bs-target="#notifikasi" class="position-absolute"
                         style="top:50%; right:10px; transform: translateY(-50%);">
-                        <button @click="open = !open" class="border-0 bg-transparent" style="color: inherit;">
-                            <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                fill="currentColor" class="bi bi-list mt-2">
-                                <path fill-rule="evenodd"
-                                    d="M3 12a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1zm0-5a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1zm0 10a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1z" />
-                            </svg>
-                            <svg x-show="open" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                fill="currentColor" class="bi bi-x">
-                                <path fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L12 11.293l6.646-6.647a.5.5 0 1 1 .708.708L12.707 12l6.647 6.646a.5.5 0 0 1-.708.708L12 12.707l-6.646 6.647a.5.5 0 0 1-.708-.708L11.293 12 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            class="bg-white text-black rounded shadow p-2 mt-2"
-                            style="min-width: 150px; border: 1px solid white; margin-top:10px;">
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none">Profile</a>
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none">Settings</a>
-                            <a href="#" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
-                        </div>
+                        {{ $pendingRequests->count() }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                        </svg>
                     </div>
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
                 </div>
-
-
-
-
+                {{-- modals notifikasi --}}
 
 
                 <div class="d-flex justify-content-center " style="padding-top: 100px;">
@@ -57,27 +68,43 @@
 
                     <div class="ms-3" style="margin-left:20px;" style="margin-top:100px;">
                         <div class="justify-content-end text-center text-white">
-                            <div class="d-flex justify-content-end text-center">
+                            <div class="d-flex justify-content-center text-center">
                                 <div>
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->postingan }}</p>
+                                    <p class="mb-1 h5" style="font-size:14px;">{{ $postCount }}</p>
                                     <p class="small mb-0">Postingan</p>
                                 </div>
-                                <div class="px-3">
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->followers()->count() }}
-                                    </p>
-                                    <p class="small mb-0">Followers</p>
-                                </div>
-                                <div data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <p class="mb-1 h5" style="font-size:14px;">{{ Auth::user()->following()->count() }}
-                                    </p>
-                                    <p class="small mb-0">Following</p>
-                                </div>
+                                <a href="{{ route('pertemanan', $user->id) }}">
+                                    <div class="px-4">
+                                        @php
+                                            $friendCount = \App\Models\Friendship::where('status', 'approved')
+                                                ->where(function ($query) use ($user) {
+                                                    $query
+                                                        ->where('user_id', $user->id)
+                                                        ->orWhere('friend_id', $user->id);
+                                                })
+                                                ->count();
+                                        @endphp
+                                        <p class="mb-1 h5" style="font-size:14px;">{{ $friendCount }}
+                                        </p>
+                                        <p class="small mb-0">Pertemanan</p>
+                                    </div>
+                                </a>
+                                <a href="{{ route('like', $user->id) }}">
+                                    <div>
+                                        <p class="mb-1 h5" style="font-size:14px;">
+                                            {{ Auth::user()->following()->count() }}
+                                        </p>
+                                        <p class="small mb-0 me-1">Disenangi</p>
+                                    </div>
+                                </a>
                             </div>
+
+
 
                             <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
                                 <a href={{ route('page') }}>
-                                    <div class="rounded-pill d-flex align-items-center justify-content-center rounded p-2 text-center flex-grow-1 border border-success border-2"
-                                        style="max-width: 250px; width: 200px; height: 40px; margin-right:5px; border-color: #44AD9F !important; ">
+                                    <div class="d-flex align-items-center justify-content-center p-2 text-center flex-grow-1 border border-success"
+                                        style="max-width: 250px; width: 220px; height: 40px; margin-right:5px; border-color: #44AD9F !important; border-radius: 15px;">
                                         <p class="mb-0 text-white" style="font-size: 13px;">Cari Teman</p>
                                     </div>
                                 </a>
@@ -88,50 +115,40 @@
 
             </div>
 
-            {{-- modals menampilkan followes dan following --}}
-            {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <livewire:hightlight />
+
+            <div class="modal fade" id="notifikasi" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Pengikut</h5>
+                        <div class="modal-header d-flex justify-content-center">
+                            <p class="fw-semibold" style="font-size:16px;">Daftar Permintaan</p>
                         </div>
                         <div class="modal-body">
-                            <h3>Pengikut:</h3>
-                            <ul>
-                                @if ($user)
-                                    @forelse ($user->followers as $follower)
-                                        <li>{{ $follower->name }} - {{ $follower->email }}</li> {{-- Tampilkan Nama & Email --}}
-                                    {{-- @empty
-                                        <li>Tidak ada pengikut</li>
-                                    @endforelse
-                                @else
-                                    <li>Silakan pilih pengguna terlebih dahulu</li>
-                                @endif
-                            </ul>
-                        </div>
-                        
-                        
-                        
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <div class="d-flex justify-content-center">
+                                <livewire:daftarfriendships />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> - --}}
+            </div>
 
-
-            {{-- content  --}}
-            <div class="card-body p-0 text-black bg-white mt-3"
+            <div class="card-body p-0 text-black bg-white"
                 style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
 
 
-                <div class="d-flex justify-content-center position-relative mt-0 mb-0">
+                <div class="d-flex justify-content-center mt-0 mb-0">
                     <div class="menu-item active" onclick="scrollToSection(0)">
-                        <i class="bi bi-grid-3x3-gap-fill" style="font-size:20px"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-layout-grid mt-1">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        </svg>
                     </div>
                     <div class="menu-item" onclick="scrollToSection(1)">
                         <i class="bi bi-camera-reels fs-5" style="font-size:20px"></i>
@@ -146,55 +163,65 @@
                 <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
                     <div class="content-section">
                         <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                        </div>
-                        <div class="gallery">
-                            <div class="small-images mt-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
+                            @foreach ($postFotos as $index => $foto)
+                                @if ($foto->isBlurred)
+                                    <div
+                                        class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                        <img src="{{ asset($foto->image_path) }}" alt="Foto">
+                                    </div>
+                                @else
+                                <a
+                                href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                <div
+                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                    <img src="{{ asset($foto->image_path) }}" alt="Foto">
+                                </div>
+                                </a>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
+                    <div class="content-section">
+                        <div class="gallery">
+                            @foreach ($postVideos as $video)
+                                <div class="video-container">
+                                    @if ($video->isBlurred)
+                                        <video class="blurred-video" style="filter: blur(10px);">
+                                            <source src="{{ asset('storage/' . $video->video_path) }}"
+                                                type="video/mp4">
+                                        </video>
+                                    @else
+                                        <video controls>
+                                            <source src="{{ asset('storage/' . $video->video_path) }}"
+                                                type="video/mp4">
+                                        </video>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
 
-                    <div class="content-section">
-                        <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(115).webp"
-                                class="large">
-                            <div class="small-images mt-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(117).webp">
-                            </div>
-                        </div>
-                        <div class="gallery mt-2">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(113).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp">
-                            </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                class="large">
-                        </div>
                     </div>
                     <div class="content-section">
-                        <div class="gallery">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(118).webp"
-                                class="large">
-                            <div class="small-images">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(119).webp">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(120).webp">
-                            </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-x">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                <path
+                                    d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                <path d="M10 12l4 4m0 -4l-4 4" />
+                            </svg>
+                            <p>
+                                Belum Ada Tandai
+                            </p>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     var header = document.getElementById("header");
@@ -207,8 +234,6 @@
                     });
                 });
             </script>
-
-
 
             <style>
                 .content-container {}
@@ -228,13 +253,16 @@
                     transition: color 0.3s;
                 }
 
-
-
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                }
 
                 .menu-item {
                     cursor: pointer;
                     padding: 50px;
                     padding-bottom: 10px;
+                    padding-top: 10px;
                     position: relative;
                 }
 
@@ -293,6 +321,86 @@
                 .small-images img {
                     height: 50%;
                 }
+
+                .active-indicator {
+                    position: absolute;
+                    bottom: 20px;
+                    left: 0;
+                    width: 50px;
+                    height: 50px;
+                    background: #44AD9F;
+                    border-radius: 30px;
+                    transition: transform 0.3s ease, width 0.3s ease;
+                    z-index: -1;
+                }
+
+                .nav-btn {
+                    position: relative;
+                    top: -5px;
+                }
+
+                .custom-navbar {
+                    position: fixed;
+                    bottom: 60px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #44ad9f9c;
+                    border-radius: 30px;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    width: 60%;
+                    max-width: 350px;
+                }
+
+                .nav-btn {
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    background: transparent;
+                    color: white;
+                    font-size: 24px;
+                    border: none;
+                }
+
+                .nav-btn:hover {
+                    color: black;
+                }
+
+                .nav-home {
+                    background: transparent;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    font-weight: bold;
+                    border-radius: 20px;
+                }
+
+                .video-container {
+                    width: calc(50% - 10px);
+                    max-width: 187px;
+                    aspect-ratio: 9 / 16;
+                    margin: 5px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .video-container video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+
+                @media (max-width: 600px) {
+                    .video-container {
+                        width: 100%;
+                    }
+                }
             </style>
 
             <script>
@@ -327,8 +435,6 @@
                     });
                 }
             </script>
-
-
 
             {{-- modals --}}
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -373,7 +479,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="modal fade" id="exampleModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -462,14 +567,11 @@
 
                 <div class="active-indicator" x-ref="indicator"></div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
             <script>
                 function navbarHandler() {
                     return {
                         homeText: "Unggah",
-                        activeIndex: 1, // Index tombol aktif
+                        activeIndex: 1, 
                         buttons: [],
                         startX: 0,
                         endX: 0,
@@ -500,7 +602,7 @@
                                 $(modal).modal("show");
                                 $(modal).on("hidden.bs.modal", () => {
                                     this.setActive({
-                                        target: this.buttons[1] // Kembali ke "home" setelah modal tertutup
+                                        target: this.buttons[1] 
                                     }, 'home');
                                 });
                             }
@@ -517,10 +619,8 @@
                         endSwipe() {
                             let direction = this.startX - this.endX;
                             if (direction > 50) {
-                                // Swipe kiri -> pindah ke kanan
                                 this.activeIndex = Math.min(this.activeIndex + 1, this.buttons.length - 1);
                             } else if (direction < -50) {
-                                // Swipe kanan -> pindah ke kiri
                                 this.activeIndex = Math.max(this.activeIndex - 1, 0);
                             }
                             this.setActive({
@@ -532,78 +632,12 @@
                             this.buttons = Array.from(document.querySelectorAll('.nav-btn, .nav-home'));
                             this.setActive({
                                 target: this.buttons[1]
-                            }, 'home'); // Default ke tombol "home"
+                            }, 'home');
                         }
                     };
                 }
             </script>
 
-
-
-            <style>
-                /* css  */
-                .active-indicator {
-                    position: absolute;
-                    bottom: 20px;
-                    left: 0;
-                    width: 50px;
-                    height: 50px;
-                    background: #44AD9F;
-                    border-radius: 30px;
-                    transition: transform 0.3s ease, width 0.3s ease;
-                    z-index: -1;
-                }
-
-                .nav-btn {
-                    position: relative;
-                    top: -5px;
-                }
-
-                .custom-navbar {
-                    position: fixed;
-                    bottom: 60px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: #44ad9f9c;
-                    border-radius: 30px;
-                    padding: 10px;
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    width: 60%;
-                    max-width: 350px;
-                }
-
-                .nav-btn {
-                    width: 50px;
-                    height: 50px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    background: transparent;
-                    color: white;
-                    font-size: 24px;
-                    border: none;
-                }
-
-                .nav-btn:hover {
-                    color: black;
-                }
-
-                .nav-home {
-                    background: transparent;
-                    color: white;
-                    padding: 10px 20px;
-                    border: none;
-                    font-weight: bold;
-                    border-radius: 20px;
-                }
-            </style>
-
-
-
-
-
         </div>
     </div>
+</div>

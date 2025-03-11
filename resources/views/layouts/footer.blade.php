@@ -1,5 +1,5 @@
 <div>
-    <footer class="fixed-bottom py-2 d-flex justify-content-around border-top "
+    <footer class="fixed-bottom py-2 d-flex justify-content-around border-top test-class"
         style=" background-color: hsl(210, 17%, 93%); border-radius: 20px 20px 0 0;">
         <div class="d-flex flex-column align-items-center justify-content-center">
             <a href="/chatterfly" class="{{ request()->is('chatterfly') ? 'text-success' : 'text-secondary' }}">
@@ -15,7 +15,7 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/profile" class="{{ request()->is('profile') ? 'text-success' : 'text-secondary' }}">
+            <a href="/profile" class="{{ request()->is('profile') ? '#44AD9F' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-article">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -28,20 +28,20 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/group" class="{{ request()->is('group') ? 'text-success' : 'text-secondary' }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 640 512"
-                    fill="currentColor">
-                    <path
-                        d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7-1.3 7.2-1.9 14.7-1.9 22.3 0 38.2 16.8 72.5 43.3 96-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320h-.7c26.6-23.5 43.3-57.8 43.3-96 0-7.6-.7-15-1.9-22.3 13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352h117.3C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
+            <a href="/group" class="{{ request()->is('group') ? '#44AD9F' : 'text-secondary' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                    <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
                 </svg>
-
             </a>
             <h6 class="m-0 {{ request()->is('group') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
                 Group
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/login-pin" class="{{ request()->is('private') ? 'text-success' : 'text-secondary' }}">
+            <a href="/login-pin" class="{{ request()->is('private') ? '#44AD9F' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24"
                     fill="currentColor">
                     <path
@@ -53,15 +53,15 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/bio" class="{{ request()->is('bio') ? 'text-success' : 'text-secondary' }}">
+            <a href="/bio" class="{{ request()->is('bio') ? '#44AD9F' : 'text-secondary' }}">
                 <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}" alt="User Avatar"
                     class="user-avatar border border-white">
             </a>
 
             <style>
                 .user-avatar {
-                    width: 38px;
-                    height: 38px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
                     object-fit: cover;
                     transition: border-color 0.3s ease;
@@ -71,9 +71,12 @@
                     border-color: #44ad9f !important;
                     /* Hijau Bootstrap */
                 }
-            </style>
 
-            <h6 class="m-0 {{ request()->is('page') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
+                .text-success {
+                    color: #44ad9f;
+                }
+            </style>
+            <h6 class="mt-1 mb-0 {{ request()->is('page') ? 'fw-semibold' : 'fw-light' }}" style="font-size: 12px;">
                 Bio
             </h6>
         </div>

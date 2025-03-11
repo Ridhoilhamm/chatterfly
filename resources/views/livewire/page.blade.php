@@ -3,14 +3,20 @@
         <div id="header"
             class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-3"
             style="color:white">
-            <a href="/profile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M15 6l-6 6l6 6" />
-                </svg>
-            </a>
+            <div class="d-flex align-items-center">
+                <a href="/profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 6l-6 6l6 6" />
+                    </svg>
+                </a>
+
+                <p class="d-flex align-items-center mt-3" style="margin-left:10px;">
+                    Cari Teman
+                </p>
+            </div>
 
             <div class="d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
@@ -31,10 +37,10 @@
                 </svg>
             </div>
         </div>
-    {{-- modals --}}
+        {{-- modals --}}
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content" style="margin-top: 60px;">
+                <div class="modal-content" style="margin-top: 100px;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
                     </div>
@@ -73,7 +79,7 @@
         <div class="modal fade" id="modalsfiltering" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content" style="margin-top: 60px;">
+                <div class="modal-content" style="margin-top: 70px;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px">Filtering User</h5>
                     </div>
@@ -122,10 +128,10 @@
         <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
     @endpush
 
-    <section class="px-3 pt-2 bg-white" style="margin-top:10px; padding-bottom:20px; margin-bottom:10px">
+    <section class="px-3 bg-white" style=" padding-bottom:20px; margin-bottom:10px">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="mt-3 mb-0" style="font-size: 16px;">Selebritis</h5>
-            <a href="/kategory" class="mt-4 mb-1" style="color: #44AD9F;">Semua</a>
+            <a href="{{ route('selebritis') }}" class="mt-4 mb-1" style="color: #44AD9F;">Semua</a>
         </div>
 
 
@@ -133,6 +139,13 @@
             <div style="display: inline-flex; min-width: 100%; width: fit-content;">
 
                 @foreach ($users as $user)
+                    @php
+                        $friendCount = \App\Models\Friendship::where('status', 'approved')
+                            ->where(function ($query) use ($user) {
+                                $query->where('user_id', $user->id)->orWhere('friend_id', $user->id);
+                            })
+                            ->count();
+                    @endphp
                     <a href="{{ route('detailpengguna', $user->id) }}"">
                         <div style="flex-shrink: 0; width: 160px; margin-right: 10px; position: relative;">
                             <div class="d-block"
@@ -142,15 +155,13 @@
          width: 100%;
          background: 
     linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141)) bottom,
-    url('https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp');
+    url('{{ asset('storage/users-avatar/' . $user->avatar) }}');
 background-size: 100% 60%, cover;
 background-position: bottom, center;
 background-repeat: no-repeat;
      ">
 
-
                             </div>
-
 
                             <div class="">
 
@@ -168,13 +179,8 @@ background-repeat: no-repeat;
                                             <path
                                                 d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
                                         </svg>
-                                        <span>
-                                            {{ $user->followers >= 1000000
-                                                ? number_format($user->followers / 1000000, 1) . 'm'
-                                                : ($user->followers >= 1000
-                                                    ? number_format($user->followers / 1000, 1) . 'k'
-                                                    : $user->followers) }}</span>
-                                        <span class="py-1"></span>
+
+                                        <span class="py-1">{{ $friendCount }}</span>
                                     </span>
                                 </div>
 
@@ -186,7 +192,8 @@ background-repeat: no-repeat;
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus" style="color:#44AD9F">
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus"
+                                        style="color:#44AD9F">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                                         <path d="M16 19h6" />
@@ -205,18 +212,25 @@ background-repeat: no-repeat;
 
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="mt-3 mb-0" style="font-size: 16px;">Mungkin Anda Kenal</h5>
-            <a href="/kategory" class="mt-4 mb-1" style="color: #44AD9F;">Semua</a>
+            <a href="{{ route('mungkinAndaKenal') }}" class="mt-4 mb-1" style="color: #44AD9F;">Semua</a>
         </div>
 
         <div style="overflow-x: auto; white-space: nowrap; position: relative; justify-content-center">
             <div style="display: inline-flex; min-width: 100%; width: fit-content;">
                 @foreach ($users as $user)
-                    <a href="{{ route('detailpengguna', $user->id) }}"">
+                    @php
+                        $friendCount = \App\Models\Friendship::where('status', 'approved')
+                            ->where(function ($query) use ($user) {
+                                $query->where('user_id', $user->id)->orWhere('friend_id', $user->id);
+                            })
+                            ->count();
+                    @endphp
+                    <a href="{{ route('detailpengguna', $user->id) }}">
                         <div
                             style="flex-shrink: 0; width: 90px; margin-right: 10px; position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
                             <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="avatar user"
                                 class="rounded-circle d-block"
-                                style="height: 90px; width: 90px; border: none; box-shadow: none; object-fit: cover; border-radius: 50%;">
+                                style="height: 90px; width: 90px; border: none; box-shadow: none; object-fit: cover; border-radius: 50%; ">
                             <p class="mb-0 mt-1" style="font-size:12px"> {{ Str::limit($user->name, 6, '...') }}</p>
                             <div class="d-flex justify-content-center mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -227,19 +241,14 @@ background-repeat: no-repeat;
                                     <path
                                         d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
                                 </svg>
-                                <p class="mt-1 mb-0" style="font-size: 12px">
-                                    {{ $user->followers >= 1000000
-                                        ? number_format($user->followers / 1000000, 1) . 'm'
-                                        : ($user->followers >= 1000
-                                            ? number_format($user->followers / 1000, 1) . 'k'
-                                            : $user->followers) }}
-                                </p>
+                                <span class="text-black">{{ $friendCount }}</span>
                             </div>
                         </div>
                     </a>
                 @endforeach
             </div>
         </div>
+
     </section>
     <div class="container bg-white">
         <p class=" mb-2" style="padding-top: 10px; font-size:16px;">Cari Teman</p>
@@ -247,6 +256,13 @@ background-repeat: no-repeat;
         <div class="justify-content-center row row-cols-2 gx-1 ">
             @if ($users->count())
                 @foreach ($users as $user)
+                    @php
+                        $friendCount = \App\Models\Friendship::where('status', 'approved')
+                            ->where(function ($query) use ($user) {
+                                $query->where('user_id', $user->id)->orWhere('friend_id', $user->id);
+                            })
+                            ->count();
+                    @endphp
                     <a href="{{ route('detailpengguna', $user->id) }}">
                         <div class="col d-flex mb-2">
                             <div class="card shadow-sm"
@@ -257,7 +273,8 @@ background-repeat: no-repeat;
                                         style="height: 170px; object-fit: cover;">
                                 </div>
                                 <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title text-truncate" style="font-size: 14px; min-height: 20px;">
+                                    <h6 class="card-title text-truncate text-black"
+                                        style="font-size: 14px; min-height: 20px;">
                                         {{ $user->name }}
                                     </h6>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -271,27 +288,22 @@ background-repeat: no-repeat;
                                                 <path
                                                     d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5h4z" />
                                             </svg>
-                                            <span class="ms-2 mt-3" style="font-size: 14px;">
-                                                {{ $user->followers >= 1000000
-                                                    ? number_format($user->followers / 1000000, 1) . 'm'
-                                                    : ($user->followers >= 1000
-                                                        ? number_format($user->followers / 1000, 1) . 'k'
-                                                        : $user->followers) }}
-                                            </span>
+                                            <span>{{ $friendCount }}</span>
                                         </p>
-                                        <button type="button" class="btn"
-                                            style="height: 27px; font-size: 12px; padding: 0; line-height: 30px; background-color: #44AD9F; color: white;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus" style="color:#44AD9F">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                        <path d="M16 19h6" />
-                                        <path d="M19 16v6" />
-                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-                                    </svg>
+                                        <button type="button"
+                                            class="btn d-flex justify content-center align-items-center"
+                                            style="height: 30px; font-size: 12px; padding: 0; line-height: 30px; background-color: #44AD9F; color: white;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                                <path d="M16 19h6" />
+                                                <path d="M19 16v6" />
+                                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                                            </svg>
                                         </button>
+
                                     </div>
                                 </div>
                             </div>
@@ -317,6 +329,11 @@ background-repeat: no-repeat;
     </script>
 
     <style>
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
         #header {
             position: fixed;
             top: 0;
@@ -333,12 +350,14 @@ background-repeat: no-repeat;
         }
 
         #header .icon,
+        #header P,
         #header svg,
         #header button {
             transition: color 0.3s ease-in-out;
         }
 
         #header.scrolled .icon,
+        #header.scrolled P,
         #header.scrolled svg,
         #header.scrolled button {
             color: black !important;
@@ -395,10 +414,6 @@ background-repeat: no-repeat;
             }
         }
 
-        .a {
-            color: inherit;
-            text-decoration: none;
-        }
 
 
         .fixed-card {

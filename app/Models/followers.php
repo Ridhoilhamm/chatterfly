@@ -1,30 +1,53 @@
 <?php
 
-namespace App\Models;
+namespace App\Livewire;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
-class followers extends Model
+class FollowButton extends Component
 {
-    use HasFactory;
+    public $user;
+    public $isFollowing;
+    public $isRequested;
 
-    protected $table = 'followers';
-
-    protected $fillable = [
-        'follower_id',
-        'following_id',
-        'approve',
-    ];
-
-    public function follower()
+    public function mount(User $user)
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        $this->user = $user;
+        $this->isFollowing = Auth::user()->isFollowing($this->user);
+        $this->isRequested = Auth::user()->followRequests()->where('followed_id', $this->user->id)->exists();
     }
 
-    public function following()
+    public function toggleFollowRequest()
     {
-        return $this->belongsTo(User::class, 'following_id');
+        $authUser = Auth::user();
+
+        if ($this->isRequested) {
+            // Batalkan permintaan follow
+            $authUser->followRequests()->where('followed_id', $this->user->id)->delete();
+            $this->isRequested = false;
+        } else {
+            // Kirim permintaan follow
+            $authUser->followRequests()->create(['followed_id' => $this->user->id]);
+            $this->isRequested = true;
+        }
     }
 
+    public function acceptFollowRequest()
+    {
+        $authUser = Auth::user();
+
+        if ($authUser->pendingFollowRequests()->where('follower_id', $this->user->id)->exists()) {
+            // Konfirmasi permintaan follow
+            $authUser->followers()->attach($this->user->id);
+            $authUser->pendingFollowRequests()->where('follower_id', $this->user->id)->delete();
+            $this->isFollowing = true;
+        }
+    }
+
+    public function render()
+    {
+        return view('livewire.follow-button');
+    }
 }

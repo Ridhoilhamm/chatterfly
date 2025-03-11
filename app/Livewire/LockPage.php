@@ -5,13 +5,19 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class LockPage extends Component
 {
 
     use LivewireAlert;
+    use WithFileUploads;
+
+    public $avatar;
+    public $previewUrl;
 
     public $name, $email, $bio, $alamat, $oldPassword, $newPassword, $confirmPassword, $pin;
 
@@ -24,8 +30,31 @@ class LockPage extends Component
         $this->email = $user->email;
         $this->bio = $user->bio;
         $this->alamat = $user->alamat;
-    }
 
+        $this->previewUrl = Auth::user()->avatar 
+        ? asset('storage/users-avatar/' . Auth::user()->avatar) 
+        : asset('default-avatar.png');
+    }
+    public function updatedAvatar()
+    {
+        $this->validate([
+            'avatar' => 'image|max:2048',
+        ]);
+
+        $user = Auth::user();
+        if ($user->avatar) {
+            Storage::delete('public/users-avatar/' . $user->avatar);
+        }
+
+        $filename = uniqid() . '.' . $this->avatar->getClientOriginalExtension();
+        $this->avatar->storeAs('public/users-avatar', $filename);
+
+        $user->update(['avatar' => $filename]);
+
+        $this->previewUrl = asset('storage/users-avatar/' . $filename);
+
+        $this->alert('success', 'Foto Profil Berhasil diganti');
+    }
 
     public function updateProfile()
     {
@@ -75,7 +104,6 @@ class LockPage extends Component
             'password' => Hash::make($this->newPassword),
         ]);
 
-        // Reset form
         $this->reset(['oldPassword', 'newPassword', 'confirmPassword']);
 
         session()->flash('message', 'Password berhasil diubah!');
