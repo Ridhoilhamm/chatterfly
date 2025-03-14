@@ -37,8 +37,6 @@ class Friendships extends Component
                 return $friendship->user_id === $this->userId ? $friendship->friend : $friendship->user;
             });
 
-
-        
         $this->getFriendshipCount();
 
     }

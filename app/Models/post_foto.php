@@ -25,4 +25,9 @@ class post_foto extends Model
         return $this->hasMany(Like::class, 'post_foto_id'); 
     }
 
+    public function taggedFriends()
+    {
+        return $this->belongsToMany(User::class, 'post_foto_tags', 'post_foto_id', 'friend_id');
+    }
+
 }

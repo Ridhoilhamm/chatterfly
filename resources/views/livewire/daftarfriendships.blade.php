@@ -4,6 +4,7 @@
             <p class="text-muted text-center">Tidak ada permintaan pertemanan saat ini.</p>
         @else
             @foreach ($pendingRequests as $request)
+            <a href="{{ route('detailpengguna', $request->id) }}">
                 <div class="container d-flex align-items-center justify-content-center p-1 mb-1 rounded shadow-sm">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('storage/users-avatar/' . $request->avatar) }}"
@@ -52,6 +53,7 @@
                         </div>
                     </div>
                 </div>
+            </a>
             @endforeach
         @endif
     </div>

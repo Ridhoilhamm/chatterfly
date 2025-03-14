@@ -3,22 +3,26 @@
         $viewedUser = \App\Models\User::find($userId);
     @endphp
 
-    <div class="bg-white d-flex align-items-center position-relative" style="height: 50px;">
-        <a href="/profile">
+    <div class="bg-white d-flex align-items-center position-relative border-bottom" style="height: 50px;">
+        <!-- Tombol Back -->
+        <a href="/profile" class="position-absolute start-0 ms-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left position-absolute start-0 ms-3">
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M15 6l-6 6l6 6" />
             </svg>
         </a>
-
-        <p class="m-0 text-center w-100 fw-bold">
-            Pertemanan
-        </p>
+        <div style="margin-left:20px;">
+            <p class="m-0 fw-bold"  >
+                Pertemanan
+            </p>
+        </div>
     </div>
 
-    <div class=" mt-2 min-vh-100 bg-white">
+
+    <div class="pt-1 full-height bg-white">
+
         @php $shownFriends = []; @endphp
 
         @foreach ($friendships as $friendship)
@@ -61,4 +65,15 @@
             @php $shownFriends[] = $friend->id; @endphp
         @endforeach
     </div>
+    <style>
+        .full-height {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+                color: inherit;
+                text-decoration: none;
+            }
+    </style>
 </div>

@@ -20,8 +20,8 @@ class Comment extends Component
             'user_id' => Auth::id(),
             'comment' => $this->commentText,
         ]);
-
         $this->reset('commentText');
+        // dd($this->commentText);
     }
 
     public function getCommentCount()

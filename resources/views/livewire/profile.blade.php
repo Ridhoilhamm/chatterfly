@@ -167,16 +167,16 @@
                                 @if ($foto->isBlurred)
                                     <div
                                         class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
-                                        <img src="{{ asset($foto->image_path) }}" alt="Foto">
+                                        <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
                                     </div>
                                 @else
-                                <a
-                                href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
-                                <div
-                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
-                                    <img src="{{ asset($foto->image_path) }}" alt="Foto">
-                                </div>
-                                </a>
+                                    <a
+                                        href="{{ route('detailpostinganpribadi', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                        <div
+                                            class="gallery-item {{ $index % 1 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                            <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
+                                        </div>
+                                    </a>
                                 @endif
                             @endforeach
                         </div>
@@ -199,445 +199,425 @@
                                 </div>
                             @endforeach
                         </div>
-
                     </div>
                     <div class="content-section">
-                        <div class="d-flex justify-content-center mt-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-x">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-                                <path
-                                    d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                                <path d="M10 12l4 4m0 -4l-4 4" />
-                            </svg>
-                            <p>
-                                Belum Ada Tandai
-                            </p>
+                        <div class="gallery">
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var header = document.getElementById("header");
-                    window.addEventListener("scroll", function() {
-                        if (window.scrollY > 50) { // atur threshold sesuai kebutuhan
-                            header.classList.add("scrolled");
-                        } else {
-                            header.classList.remove("scrolled");
-                        }
-                    });
-                });
-            </script>
+                            @forelse($taggedPosts as $post)
+                                <div
+                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
+                                    <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
 
-            <style>
-                .content-container {}
-
-                #header {
-                    background: transparent;
-                    color: white;
-                    transition: background 0.3s, color 0.3s;
-                }
-
-                #header.scrolled {
-                    background: white;
-                    color: black;
-                }
-
-                #header svg {
-                    transition: color 0.3s;
-                }
-
-                a {
-                    color: inherit;
-                    text-decoration: none;
-                }
-
-                .menu-item {
-                    cursor: pointer;
-                    padding: 50px;
-                    padding-bottom: 10px;
-                    padding-top: 10px;
-                    position: relative;
-                }
-
-                .menu-item.active::after {
-                    content: "";
-                    position: absolute;
-                    bottom: -2px;
-                    left: 50%;
-                    width: 50%;
-                    height: 3px;
-                    background-color: #44AD9F;
-                    transform: translateX(-50%);
-                    border-radius: 3px;
-                }
-
-                .menu-item.active i {
-                    color: #44AD9F !important;
-                }
-
-                .content-container {
-                    display: flex;
-                    overflow-x: auto;
-                    scroll-snap-type: x mandatory;
-                    -webkit-overflow-scrolling: touch;
-                }
-
-                .content-section {
-                    min-width: 100%;
-                    scroll-snap-align: start;
-                    padding: 10px;
-                }
-
-                .gallery {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                }
-
-                .gallery img {
-                    width: 100%;
-                    border-radius: 15px;
-                    object-fit: cover;
-                }
-
-                .large {
-                    grid-row: span 2;
-                    height: 100%;
-                }
-
-                .small-images {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                }
-
-                .small-images img {
-                    height: 50%;
-                }
-
-                .active-indicator {
-                    position: absolute;
-                    bottom: 20px;
-                    left: 0;
-                    width: 50px;
-                    height: 50px;
-                    background: #44AD9F;
-                    border-radius: 30px;
-                    transition: transform 0.3s ease, width 0.3s ease;
-                    z-index: -1;
-                }
-
-                .nav-btn {
-                    position: relative;
-                    top: -5px;
-                }
-
-                .custom-navbar {
-                    position: fixed;
-                    bottom: 60px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: #44ad9f9c;
-                    border-radius: 30px;
-                    padding: 10px;
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    width: 60%;
-                    max-width: 350px;
-                }
-
-                .nav-btn {
-                    width: 50px;
-                    height: 50px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    background: transparent;
-                    color: white;
-                    font-size: 24px;
-                    border: none;
-                }
-
-                .nav-btn:hover {
-                    color: black;
-                }
-
-                .nav-home {
-                    background: transparent;
-                    color: white;
-                    padding: 10px 20px;
-                    border: none;
-                    font-weight: bold;
-                    border-radius: 20px;
-                }
-
-                .video-container {
-                    width: calc(50% - 10px);
-                    max-width: 187px;
-                    aspect-ratio: 9 / 16;
-                    margin: 5px;
-                    display: flex;
-                    justify-content: center;
-                }
-
-                .video-container video {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 10px;
-                }
-
-                @media (max-width: 600px) {
-                    .video-container {
-                        width: 100%;
-                    }
-                }
-            </style>
-
-            <script>
-                function scrollToSection(index) {
-                    const container = document.querySelector('.content-container');
-                    const sections = document.querySelectorAll('.content-section');
-                    container.scrollTo({
-                        left: sections[index].offsetLeft,
-                        behavior: "smooth"
-                    });
-
-                    updateActiveButton(index);
-                }
-
-                function highlightActiveSection() {
-                    const container = document.querySelector('.content-container');
-                    const sections = document.querySelectorAll('.content-section');
-                    let currentIndex = 0;
-
-                    sections.forEach((section, index) => {
-                        if (container.scrollLeft >= section.offsetLeft - section.offsetWidth / 2) {
-                            currentIndex = index;
-                        }
-                    });
-
-                    updateActiveButton(currentIndex);
-                }
-
-                function updateActiveButton(index) {
-                    document.querySelectorAll('.menu-item').forEach((item, i) => {
-                        item.classList.toggle('active', i === index);
-                    });
-                }
-            </script>
-
-            {{-- modals --}}
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="file" id="videoInput" class="form-control" accept="video/*">
-
-                            <video id="videoPreview" class="mt-3 d-none" width="100%" controls></video>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="videoModalLabel">Upload Video</h5>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Input File Video -->
-                            <input type="file" id="videoInput" class="form-control" accept="video/*">
-
-                            <!-- Preview Video -->
-                            <video id="videoPreview" class="mt-3 d-none" width="100%" controls></video>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="saveVideo">Save to Gallery</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Upload Foto</h5>
-                        </div>
-                        <div class="modal-body" x-data="{
-                            imageUrl: null,
-                            handleFile(event) {
-                                const file = event.target.files[0];
-                                if (file && file.type.startsWith('image/')) {
-                                    this.imageUrl = URL.createObjectURL(file);
-                                } else {
-                                    alert('Hanya file gambar yang diperbolehkan!');
-                                    event.target.value = ''; // Reset input
-                                    this.imageUrl = null;
-                                }
-                            }
-                        }">
-                            <form id="imageUploadForm" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="imageInput" class="form-label">Pilih Foto</label>
-                                    <input type="file" class="form-control" id="imageInput" accept="image/*"
-                                        @change="handleFile" required>
+                                    </a>
                                 </div>
-                                <div class="mb-3" x-show="imageUrl">
-                                    <label class="form-label">Pratinjau Foto</label>
-                                    <img :src="imageUrl" class="img-fluid rounded" alt="Preview">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </form>
+                            @empty
+                                <p>Tidak ada foto yang menandai kamu.</p>
+                            @endforelse
                         </div>
+
+
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- Modal Video -->
-            <div class="modal fade" id="videoModal" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Upload Video</h5>
-                        </div>
-                        <div class="modal-body" x-data="{
-                            videoUrl: null,
-                            handleFile(event) {
-                                const file = event.target.files[0];
-                                if (file) {
-                                    this.videoUrl = URL.createObjectURL(file);
-                                }
-                            }
-                        }">
-                            <form id="videoUploadForm" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <input type="file" class="form-control" id="videoInput" accept="video/*"
-                                        @change="handleFile" required>
-                                </div>
-                                <div class="mb-3" x-show="videoUrl">
-                                    <label class="form-label">Pratinjau Video</label>
-                                    <video x-bind:src="videoUrl" class="w-100" controls></video>
-                                </div>
-                                <button type="submit" class="btn btn ms-auto">Upload</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between"
-                x-on:touchstart="startSwipe($event)" x-on:touchmove="moveSwipe($event)" x-on:touchend="endSwipe()">
-                <button class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
-                    x-on:touchstart="setActive($event, 'photo')" data-modal="#exampleModal">
-                    📷
-                </button>
-                <button class="nav-home active" id="homeBtn" x-text="homeText"
-                    x-on:mouseenter="setActive($event, 'home')" x-on:touchstart="setActive($event, 'home')">
-                    Unggah
-                </button>
-                <button class="nav-btn" id="videoBtn" x-on:mouseenter="setActive($event, 'video')"
-                    x-on:touchstart="setActive($event, 'video')" data-modal="#videoModal">
-                    🎥
-                </button>
-
-                <div class="active-indicator" x-ref="indicator"></div>
-            </div>
-            <script>
-                function navbarHandler() {
-                    return {
-                        homeText: "Unggah",
-                        activeIndex: 1, 
-                        buttons: [],
-                        startX: 0,
-                        endX: 0,
-
-                        setActive(event, type) {
-                            let btn = event.target;
-                            this.activeIndex = this.buttons.indexOf(btn);
-                            this.updateIndicator(btn);
-                            this.homeText = type === 'home' ? "Unggah" : "";
-                            let modalId = btn.getAttribute("data-modal");
-                            if (modalId) {
-                                this.showModal(modalId);
-                            }
-                        },
-
-                        updateIndicator(btn) {
-                            this.$nextTick(() => {
-                                let indicator = this.$refs.indicator;
-                                indicator.style.width = `${btn.offsetWidth}px`;
-                                indicator.style.height = `${btn.offsetHeight}px`;
-                                indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
-                            });
-                        },
-
-                        showModal(modalId) {
-                            let modal = document.querySelector(modalId);
-                            if (modal) {
-                                $(modal).modal("show");
-                                $(modal).on("hidden.bs.modal", () => {
-                                    this.setActive({
-                                        target: this.buttons[1] 
-                                    }, 'home');
-                                });
-                            }
-                        },
-
-                        startSwipe(event) {
-                            this.startX = event.touches[0].clientX;
-                        },
-
-                        moveSwipe(event) {
-                            this.endX = event.touches[0].clientX;
-                        },
-
-                        endSwipe() {
-                            let direction = this.startX - this.endX;
-                            if (direction > 50) {
-                                this.activeIndex = Math.min(this.activeIndex + 1, this.buttons.length - 1);
-                            } else if (direction < -50) {
-                                this.activeIndex = Math.max(this.activeIndex - 1, 0);
-                            }
-                            this.setActive({
-                                target: this.buttons[this.activeIndex]
-                            }, this.buttons[this.activeIndex].id);
-                        },
-
-                        init() {
-                            this.buttons = Array.from(document.querySelectorAll('.nav-btn, .nav-home'));
-                            this.setActive({
-                                target: this.buttons[1]
-                            }, 'home');
-                        }
-                    };
-                }
-            </script>
-
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var header = document.getElementById("header");
+                window.addEventListener("scroll", function() {
+                    if (window.scrollY > 50) { // atur threshold sesuai kebutuhan
+                        header.classList.add("scrolled");
+                    } else {
+                        header.classList.remove("scrolled");
+                    }
+                });
+            });
+        </script>
+        <style>
+            .content-container {}
+
+            #header {
+                background: transparent;
+                color: white;
+                transition: background 0.3s, color 0.3s;
+            }
+
+            #header.scrolled {
+                background: white;
+                color: black;
+            }
+
+            #header svg {
+                transition: color 0.3s;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .menu-item {
+                cursor: pointer;
+                padding: 50px;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                position: relative;
+            }
+
+            .menu-item.active::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 50%;
+                width: 50%;
+                height: 3px;
+                background-color: #44AD9F;
+                transform: translateX(-50%);
+                border-radius: 3px;
+            }
+
+            .menu-item.active i {
+                color: #44AD9F !important;
+            }
+
+            .content-container {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .content-section {
+                min-width: 100%;
+                scroll-snap-align: start;
+                padding: 10px;
+            }
+
+            .gallery {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .gallery img {
+                width: 100%;
+                border-radius: 15px;
+                object-fit: cover;
+            }
+
+            .large {
+                grid-row: span 2;
+                height: 100%;
+            }
+
+            .small-images {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .small-images img {
+                height: 50%;
+            }
+
+            .active-indicator {
+                position: absolute;
+                bottom: 20px;
+                left: 0;
+                width: 50px;
+                height: 50px;
+                background: #44AD9F;
+                border-radius: 30px;
+                transition: transform 0.3s ease, width 0.3s ease;
+                z-index: -1;
+            }
+
+            .nav-btn {
+                position: relative;
+                top: -5px;
+            }
+
+            .custom-navbar {
+                position: fixed;
+                bottom: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #44ad9f9c;
+                border-radius: 30px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                width: 60%;
+                max-width: 350px;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: transparent;
+                color: white;
+                font-size: 24px;
+                border: none;
+            }
+
+            .nav-btn:hover {
+                color: black;
+            }
+
+            .nav-home {
+                background: transparent;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                font-weight: bold;
+                border-radius: 20px;
+            }
+
+            .video-container {
+                width: calc(50% - 10px);
+                max-width: 187px;
+                aspect-ratio: 9 / 16;
+                margin: 5px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .video-container video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            @media (max-width: 600px) {
+                .video-container {
+                    width: 100%;
+                }
+            }
+        </style>
+
+        <script>
+            function scrollToSection(index) {
+                const container = document.querySelector('.content-container');
+                const sections = document.querySelectorAll('.content-section');
+                container.scrollTo({
+                    left: sections[index].offsetLeft,
+                    behavior: "smooth"
+                });
+
+                updateActiveButton(index);
+            }
+
+            function highlightActiveSection() {
+                const container = document.querySelector('.content-container');
+                const sections = document.querySelectorAll('.content-section');
+                let currentIndex = 0;
+
+                sections.forEach((section, index) => {
+                    if (container.scrollLeft >= section.offsetLeft - section.offsetWidth / 2) {
+                        currentIndex = index;
+                    }
+                });
+
+                updateActiveButton(currentIndex);
+            }
+
+            function updateActiveButton(index) {
+                document.querySelectorAll('.menu-item').forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
+            }
+        </script>
+
+        {{-- modals --}}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <livewire:uploadfoto />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('livewire:load', function() {
+                Livewire.on('closeModal', () => {
+                    $('#exampleModal').modal('hide');
+                });
+            });
+        </script>
+
+
+
+
+        <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="videoModalLabel">Upload Video</h5>
+                        </button>
+                    </div>
+                    @livewire('upload-video')
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveVideo">Save to Gallery</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Upload Foto</h5>
+                    </div>
+                    <div class="modal-body" x-data="{
+                        imageUrl: null,
+                        handleFile(event) {
+                            const file = event.target.files[0];
+                            if (file && file.type.startsWith('image/')) {
+                                this.imageUrl = URL.createObjectURL(file);
+                            } else {
+                                alert('Hanya file gambar yang diperbolehkan!');
+                                event.target.value = ''; // Reset input
+                                this.imageUrl = null;
+                            }
+                        }
+                    }">
+                        <form id="imageUploadForm" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="imageInput" class="form-label">Pilih Foto</label>
+                                <input type="file" class="form-control" id="imageInput" accept="image/*"
+                                    @change="handleFile" required>
+                            </div>
+                            <div class="mb-3" x-show="imageUrl">
+                                <label class="form-label">Pratinjau Foto</label>
+                                <img :src="imageUrl" class="img-fluid rounded" alt="Preview">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal Video -->
+        <div class="modal fade" id="videoModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Upload Video</h5>
+                    </div>
+                    <div class="modal-body">
+                        <livewire:uploadVideo />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between"
+            x-on:touchstart="startSwipe($event)" x-on:touchmove="moveSwipe($event)" x-on:touchend="endSwipe()">
+            <button class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
+                x-on:touchstart="setActive($event, 'photo')" data-modal="#exampleModal">
+                📷
+            </button>
+            <button class="nav-home active" id="homeBtn" x-text="homeText"
+                x-on:mouseenter="setActive($event, 'home')" x-on:touchstart="setActive($event, 'home')">
+                Unggah
+            </button>
+            <button class="nav-btn" id="videoBtn" x-on:mouseenter="setActive($event, 'video')"
+                x-on:touchstart="setActive($event, 'video')" data-modal="#videoModal">
+                🎥
+            </button>
+
+            <div class="active-indicator" x-ref="indicator"></div>
+        </div>
+        <script>
+            function navbarHandler() {
+                return {
+                    homeText: "Unggah",
+                    activeIndex: 1,
+                    buttons: [],
+                    startX: 0,
+                    endX: 0,
+
+                    setActive(event, type) {
+                        let btn = event.target;
+                        this.activeIndex = this.buttons.indexOf(btn);
+                        this.updateIndicator(btn);
+                        this.homeText = type === 'home' ? "Unggah" : "";
+                        let modalId = btn.getAttribute("data-modal");
+                        if (modalId) {
+                            this.showModal(modalId);
+                        }
+                    },
+
+                    updateIndicator(btn) {
+                        this.$nextTick(() => {
+                            let indicator = this.$refs.indicator;
+                            indicator.style.width = `${btn.offsetWidth}px`;
+                            indicator.style.height = `${btn.offsetHeight}px`;
+                            indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
+                        });
+                    },
+
+                    showModal(modalId) {
+                        let modal = document.querySelector(modalId);
+                        if (modal) {
+                            $(modal).modal("show");
+                            $(modal).on("hidden.bs.modal", () => {
+                                this.setActive({
+                                    target: this.buttons[1]
+                                }, 'home');
+                            });
+                        }
+                    },
+
+                    startSwipe(event) {
+                        this.startX = event.touches[0].clientX;
+                    },
+
+                    moveSwipe(event) {
+                        this.endX = event.touches[0].clientX;
+                    },
+
+                    endSwipe() {
+                        let direction = this.startX - this.endX;
+                        if (direction > 50) {
+                            this.activeIndex = Math.min(this.activeIndex + 1, this.buttons.length - 1);
+                        } else if (direction < -50) {
+                            this.activeIndex = Math.max(this.activeIndex - 1, 0);
+                        }
+                        this.setActive({
+                            target: this.buttons[this.activeIndex]
+                        }, this.buttons[this.activeIndex].id);
+                    },
+
+                    init() {
+                        this.buttons = Array.from(document.querySelectorAll('.nav-btn, .nav-home'));
+                        this.setActive({
+                            target: this.buttons[1]
+                        }, 'home');
+                    }
+                };
+            }
+        </script>
+
     </div>
+</div>
 </div>

@@ -9,12 +9,12 @@
             width: 100%; 
             background: linear-gradient(to top, rgba(0, 0, 0, 11.2),  rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2)), 
                         url('https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp'); 
-            background-size: cover; 
+            background-size: cover;
             background-position: center;">
                 <div class="d-flex justify-content-between align-items-center position-relative">
                     <div class="d-flex align-items-center">
                         <div class="container">
-                            <a href="{{ route('page') }}">
+                            <a href="{{ url()->previous() }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"
@@ -51,7 +51,6 @@
                             style="right: 0; top: 40px; min-width: 150px; border: 1px solid white;">
                             <a href="/profile" class="d-block px-3 py-2 text-decoration-none text-black">Profile</a>
                             <a href="/bio" class="d-block px-3 py-2 text-decoration-none text-black">Settings</a>
-                            <a href="/logout" class="d-block px-3 py-2 text-decoration-none text-danger">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -189,15 +188,17 @@
                                 <div class="video-container">
                                     @if ($video->isBlurred)
                                         <video class="blurred-video" style="filter: blur(10px);">
-                                            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                            <source src="{{ asset('storage/' . $video->video_path) }}"
+                                                type="video/mp4">
                                         </video>
                                     @else
-                                    <a
-                                    href="{{ route('detailvideo', ['user' => $foto->user->id, 'post' => $video->id]) }}">
-                                    <video controls>
-                                        <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
-                                    </video>
-                                    </a>
+                                        <a
+                                            href="{{ route('detailvideo', ['user' => $foto->user->id, 'post' => $video->id]) }}">
+                                            <video controls>
+                                                <source src="{{ asset('storage/' . $video->video_path) }}"
+                                                    type="video/mp4">
+                                            </video>
+                                        </a>
                                     @endif
                                 </div>
                             @endforeach
@@ -206,27 +207,22 @@
                     </div>
 
                     <div class="content-section">
-                        <div class="d-flex justify-content-center mt-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-x">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-                                <path
-                                    d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                                <path d="M10 12l4 4m0 -4l-4 4" />
-                            </svg>
-                            <p>
-                                Belum Ada Tandai
-                            </p>
+                        <div class="gallery">
+                            @foreach ($taggedPosts as $index => $post)
+                                <div
+                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
+                                    <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
+                                        <h5 class="card-title">{{ $post->user->name }}</h5>
+                                        <p class="card-text">{{ $post->caption }}</p>
+                                    </a>
+                                </div>
+                            @endforeach
 
                         </div>
                     </div>
                 </div>
             </div>
-
             <style>
                 .blurred img {
                     filter: blur(10px);

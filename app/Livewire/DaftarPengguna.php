@@ -16,6 +16,7 @@ class DaftarPengguna extends Component
     public $postVideos = []; // Tambahkan variabel untuk menyimpan video
     public $friendshipStatus = [];
     public $friendshipsCount;
+    public $taggedPosts;
 
     protected $listeners = ['userSelected' => 'handleUserSelected'];
 
@@ -33,6 +34,9 @@ class DaftarPengguna extends Component
             $this->userId = $userId;
             $this->getFollowersCount();
         }
+        $this->taggedPosts = post_foto::whereHas('taggedFriends', function ($query) {
+            $query->where('friend_id', $this->userId);
+        })->with('user', 'taggedFriends')->latest()->get();
     }
 
     private function isFriend($authUserId, $postOwnerId)
@@ -132,6 +136,7 @@ class DaftarPengguna extends Component
         return view('livewire.daftar-pengguna', [
             'user' => $user,
             'postFotos' => $this->postFotos,
+            'taggedPosts' => $this->taggedPosts,
             'postVideos' => $this->postVideos, // Kirim video ke blade
         ])->extends('layouts.app')->section('content');
     }

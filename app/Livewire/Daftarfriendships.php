@@ -24,9 +24,7 @@ class Daftarfriendships extends Component
     {
         $this->userId = Auth::id();
         session()->put('hideNavbar', true);
-        // session()->put('hideFooter', true);
 
-        // Ambil daftar teman yang sudah berteman (approved)
         $this->friendships = User::whereIn('id', function ($query) {
             $query->select('friend_id')
                 ->from('friendships')
@@ -41,8 +39,6 @@ class Daftarfriendships extends Component
         })
             ->select('id', 'name', 'avatar')
             ->get();
-
-        // Hitung jumlah teman berdasarkan user_id
         $this->friendshipsCount = Friendship::where('status', 'approved')
             ->where(function ($query) {
                 $query->where('user_id', $this->userId)
@@ -50,7 +46,6 @@ class Daftarfriendships extends Component
             })
             ->count();
 
-        // Ambil permintaan pertemanan yang masih pending
         $this->pendingRequests = User::whereIn('id', function ($query) {
             $query->select('user_id')
                 ->from('friendships')
@@ -60,12 +55,10 @@ class Daftarfriendships extends Component
             ->select('id', 'name', 'avatar')
             ->get();
 
-        // Ambil mutual friends untuk setiap pending request
         foreach ($this->pendingRequests as $request) {
             $request->mutualFriends = $this->getMutualFriends($request->id);
         }
 
-        // Dapatkan rekomendasi teman
         $this->recommendedRequests = $this->friendsOfFriendsRequests();
     }
 
@@ -83,10 +76,8 @@ class Daftarfriendships extends Component
             })
             ->toArray();
 
-        // Debug apakah teman user login sudah benar
         // dd($authUserFriends);
 
-        // Ambil semua teman dari pengguna lain yang mengirim permintaan pertemanan
         $otherUserFriends = Friendship::where('status', 'approved')
             ->where(function ($query) use ($userId) {
                 $query->where('user_id', $userId)
@@ -98,16 +89,11 @@ class Daftarfriendships extends Component
             })
             ->toArray();
 
-        // Debug apakah teman user lain sudah benar
         // dd($otherUserFriends);
 
-        // Cari teman yang sama (mutual)
         $mutualFriendIds = array_intersect($authUserFriends, $otherUserFriends);
-
-        // Debug apakah ada mutual friends
         // dd($mutualFriendIds);
 
-        // Ambil data user dari mutual friends
         return User::whereIn('id', $mutualFriendIds)
             ->select('id', 'name', 'avatar')
             ->get();
@@ -125,13 +111,10 @@ class Daftarfriendships extends Component
             ->pluck('friend_id')
             ->toArray();
 
-        // Ambil semua pengguna yang mengirim permintaan ke user (status pending)
         $pendingRequestIds = Friendship::where('friend_id', $this->userId)
             ->where('status', 'pending')
             ->pluck('user_id')
             ->toArray();
-
-        // Cek apakah pengirim permintaan berteman dengan salah satu teman kita (dan sudah "approved")
         $recommendedRequests = Friendship::whereIn('user_id', $pendingRequestIds)
             ->whereIn('friend_id', $friendIds)
             ->where('status', 'approved')

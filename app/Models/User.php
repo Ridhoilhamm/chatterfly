@@ -102,7 +102,7 @@ class User extends Authenticatable
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
-                    ->wherePivot('status', 'accepted');
+            ->wherePivot('status', 'accepted');
     }
 
     // Mendapatkan "teman dari teman"
@@ -117,4 +117,10 @@ class User extends Authenticatable
     {
         return $this->friends()->whereIn('id', $user->friends()->pluck('id'));
     }
+
+    public function taggedPhotos()
+    {
+        return $this->belongsToMany(post_foto::class, 'post_foto_tag', 'friend_id', 'post_foto_id');
+    }
+    
 }

@@ -4,10 +4,15 @@ use App\Http\Controllers\sosialmedia as ControllersSosialmedia;
 use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\sosmed;
 use App\Http\Livewire\Auth\ResetPassword;
+use App\Http\Livewire\PostCard;
 use App\Livewire\Auth\ResetPassword as AuthResetPassword;
 use App\Livewire\Daftarfriendships;
 use App\Livewire\DaftarPengguna;
+use App\Livewire\Detailgrupchat;
 use App\Livewire\DetailPostingan;
+use App\Livewire\Detailpostinganpribadi;
+use App\Livewire\Detailprivatechat;
+use App\Livewire\Detailtagpostingan;
 use App\Livewire\Detailvideo;
 use App\Livewire\Friendships;
 use App\Livewire\Group;
@@ -37,6 +42,8 @@ Route::get('/registrasi', Register::class)->name('registrasi');
 use App\Livewire\LoginWithPin;
 use App\Livewire\Pertemenan;
 use App\Livewire\Selebritis;
+use App\Livewire\Uploadfoto;
+use PhpParser\Node\Expr\PostDec;
 
 Route::get('/login-pin', LoginWithPin::class)->name('login.pin');
 Route::get('/private', function () {
@@ -56,10 +63,18 @@ Route::get('/group', Group::class)->name('group');
 //halaman detail
 Route::get('/detailpengguna/{userId}',DaftarPengguna::class)->name('detailpengguna');
 Route::get('/detailpostingan/{user}/{post}', DetailPostingan::class)->name('detailpostingan');
+Route::get('/detailpostinganpribadi/{user}/{post}', Detailpostinganpribadi::class)->name('detailpostinganpribadi');
+
+// halaman detail tag
+Route::get('/post/{post}',Detailtagpostingan::class)->name('post.detail');
 
 // halaman detail pertemanan 
 Route::get('/pertemanan/{userId}', Pertemenan::class)->name('pertemanan');
 Route::get('/request', HalamanRequest::class)->name('permintaan');
+
+// halaman detailchat
+Route::get('/detailchat', Detailprivatechat::class)->name('detailchat');
+Route::get('/detailchatgroup', Detailgrupchat::class)->name('detailchatgroup');
 
 
 // halaman detail setting
@@ -81,6 +96,8 @@ Route::get('/like/{userId}', LikedBy::class)->name('like');
 // halaman reset passwordF
 use Illuminate\Support\Facades\Password;
 Route::get('reset-password/{token}', AuthResetPassword::class)->name('password.reset');
+Route::get('upload', Uploadfoto::class)->name('upload');
+// Route::get('foto', PostCard::class)->name('foto');
 
 //halaman chat
 Route::middleware(['auth'])->group(function () {

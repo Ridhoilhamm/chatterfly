@@ -1,7 +1,7 @@
 <div>
     <div>
         <div class="container fixed-top d-flex align-items-center bg-white p-1 justify-content-center ">
-            <a href="{{ route('detailpengguna', $user->id) }}">
+            <a href="/profile">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left mt-1" style="color: black">
@@ -15,7 +15,7 @@
     <div style="margin-top:65px">
         @foreach ($posts as $post)
             <div style="position: relative; width: 100%; max-width: 600px;">
-                <img src="{{ asset($post->image_path) }}" alt="Foto Besar"
+                <img src="{{ asset('storage/' . $post->image_path) }}" alt="Foto Besar"
                     style="width: 100%; height: 280px; object-fit: cover;  border-radius: 0px;">
                 <div class="d-flex justify-content-center"
                     style="position: absolute; bottom: 10px; left: 15%; transform: translateX(-50%);
@@ -139,6 +139,8 @@
             </div>
         </div>
     </div>
+
+
     {{-- modals share postingan --}}
     @php
         use App\Models\Friendship;
@@ -158,137 +160,34 @@
                 <div class="modal-header d-flex justify-content-center ">
                     <h5 class="modal-title" id="exampleModalLabel ">Share</h5>
                 </div>
-                <div class="modal-body" style="padding-bottom: 0px;">
-                    <div class="d-flex flex-wrap">
+                <div class="modal-body">
+                    <div class="d-flex">
                         @foreach ($friends as $friend)
                             @php
                                 $friendUser = $friend->user_id == auth()->id() ? $friend->friend : $friend->user;
                             @endphp
-                            <div class="friend-item text-center" onclick="selectFriend(this)">
+                            <div>
                                 <img src="{{ asset('storage/users-avatar/' . $friendUser->avatar) }}"
-                                    alt="Avatar {{ $friendUser->name }}" width="80" height="80"
-                                    class="rounded-circle friend-avatar me-2">
-                                <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
+                                    alt="Avatar {{ $friendUser->name }}" width="40" height="40"
+                                    class="rounded-circle me-2" style="margin-right: 10px;">
+                                    <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
+
                             </div>
                         @endforeach
                     </div>
-                    <div class="d-flex justify-content-center pt-3 mb-2"
-                        style="margin-top:100px; gap: 20px;">
-
-
-                        <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2" style="width: 50px; height: 50px;">
-                            <a href="https://wa.me/08970915625">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-                                    <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-                                </svg>
-
-                            </a>
-                        </div>                  
-                        <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-link">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M9 15l6 -6" />
-                                <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
-                                <path
-                                    d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
-                            </svg>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-download">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                                <path d="M7 11l5 5l5 -5" />
-                                <path d="M12 4l0 12" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-center border-top pt-2">
-                        <button id="shareButton" class="btn btn-success w-100 mt-1 d-none">Bagikan</button>
-                    </div>
                     
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const shareButton = document.getElementById("shareButton");
-    const iconContainer = document.querySelector(".d-flex.justify-content-center.pt-3");
-
-    function toggleShareButton(show) {
-        if (show) {
-            shareButton.classList.remove("d-none");
-        } else {
-            shareButton.classList.add("d-none");
-        }
-    }
-
-    // Contoh event ketika ada item yang dipilih
-    document.querySelectorAll(".friend-item").forEach(item => {
-        item.addEventListener("click", function () {
-            toggleShareButton(true);
-        });
-    });
-
-    // Jika tombol disembunyikan, ikon naik ke atas
-    const observer = new MutationObserver(() => {
-        if (shareButton.classList.contains("d-none")) {
-            iconContainer.style.marginTop = "0px";
-        } else {
-            iconContainer.style.marginTop = "20px";
-        }
-    });
-
-    observer.observe(shareButton, { attributes: true, attributeFilter: ["class"] });
-});
-
-        function selectFriend(element) {
-            document.querySelectorAll('.friend-item').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-
-            document.getElementById('shareButton').style.display = 'block';
-        }
-    </script>
-
     <style>
-        .friend-item {
-            cursor: pointer;
-            display: inline-block;
-            padding: 5px;
-        }
-
-        .friend-avatar {
-            border: 2px solid transparent;
-            transition: border 0.3s ease-in-out;
-        }
-
-        .friend-item.selected .friend-avatar {
-            border: 3px solid limegreen;
-        }
-
         .modal-dialog-slide-up {
             position: fixed;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             animation: slideUp 0.3s ease-out;
         }
 
@@ -349,7 +248,7 @@
         }
 
         .modal-content {
-            height: 400px;
+            height: 650px;
             display: flex;
             flex-direction: column;
         }

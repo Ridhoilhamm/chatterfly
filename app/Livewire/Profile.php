@@ -9,11 +9,15 @@ use App\Models\post_foto;
 use App\Models\post_video;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
 
     use LivewireAlert;
+    use WithFileUploads;
+    public $photo;
+    public $caption;
     public $user;
     public $userId;
     public $selectedUser;
@@ -24,6 +28,7 @@ class Profile extends Component
     public $friendships;
     public $friendshipsCount;
     public $postCount;
+    public $taggedPosts;
 
 
     public function mount()
@@ -34,7 +39,7 @@ class Profile extends Component
         $this->userId = Auth::id();
         $this->user = User::findOrFail($this->userId);
         $this->postFotos = post_foto::with('user')->where('user_id', $this->userId)->latest()->get();
-        $this->postVideos = post_video::with('user')->where('user_id', $this->userId)->latest()->get();        
+        $this->postVideos = post_video::with('user')->where('user_id', $this->userId)->latest()->get();
         $this->postCount = post_foto::where('user_id', $this->userId)->count();
 
         $this->isPrivate = Auth::check() ? (bool) Auth::user()->is_private : false;
@@ -63,6 +68,10 @@ class Profile extends Component
             ->where('friendships.status', 'pending')
             ->select('users.id', 'users.name', 'users.avatar')
             ->get();
+
+            $this->taggedPosts = post_foto::whereHas('taggedFriends', function ($query) {
+                $query->where('friend_id', $this->userId);
+            })->with('user', 'taggedFriends')->latest()->get();
     }
 
     public function togglePrivacy()
@@ -79,10 +88,34 @@ class Profile extends Component
         return redirect()->route('profile');
     }
 
+    public function uploadPhoto()
+    {
+        $this->validate([
+            'photo' => 'image|max:2048', // Maksimal 2MB
+            'caption' => 'nullable|string|max:255',
+        ]);
+        $path = $this->photo->store('uploads', 'public');
+
+        post_foto::create([
+            'user_id' => Auth::id(),
+            'image_path' => $path,
+            'caption' => $this->caption ?? null,
+        ]);
+
+        session()->flash('success', 'Foto berhasil diunggah!');
+
+        $this->reset('photo', 'caption');
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+
     public function render()
     {
         return view('livewire.profile', [
-            'selectedUser' => $this->selectedUser
+            'selectedUser' => $this->selectedUser,
+            'taggedPosts' => $this->taggedPosts,
         ])->extends('layouts.app')->section('content');
     }
+    
+    
 }

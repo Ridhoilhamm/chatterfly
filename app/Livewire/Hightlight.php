@@ -23,7 +23,6 @@ class Hightlight extends Component
 
     public function mount($userId = null)
     {
-        // Jika userId tidak dikirim, gunakan ID user yang sedang login
         $this->selectedUserId = $userId ?? Auth::id();
         $this->loadHighlights($this->selectedUserId);
     }
@@ -34,7 +33,6 @@ class Hightlight extends Component
 
         $isPrivate = $user ? $user->is_private : false;
 
-        // Cek apakah user yang login adalah teman dari user yang sedang dilihat
         $isFriend = \App\Models\Friendship::where(function ($query) {
             $query->where('user_id', Auth::id())
                 ->where('friend_id', $this->selectedUserId)
@@ -46,15 +44,30 @@ class Hightlight extends Component
                     ->where('status', 'approved');
             })
             ->exists();
-        // Ambil highlight berdasarkan status privasi dan pertemanan
         $this->highlights = \App\Models\Highlights::where('user_id', $this->selectedUserId)
             ->latest()
             ->get()
             ->map(function ($highlight) use ($isPrivate, $isFriend) {
-                // Hanya pemilik akun, teman, atau akun publik yang bisa melihat highlight
+
                 $highlight->canView = Auth::id() === $this->selectedUserId || !$isPrivate || $isFriend;
                 return $highlight;
             });
+    }
+
+    public function updatedImage()
+    {
+        $path = $this->image->store('highlights', 'public');
+
+        highlights::create([
+            'user_id' => Auth::id(),
+            'title' => $this->title ?? 'Sorotan',
+            'image' => $path
+        ]);
+
+        $this->reset(['title', 'image']);
+        $this->loadHighlights(Auth::id());
+
+        session()->flash('message', 'Sorotan berhasil ditambahkan!');
     }
 
 
@@ -68,6 +81,7 @@ class Hightlight extends Component
 
     public function save()
     {
+        // dd($this->image);
         $this->validate([
             'image' => 'required|image|max:2048'
         ]);
@@ -89,7 +103,7 @@ class Hightlight extends Component
     public function edit($id)
     {
         $highlight = highlights::findOrFail($id);
-        $this->selectedHighlight = highlights::with('user')->find($id); 
+        $this->selectedHighlight = highlights::with('user')->find($id);
         $this->highlightId = $highlight->id;
         $this->title = $highlight->title;
         $this->oldImage = $highlight->image;
