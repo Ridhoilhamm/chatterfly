@@ -24,14 +24,6 @@
                         <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                     </svg>
                 </div>
-
-                @if (session()->has('success'))
-                    <p style="margin-top: 10px; color: green;">{{ session('success') }}</p>
-                @endif
-
-                @error('avatar')
-                    <p style="color: red;">{{ $message }}</p>
-                @enderror
             </div>
 
             <h4 class="mt-2 mb-0" style="font-size:16px;">{{ Str::title(Auth::user()->name) }}</h4>
@@ -436,8 +428,6 @@
             </div>
         </div>
     </div>
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var modal = document.getElementById('tambahpin');
@@ -492,33 +482,20 @@
                                     <span class="fw-semibold">Notifikasi Pertemanan</span>
                                 </button>
                             </a>
-                            <button class="list-group-item list-group-item-action d-flex align-items-center">
-                                <i class="bi bi-fingerprint fs-4 text-primary me-3" style="margin-right:10px"></i>
-                                <span class="fw-semibold">Tambahkan Sidik Jari</span>
-                            </button>
+                            <a href="{{route('tag')}}">
+                                <button class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="bi bi-fingerprint fs-4 text-primary me-3" style="margin-right:10px"></i>
+                                    <span class="fw-semibold">Riwayat Tag dari teman</span>
+                                </button>
+                            </a>
 
                             <button class="list-group-item list-group-item-action d-flex align-items-center"
                                 data-bs-toggle="modal" data-bs-target="#tambahpin">
                                 <i class="bi bi-key-fill fs-4 text-danger me-3"></i>
-                                <span class="fw-semibold">Tambahkan PIN Private</span>
+                                <span class="fw-semibold " style="margin-left:10px;">Tambahkan PIN Private</span>
                             </button>
                         </div>
                     </div>
-
-                </div>
-                <div class="mb-3 justify-content-center align-items-center text-center ">
-                    <button class="btn"
-                        style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
-               color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;"
-                        data-bs-dismiss="modal">
-                        Batal
-                    </button>
-
-                    <button class="btn" wire:click="logout"
-                        style="background: linear-gradient(to right, rgba(255, 69, 58, 0.9), rgba(255, 69, 58, 0.7), rgba(255, 69, 58, 0.3)); 
-               color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
-                        Keluar
-                    </button>
                 </div>
             </div>
         </div>

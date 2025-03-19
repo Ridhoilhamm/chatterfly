@@ -4,27 +4,38 @@
         <div>
             <div class="d-flex align-items-center" style="gap: 10px; overflow-x: auto; white-space: nowrap;">
                 @if (Auth::id() === $selectedUserId)
-                    <div class="d-flex align-items-center justify-content-center"
-                        style="background-color:#44ad9fc5; height: 130px; width: 60px; border-radius: 0 60px 60px 0; cursor: pointer; overflow: hidden; flex-shrink: 0; position: relative;">
-                        <i class="bi bi-images fs-6 text-white"></i>
+                    <div class="d-flex position-absolute align-items-center justify-content-center custom-upload"
+                        style="background-color:#44ad9fc5; height: 145px; width: 60px; border-radius: 0 60px 60px 0; cursor: pointer; overflow: hidden; flex-shrink: 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-photo-search text-white">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M15 8h.01" />
+                            <path d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" />
+                            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                            <path d="M20.2 20.2l1.8 1.8" />
+                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l2 2" />
+                        </svg>
                         <input type="file" id="highlightUpload" wire:model.live="image" accept="image/*"
-                            {{-- wire:change="save" --}}
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
-                    </div>
+                        </div>
+                        <div style="background-color: #44ad9fc5; width:54px;">
+                        </div>
                 @endif
-                <div class="d-flex" style="gap: 10px; overflow-x: auto;">
+                <div class="d-flex" style="gap: 1px; overflow-x: auto;">
                     @foreach ($highlights as $highlight)
-                        <div class="position-relative d-flex flex-column align-items-center"
-                            style="flex-shrink: 0; width: 90px; cursor: pointer; margin-top: 10px; margin-left:10px; margin-bottom:10px;"
+                        <div class=" d-flex flex-column ; padding-left: 20px;"
+                            style="flex-shrink: 0; width: 90px; cursor: pointer; margin-top: 10px; margin-bottom:10px;"
                             wire:click="edit({{ $highlight->id }})">
 
                             @if ($highlight->canView)
                                 <img src="{{ asset('storage/' . $highlight->image) }}" alt="Sorotan"
-                                    class="rounded-circle" style="height: 90px; width: 90px; object-fit: cover;">
+                                    class="rounded-circle" style="height: 80px; width: 80px; object-fit: cover;">
                             @else
                                 <img src="{{ asset('storage/' . $highlight->image) }}" alt="Sorotan"
                                     class="rounded-circle"
-                                    style="height: 90px; width: 90px; object-fit: cover; filter: blur(10px);">
+                                    style="height: 80px; width: 80px; object-fit: cover; filter: blur(10px);">
                             @endif
 
                             <p class="mb-0 mt-1 text-center text-truncate" style="font-size:12px; max-width: 90px;">
@@ -70,7 +81,6 @@
                     </div>
                 </div>
             </div>
-
             <style>
                 @keyframes progressAnim {
                     from {
@@ -81,17 +91,9 @@
                         width: 100%;
                     }
                 }
+       
             </style>
         @endif
-
-
-
-
-
-
-
-
-
 
     </div>
 </div>

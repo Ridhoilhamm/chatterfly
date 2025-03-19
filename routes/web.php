@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\sosmed;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\PostCard;
+use App\Livewire\Anggotagrup;
 use App\Livewire\Auth\ResetPassword as AuthResetPassword;
 use App\Livewire\Daftarfriendships;
 use App\Livewire\DaftarPengguna;
@@ -26,6 +27,7 @@ use App\Livewire\Page;
 use App\Livewire\Privat;
 use App\Livewire\Profile;
 use App\Livewire\Register;
+use App\Livewire\Riwayattag;
 // use App\Livewire\SosialMedia;
 use Illuminate\Support\Facades\Route;
 
@@ -75,7 +77,7 @@ Route::get('/request', HalamanRequest::class)->name('permintaan');
 // halaman detailchat
 Route::get('/detailchat', Detailprivatechat::class)->name('detailchat');
 Route::get('/detailchatgroup', Detailgrupchat::class)->name('detailchatgroup');
-
+Route::get('/anggotagroup', Anggotagrup::class)->name('anggotagroup');
 
 // halaman detail setting
 Route::get('/informasiPribadi',InformasiPribadi::class)->name('informasiPribadi');
@@ -91,6 +93,9 @@ Route::get('/detailvideo/{user}/{post}', Detailvideo::class)->name('detailvideo'
 
 //halaman detail like
 Route::get('/like/{userId}', LikedBy::class)->name('like');
+
+//Riwayat Tag 
+Route::get('/tag', Riwayattag::class)->name('tag');
 
 
 // halaman reset passwordF

@@ -24,4 +24,9 @@ class post_foto_tag extends Model
     {
         return $this->belongsTo(User::class, 'friend_id');
     }
+    public function post()
+    {
+        return $this->belongsTo(post_foto::class, 'post_foto_id');
+    }
+  
 }

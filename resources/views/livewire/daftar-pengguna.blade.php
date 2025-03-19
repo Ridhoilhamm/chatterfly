@@ -163,22 +163,19 @@
                     <div class="content-section">
                         <div class="gallery">
                             @foreach ($postFotos as $index => $foto)
-                                @if ($foto->isBlurred)
-                                    <div
-                                        class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                <div class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                    @if ($foto->isBlurred)
                                         <img src="{{ asset($foto->image_path) }}" alt="Foto">
-                                    </div>
-                                @else
-                                    <a
-                                        href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
-                                        <div
-                                            class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
-                                            <img src="{{ asset($foto->image_path) }}" alt="Foto">
-                                        </div>
-                                @endif
+                                    @else
+                                        <a href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                            <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto"
+                                                style="">
+                                        </a>
+                                    @endif
+                                </div>
                             @endforeach
-                            </a>
                         </div>
+                        
                     </div>
                     <div class="content-section d-flex flex-wrap justify-content-center">
                         @if ($postVideos->isEmpty())
@@ -193,7 +190,7 @@
                                         </video>
                                     @else
                                         <a
-                                            href="{{ route('detailvideo', ['user' => $foto->user->id, 'post' => $video->id]) }}">
+                                            href="{{ route('detailvideo', ['user' => $video->user->id, 'post' => $video->id]) }}">
                                             <video controls>
                                                 <source src="{{ asset('storage/' . $video->video_path) }}"
                                                     type="video/mp4">
@@ -211,14 +208,17 @@
                             @foreach ($taggedPosts as $index => $post)
                                 <div
                                     class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
+                                    @if ($foto->isBlurred)
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
+                                    @else
                                     <a href="{{ route('post.detail', ['post' => $post->id]) }}">
-                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
-                                        <h5 class="card-title">{{ $post->user->name }}</h5>
-                                        <p class="card-text">{{ $post->caption }}</p>
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
                                     </a>
+                                    @endif
                                 </div>
                             @endforeach
-
+                           
+                            
                         </div>
                     </div>
                 </div>
@@ -276,6 +276,8 @@
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                     gap: 10px;
+                    height: 600px;
+                   
                 }
 
                 .gallery_b {

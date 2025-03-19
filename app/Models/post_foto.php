@@ -31,3 +31,4 @@ class post_foto extends Model
     }
 
 }
+    

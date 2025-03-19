@@ -15,7 +15,7 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/profile" class="{{ request()->is('profile') ? '#44AD9F' : 'text-secondary' }}">
+            <a href="/profile" class="{{ request()->is('profile') ? 'text-success' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-article">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -28,7 +28,7 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/group" class="{{ request()->is('group') ? '#44AD9F' : 'text-secondary' }}">
+            <a href="/group" class="{{ request()->is('group') ? 'text-success' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -41,7 +41,7 @@
             </h6>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/login-pin" class="{{ request()->is('private') ? '#44AD9F' : 'text-secondary' }}">
+            <a href="/login-pin" class="{{ request()->is('private') ? 'text-success' : 'text-secondary' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24"
                     fill="currentColor">
                     <path

@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="pt-1 text-center">
                                             <p class="small text-muted mb-1">Just now</p>
-                                            <span class="badge bg-danger float-end">1</span>
+                                            <span class="badge bg-success float-end" style="color: white">1</span>
                                         </div>
                                     </a>
                                 </li>
@@ -214,6 +214,34 @@
                a {
                 color: inherit;
                 text-decoration: none;
+            }
+            #header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 9999 !important;
+                background: transparent;
+                transition: background 0.3s ease-in-out;
+            }
+
+            #header.scrolled {
+                background: white;
+                backdrop-filter: blur(10px);
+            }
+
+            #header .icon,
+            #header P,
+            #header svg,
+            #header button {
+                transition: color 0.3s ease-in-out;
+            }
+
+            #header.scrolled .icon,
+            #header.scrolled P,
+            #header.scrolled svg,
+            #header.scrolled button {
+                color: black !important;
             }
             </style>
 

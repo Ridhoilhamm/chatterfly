@@ -38,7 +38,7 @@ class LockPage extends Component
     public function updatedAvatar()
     {
         $this->validate([
-            'avatar' => 'image|max:2048',
+            'avatar' => 'mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $user = Auth::user();
@@ -49,9 +49,10 @@ class LockPage extends Component
         $filename = uniqid() . '.' . $this->avatar->getClientOriginalExtension();
         $this->avatar->storeAs('public/users-avatar', $filename);
 
-        $user->update(['avatar' => $filename]);
+        $user->fill(['avatar' => $filename])->save();
 
         $this->previewUrl = asset('storage/users-avatar/' . $filename);
+        // dd($this->avatar); 
 
         $this->alert('success', 'Foto Profil Berhasil diganti');
     }

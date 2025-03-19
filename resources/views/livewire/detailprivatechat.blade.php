@@ -1,29 +1,27 @@
 <div>
-
     <div id="header"
-        class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-3 bg-white"
+        class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-2 bg-white"
         style="color:black">
         <div class="d-flex align-items-center">
-          <div class="d-flex align-items-center">
-            <a href="{{ URL::previous() }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M15 6l-6 6l6 6" />
-              </svg>
-            </a>
-          </div>
+            <div class="d-flex align-items-center">
+                <a href="{{ URL::previous() }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 6l-6 6l6 6" />
+                    </svg>
+                </a>
+            </div>
 
             <div class="d-flex align-items-center mt-3" style="margin-left:10px;">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-                    class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="40">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong ml-2" width="45">
                 <p class="d-flex align-items-center mt-2 ml-2">
-                    Ridho
+                    Lara Croft
                 </p>
             </div>
         </div>
-
         <div class="d-flex align-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -44,15 +42,8 @@
         </div>
     </div>
 
-    <ul class="list-unstyled container" style="padding-top: 90px">
-        <div class="container mt-4">
-            <div class="chat-container">
-                <div class="chat-bubble"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                    doloremque
-                    laudantium.</div>
-            </div>
-        </div>
-        <li class="d-flex justify-content-between mb-4">
+    <ul class="list-unstyled container" style="padding-top: 100px; padding-bottom:45px">
+        <li class="d-flex justify-content-between mb-2">
             <div class="card w-100">
                 <div class="card-header d-flex justify-content-between p-3">
                     <p class="fw-bold mb-0">Lara Croft</p>
@@ -66,11 +57,11 @@
                 </div>
             </div>
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-                class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong ml-2" width="50">
         </li>
         <li class="d-flex justify-content-between mb-4">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong mr-2" width="50">
             <div class="card">
                 <div class="card-header d-flex justify-content-between p-3">
                     <p class="fw-bold mb-0">Brad Pitt</p>
@@ -84,48 +75,58 @@
                 </div>
             </div>
         </li>
-
+        <li class="d-flex justify-content-between mb-2">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
+                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong mr-2" width="50">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">Brand Pitt</p>
+                    <p class="text-muted small mb-0"><i class="far fa-clock"></i> 9 mins ago</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="d-flex justify-content-between mb-2">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
+                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong mr-2" width="50">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">Brand Pitt</p>
+                    <p class="text-muted small mb-0"><i class="far fa-clock"></i> 9 mins ago</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </li>
     </ul>
     <form class="comment-form bg-white">
         <input type="text" placeholder="Tulis komentar..." />
-        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram">
+        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
             </svg></button>
     </form>
 
+
     <style>
-        .chat-bubble {
-            background-color: #ffffff;
-            color: #2a2a2a;
-            padding: 10px 15px;
-            border-radius: 0px 15px 15px 15px;
-            display: inline-block;
-            max-width: 60%;
-            position: relative;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
-
-        .chat-bubble::before {
-            content: "";
-            position: absolute;
-            left: -10px;
-            top: 6%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid #ffffff;
-        }
-
-        .chat-container {
-            display: flex;
-            justify-content: flex-start;
-            padding: 10px;
-        }
-
+        [x-cloak] {
+                display: none !important;
+            }
         .comment-form {
             position: fixed;
             bottom: 0;
@@ -153,6 +154,26 @@
             border-radius: 20px;
             cursor: pointer;
         }
+        #header {
+                background: transparent;
+                color: white;
+                transition: background 0.3s, color 0.3s;
+                z-index: 1000;
+            }
+
+            #header.scrolled {
+                background: white;
+                color: black;
+            }
+
+            #header svg {
+                transition: color 0.3s;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
     </style>
 
 </div>

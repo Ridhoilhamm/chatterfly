@@ -9,17 +9,30 @@
                     <path d="M15 6l-6 6l6 6" />
                 </svg>
             </a>
-            <p class="mb-0  me-2 " style="margin-right:10px; font-size:20px;">Permintaan Pertemanan</p>
+            <p class="mb-0  me-2 " style="margin-right:10px; font-size:18px;">Riwayat Menandai Postingan Kamu</p>
 
             <span class="px-3 py-1 rounded text-white"
                 style="
                 background: linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141));">
-                {{ $pendingRequests->count() }}
             </span>
         </div>
     </div>
-    <div class="full-height bg-white mt-1">
-        <livewire:daftarfriendships />
+    <div>
+        <div class="full-height bg-white">
+            @if ($taggedUsers->isEmpty())
+                <p>Tidak ada yang menandai Anda.</p>
+            @else
+                <ul>
+                    @foreach ($taggedUsers as $tag)
+                        <div class="pt-2 pb-2">
+                            <img src="{{ $tag->post->user->avatar ?? 'https://via.placeholder.com/40' }}" 
+                            alt="Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                            <strong>{{ $tag->post->user->name ?? 'Unknown' }}</strong> menandai Anda dalam sebuah postingan.
+                        </div>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
     </div>
 
     <style>
@@ -30,10 +43,10 @@
 
         .full-height {
             min-height: 100vh;
+            /* Set tinggi minimal 100% dari viewport */
             display: flex;
             flex-direction: column;
         }
-    </style>
     </style>
 
 </div>

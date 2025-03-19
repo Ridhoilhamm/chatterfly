@@ -13,29 +13,27 @@
             background-position: center;">
 
 
-                <div id="header" class="position-fixed w-100 top-0 start-0 p-2" style="position: relative;">
-                    <p wire:click="togglePrivacy" class="mt-2" style="margin-left:10px;">
-                        @if ($isPrivate)
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
-                                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-                                <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                            </svg>
-                        @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open-2">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M3 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
-                                <path d="M9 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-                                <path d="M13 11v-4a4 4 0 1 1 8 0v4" />
-                            </svg>
+                <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
+                    <p wire:click="togglePrivacy" class="mt-2" ">
+                         @if ($isPrivate)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                            <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                            <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                            <path d="M13 11v-4a4 4 0 1 1 8 0v4" />
+                        </svg>
                         @endif
                     </p>
 
@@ -44,9 +42,12 @@
                         {{ Str::title(Auth::user()->name) }}
                     </p>
 
-                    <div data-bs-toggle="modal" data-bs-target="#notifikasi" class="position-absolute"
-                        style="top:50%; right:10px; transform: translateY(-50%);">
-                        {{ $pendingRequests->count() }}
+                    <div data-bs-toggle="modal" data-bs-target="#notifikasi"
+                        class="position-absolute d-flex align-items-center gap-2"
+                        style="top:50%; right:5px; transform: translateY(-60%); cursor: pointer;">
+
+                        <p class="mb-0 mt-2"> {{ $pendingRequests->count() }}</p>
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user">
@@ -58,16 +59,14 @@
 
                 </div>
                 {{-- modals notifikasi --}}
-
-
-                <div class="d-flex justify-content-center " style="padding-top: 100px;">
-                    <div class="d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center" style="padding-top: 100px;">
+                    <div class="d-flex justify-content-center align-items-center mr-5">
                         <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}" alt="User Avatar"
                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
 
                     <div class="ms-3" style="margin-left:20px;" style="margin-top:100px;">
-                        <div class="justify-content-end text-center text-white">
+                        <div class="justify-content-end  text-white">
                             <div class="d-flex justify-content-center text-center">
                                 <div>
                                     <p class="mb-1 h5" style="font-size:14px;">{{ $postCount }}</p>
@@ -98,8 +97,6 @@
                                     </div>
                                 </a>
                             </div>
-
-
 
                             <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
                                 <a href={{ route('page') }}>
@@ -132,90 +129,122 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card-body p-0 text-black bg-white"
-                style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
-
-
-                <div class="d-flex justify-content-center mt-0 mb-0">
-                    <div class="menu-item active" onclick="scrollToSection(0)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-layout-grid mt-1">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                            <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                            <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                            <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                        </svg>
-                    </div>
-                    <div class="menu-item" onclick="scrollToSection(1)">
-                        <i class="bi bi-camera-reels fs-5" style="font-size:20px"></i>
-                    </div>
-                    <div class="menu-item" onclick="scrollToSection(2)">
-                        <i class="bi bi-person-square fs-3" style="font-size:20px"></i>
-                    </div>
+        </div>
+        <div class="card-body p-0 text-black bg-white"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
+            <div class="d-flex justify-content-center mt-2 mb-0">
+                <div class="menu-item active" onclick="scrollToSection(0)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-layout-grid mt-1">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                    </svg>
                 </div>
+                <div class="menu-item" onclick="scrollToSection(1)">
+                    <i class="bi bi-camera-reels fs-5" style="font-size:20px"></i>
+                </div>
+                <div class="menu-item text-center" onclick="scrollToSection(2)">
+                    <p class="d-flex justify-contet-center align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-user-square text-center">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 10a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            <path d="M6 21v-1a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v1" />
+                            <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+                        </svg>
+                    </p>
+                </div>
+            </div>
 
 
-                {{-- content --}}
-                <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
-                    <div class="content-section">
-                        <div class="gallery">
-                            @foreach ($postFotos as $index => $foto)
+            {{-- content --}}
+            <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
+
+                <style>
+                    .gallery {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 10px;
+                    }
+
+                    .gallery-item {
+                        overflow: hidden;
+                        border-radius: 10px;
+                    }
+
+                    .gallery-item img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 10px;
+                    }
+
+                    .large {
+                        grid-row: span 2;
+                    }
+
+                    .blurred img {
+                        filter: blur(5px);
+                    }
+                </style>
+                <div class="content-section">
+                    <div class="gallery">
+                        @foreach ($postFotos as $index => $foto)
+                            <div class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
                                 @if ($foto->isBlurred)
-                                    <div
-                                        class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
-                                        <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
-                                    </div>
+                                    <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
                                 @else
-                                    <a
-                                        href="{{ route('detailpostinganpribadi', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
-                                        <div
-                                            class="gallery-item {{ $index % 1 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
-                                            <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
-                                        </div>
+                                    <a href="{{ route('detailpostinganpribadi', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                        <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
                                     </a>
                                 @endif
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="content-section">
-                        <div class="gallery">
-                            @foreach ($postVideos as $video)
-                                <div class="video-container">
-                                    @if ($video->isBlurred)
-                                        <video class="blurred-video" style="filter: blur(10px);">
-                                            <source src="{{ asset('storage/' . $video->video_path) }}"
-                                                type="video/mp4">
-                                        </video>
-                                    @else
+                  
+                </div>
+                <div class="content-section d-flex flex-wrap justify-content-center">
+                    @if ($postVideos->isEmpty())
+                        <p class="text-center text-black w-100">Belum ada video yang diunggah.</p>
+                    @else
+                        @foreach ($postVideos as $video)
+                            <div class="video-container">
+                                @if ($video->isBlurred)
+                                    <video class="blurred-video" style="filter: blur(10px);">
+                                        <source src="{{ asset('storage/' . $video->video_path) }}"
+                                            type="video/mp4">
+                                    </video>
+                                @else
+                                    <a
+                                        href="{{ route('detailvideo', ['user' => $video->user->id, 'post' => $video->id]) }}">
                                         <video controls>
                                             <source src="{{ asset('storage/' . $video->video_path) }}"
                                                 type="video/mp4">
                                         </video>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="content-section">
-                        <div class="gallery">
-
-                            @forelse($taggedPosts as $post)
-                                <div
-                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
-                                    <a href="{{ route('post.detail', ['post' => $post->id]) }}">
-                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
-
                                     </a>
-                                </div>
-                            @empty
-                                <p>Tidak ada foto yang menandai kamu.</p>
-                            @endforelse
-                        </div>
+                                @endif
+                            </div>
+                        @endforeach
 
+                    @endif
+                </div>
+                <div class="content-section">
+                    <div class="gallery">
+                        @foreach ($taggedPosts as $index => $post)
+                            <div
+                                class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
+                                <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
+                                </a>
+                            </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -234,12 +263,11 @@
             });
         </script>
         <style>
-            .content-container {}
-
             #header {
                 background: transparent;
                 color: white;
                 transition: background 0.3s, color 0.3s;
+                z-index: 1000;
             }
 
             #header.scrolled {
@@ -259,11 +287,11 @@
             .menu-item {
                 cursor: pointer;
                 padding: 50px;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
                 padding-top: 10px;
                 position: relative;
-            }
 
+            }
             .menu-item.active::after {
                 content: "";
                 position: absolute;
@@ -276,53 +304,13 @@
                 border-radius: 3px;
             }
 
-            .menu-item.active i {
+            .menu-item.active i, {
                 color: #44AD9F !important;
-            }
-
-            .content-container {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .content-section {
-                min-width: 100%;
-                scroll-snap-align: start;
-                padding: 10px;
-            }
-
-            .gallery {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-
-            .gallery img {
-                width: 100%;
-                border-radius: 15px;
-                object-fit: cover;
-            }
-
-            .large {
-                grid-row: span 2;
-                height: 100%;
-            }
-
-            .small-images {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .small-images img {
-                height: 50%;
             }
 
             .active-indicator {
                 position: absolute;
-                bottom: 20px;
+                bottom: 5px;
                 left: 0;
                 width: 50px;
                 height: 50px;
@@ -333,9 +321,59 @@
             }
 
             .nav-btn {
-                position: relative;
                 top: -5px;
             }
+
+            .content-container {
+                    display: flex;
+                    overflow-x: auto;
+                    scroll-snap-type: x mandatory;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .content-section {
+                    min-width: 100%;
+                    scroll-snap-align: start;
+                    padding: 10px;
+                }
+
+                .gallery {
+
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    height: 600px;
+                   
+                }
+
+                .gallery_b {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                }
+
+                .gallery img {
+                    width: 100%;
+                    border-radius: 15px;
+                    object-fit: cover;
+                }
+
+                .large {
+                    grid-row: span 2;
+                    height: 100%;
+                }
+
+                .small-images {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .small-images img {
+                    height: 50%;
+                }
+
+
 
             .custom-navbar {
                 position: fixed;
