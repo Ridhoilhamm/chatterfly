@@ -14,61 +14,92 @@
     </div>
     <div style="margin-top:65px">
         @foreach ($posts as $post)
-            <div style="position: relative; width: 100%; max-width: 600px;">
-                <img src="{{ asset('storage/' . $post->image_path) }}" alt="Foto Besar"
-                    style="width: 100%; height: 280px; object-fit: cover;  border-radius: 0px;">
-                <div class="d-flex justify-content-center"
-                    style="position: absolute; bottom: 10px; left: 15%; transform: translateX(-50%);
-                            display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.5);
+            <div id="post-container" data-post-id="{{ request()->segment(3) }}">
+                <div style="position: relative; width: 100%; max-width: 600px;">
+
+                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Foto Besar"
+                        style="width: 100%; height: auto; object-fit: contain; border-radius: 0px;">
+
+                    <a href="{{ route('detailpengguna', $user->id) }}">
+                        <div class="d-flex justify-content-center"
+                            style="position: absolute; bottom: 10px; left: 15%; transform: translateX(-50%);
+                            display: flex; align-items: center; gap: 8px;background: 
+                    linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141));
                             padding: 5px 10px; border-radius: 20px; color: white;">
-
-                    <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="Avatar"
-                        class="rounded-circle"
-                        style="width: 35px; height: 35px; object-fit: cover; border: 2px solid white;">
-
-                    <p style="margin: 0; font-size: 12px;">{{ $user->name }}</p>
-                </div>
-                <div
-                    style="position: absolute; bottom: 20px; right: 10px; 
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="Avatar"
+                                    class="rounded-circle"
+                                    style="width: 35px; height: 35px; object-fit: cover; border: 2px solid white;">
+    
+                                <p class="ml-1 mt-2" style=" font-size: 14px;">{{ $user->name }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div
+                        style="position: absolute; bottom: 20px; right: 10px; 
                        display: flex; flex-direction: column; align-items: center; 
                        gap: 10px; background: 
                     linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141)) bottom; 
                        padding: 10px; border-radius: 10px; color: white;">
 
-                    <div class="mb-0">
-                        <livewire:post-like :post="$post" />
-                    </div>
+                        <div class="mb-0">
+                            <livewire:post-like :post="$post" />
+                        </div>
 
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <i class="fas fa-comment" style="color: white; cursor: pointer; font-size: 20px;"
-                            data-toggle="modal" data-target="#commentModal-{{ $post->id }}"></i>
-                        <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">
-                            {{ $post->comments()->count() }}
-                        </p>
-                    </div>
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <i class="fas fa-comment" style="color: white; cursor: pointer; font-size: 20px;"
+                                data-toggle="modal" data-target="#commentModal-{{ $post->id }}"></i>
+                            <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">
+                                {{ $post->comments()->count() }}
+                            </p>
+                        </div>
 
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fas fa-share" style="color: white; cursor: pointer; font-size: 20px;"></i>
-                        <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">Share</p>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fas fa-share" style="color: white; cursor: pointer; font-size: 20px;"></i>
+                            <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">Share</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(() => {
+                            const postId = "{{ request()->route('postId') }}";
+                            if (postId) {
+                                const target = document.getElementById('post-' + postId);
+                                if (target) {
+                                    const targetPosition = target.offsetTop;
+                                    const offset = 150;
 
+                                    window.requestAnimationFrame(() => {
+                                        window.scrollTo({
+                                            top: targetPosition - offset,
+                                            behavior: 'smooth'
+                                        });
+                                    });
+
+                                    console.log("Scrolling to:", targetPosition - offset);
+                                }
+                            }
+                        }, 300);
+                    });
+                </script>
+            </div>
             <div x-data="{ expanded: false }" class="content-box"
                 style="background: white; padding: 5px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto;">
                 <p x-bind:class="expanded ? 'expanded' : 'collapsed'" class="text mb-0"
                     style="transition: max-height 0.4s ease-in-out; font-size: 14px; line-height: 1.6; color: #333;">
-                    {{ $post->caption }}
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, tempora odio molestias suscipit architecto, quibusdam nulla, beatae nemo in consequatur libero vitae magnam molestiae. Ad iste iusto nam aut ipsum!
                 </p>
                 <div style="display: flex; justify-content: flex-end;">
                     <button @click="expanded = !expanded" class="btn-toggle"
-                        style="background: none; border: none; color: #007bff; font-size: 14px; cursor: pointer; padding: 5px;">
+                        style="background: none; border: none; color: #141516; font-size: 14px; cursor: pointer; padding: 5px;">
                         <span x-text="expanded ? 'Tampilkan Lebih Sedikit' : 'Baca Selengkapnya'"></span>
                     </button>
                 </div>
             </div>
-
+            
             {{-- Modal Komentar --}}
             <div class="modal fade" id="commentModal-{{ $post->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-slide-up">
@@ -85,8 +116,6 @@
         @endforeach
     </div>
 
-
-    {{--  --}}
     <div class="modal fade" id="modal-setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-slide-half" role="document">
@@ -139,8 +168,6 @@
             </div>
         </div>
     </div>
-
-
     {{-- modals share postingan --}}
     @php
         use App\Models\Friendship;
@@ -170,12 +197,11 @@
                                 <img src="{{ asset('storage/users-avatar/' . $friendUser->avatar) }}"
                                     alt="Avatar {{ $friendUser->name }}" width="40" height="40"
                                     class="rounded-circle me-2" style="margin-right: 10px;">
-                                    <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
+                                <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
 
                             </div>
                         @endforeach
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -209,12 +235,10 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
-
         .expanded {
             max-height: 600px;
             overflow: visible;
         }
-
         .modal-dialog-slide-up {
             position: fixed;
             bottom: 0;

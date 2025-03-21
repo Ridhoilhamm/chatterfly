@@ -15,7 +15,6 @@ use App\Livewire\Detailpostinganpribadi;
 use App\Livewire\Detailprivatechat;
 use App\Livewire\Detailtagpostingan;
 use App\Livewire\Detailvideo;
-use App\Livewire\Friendships;
 use App\Livewire\Group;
 use App\Livewire\HalamanAndaKenal;
 use App\Livewire\HalamanRequest;
@@ -32,11 +31,9 @@ use App\Livewire\Riwayattag;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('users.footer');
+    return redirect('/login');
 });
-Route::get('/user', function () {
-    return view('users.test');
-});
+
 
 // auth 
 Route::get('/login', Login::class)->name('login');
@@ -53,14 +50,12 @@ Route::get('/private', function () {
 })->middleware('auth')->name('private');
 
 
-
 // halaman page 
-Route::get('/page', Page::class)->name('page');
-Route::get('/profile', Profile::class)->name('profile');
-Route::get('/bio', LockPage::class)->name('bio');
-Route::get('/private', Privat::class)->name('private');
-Route::get('/group', Group::class)->name('group');
-
+Route::get('/page', Page::class)->name('page')->middleware('auth');
+Route::get('/profile', Profile::class)->name('profile')->middleware('auth');
+Route::get('/bio', LockPage::class)->name('bio')->middleware('auth');
+Route::get('/private', Privat::class)->name('private')->middleware('auth');
+Route::get('/group', Group::class)->name('group')->middleware('auth');
 
 //halaman detail
 Route::get('/detailpengguna/{userId}',DaftarPengguna::class)->name('detailpengguna');

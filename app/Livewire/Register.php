@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Register extends Component
 {
-    public $name, $email, $password, $password_confirmation;
+    public $name, $email, $password, $password_confirmation,$phone_number,$gender;
 
     public function register()
     {
@@ -17,17 +17,21 @@ class Register extends Component
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'phone_number' => ['required', 'numeric', 'digits_between:11,15'],
+            'gender' => ['required', 'in:laki-laki,perempuan'],
         ]);
 
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
+            'phone_number' =>$this->phone_number,
+            'gender' => $this->gender,
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('profile'); // Sesuaikan dengan halaman setelah login
+        return redirect()->route('profile');
     }
     public function render()
     {

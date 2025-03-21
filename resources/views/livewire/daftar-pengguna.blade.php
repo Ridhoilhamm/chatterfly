@@ -115,15 +115,35 @@
                 style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
 
 
-                <div class="d-flex justify-content-center position-relative mt-0 mb-0">
+                <div class="d-flex justify-content-center mt-2 mb-0">
                     <div class="menu-item active" onclick="scrollToSection(0)">
-                        <i class="bi bi-grid-3x3-gap-fill" style="font-size:20px"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-layout-grid mt-1">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        </svg>
                     </div>
                     <div class="menu-item" onclick="scrollToSection(1)">
                         <i class="bi bi-camera-reels fs-5" style="font-size:20px"></i>
                     </div>
-                    <div class="menu-item" onclick="scrollToSection(2)">
-                        <i class="bi bi-person-square fs-3" style="font-size:20px"></i>
+                    <div class="menu-item text-center" onclick="scrollToSection(2)">
+                        <p class="d-flex justify-contet-center align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-square text-center">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M9 10a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                <path d="M6 21v-1a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v1" />
+                                <path
+                                    d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+                            </svg>
+                        </p>
                     </div>
                 </div>
 
@@ -163,11 +183,13 @@
                     <div class="content-section">
                         <div class="gallery">
                             @foreach ($postFotos as $index => $foto)
-                                <div class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                                <div
+                                    class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
                                     @if ($foto->isBlurred)
                                         <img src="{{ asset($foto->image_path) }}" alt="Foto">
                                     @else
-                                        <a href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                        <a
+                                            href="{{ route('detailpostingan', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
                                             <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto"
                                                 style="">
                                         </a>
@@ -175,7 +197,6 @@
                                 </div>
                             @endforeach
                         </div>
-                        
                     </div>
                     <div class="content-section d-flex flex-wrap justify-content-center">
                         @if ($postVideos->isEmpty())
@@ -209,31 +230,31 @@
                                 <div
                                     class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
                                     @if ($foto->isBlurred)
-                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
                                     @else
-                                    <a href="{{ route('post.detail', ['post' => $post->id]) }}">
-                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
-                                    </a>
+                                        <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
+                                        </a>
                                     @endif
                                 </div>
                             @endforeach
-                           
-                            
+
+
                         </div>
                     </div>
                 </div>
             </div>
             <style>
+                .menu-item.active svg {
+                    color: #44AD9F !important;
+                }
                 .blurred img {
                     filter: blur(10px);
                     transition: filter 0.3s ease-in-out;
                 }
-
-
                 .a {
                     text-decoration: none;
                 }
-
                 .menu-item {
                     cursor: pointer;
                     padding: 55px;
@@ -277,7 +298,7 @@
                     grid-template-columns: 1fr 1fr;
                     gap: 10px;
                     height: 600px;
-                   
+
                 }
 
                 .gallery_b {
@@ -329,11 +350,9 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    /* Supaya video tetap full dalam frame */
                     border-radius: 10px;
                 }
 
-                /* Responsif: jika layar kecil, hanya 1 kolom */
                 @media (max-width: 600px) {
                     .video-container {
                         width: 100%;

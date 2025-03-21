@@ -11,10 +11,7 @@ class post_foto extends Model
 
     protected $fillable = ['user_id', 'image_path', 'caption'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
 
     public function comments()
     {
@@ -22,13 +19,15 @@ class post_foto extends Model
     }
     public function likes()
     {
-        return $this->hasMany(Like::class, 'post_foto_id'); 
+        return $this->hasMany(Like::class, 'post_foto_id');
     }
 
     public function taggedFriends()
     {
         return $this->belongsToMany(User::class, 'post_foto_tags', 'post_foto_id', 'friend_id');
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // Pastikan 'user_id' sesuai dengan nama kolom di tabel
+    }
 }
-    

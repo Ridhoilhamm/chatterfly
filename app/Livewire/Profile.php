@@ -13,12 +13,12 @@ use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
-
     use LivewireAlert;
     use WithFileUploads;
     public $photo;
     public $caption;
     public $user;
+    public $post;
     public $userId;
     public $selectedUser;
     public $postFotos;
@@ -33,7 +33,6 @@ class Profile extends Component
 
     public function mount()
     {
-
         session()->put('hideNavbar', true);
         session()->forget('hideFooter');
         $this->userId = Auth::id();
@@ -73,6 +72,26 @@ class Profile extends Component
                 $query->where('friend_id', $this->userId);
             })->with('user', 'taggedFriends')->latest()->get();
     }
+
+    public function saveUserAndPostIdToSession($postId)
+    {
+        $post = post_foto::find($postId);
+        
+        // Debugging sebelum redirect
+        // dd($postId, $post);
+    
+        if ($post) {
+            session()->put('current_user_id', $post->user_id);
+            session()->put('current_post_id', $postId);
+            return redirect()->route('detailpostinganpribadi', [
+                'user' => $post->user_id, 
+                'post' => $postId
+            ]);
+        } else {
+            return redirect()->route('home')->with('error', 'Post tidak ditemukan');
+        }
+    }
+    
 
     public function togglePrivacy()
     {

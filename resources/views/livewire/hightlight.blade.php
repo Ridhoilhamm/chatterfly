@@ -1,6 +1,5 @@
 <div style="background-color: #CCFFE6;">
     <div class="">
-
         <div>
             <div class="d-flex align-items-center" style="gap: 10px; overflow-x: auto; white-space: nowrap;">
                 @if (Auth::id() === $selectedUserId)
@@ -19,11 +18,11 @@
                         </svg>
                         <input type="file" id="highlightUpload" wire:model.live="image" accept="image/*"
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
-                        </div>
-                        <div style="background-color: #44ad9fc5; width:54px;">
-                        </div>
+                    </div>
+                    <div style="background-color: #44ad9fc5; width:66px;">
+                </div>
                 @endif
-                <div class="d-flex" style="gap: 1px; overflow-x: auto;">
+                <div class="d-flex ml-3" style="gap: 1px; overflow-x: auto;">
                     @foreach ($highlights as $highlight)
                         <div class=" d-flex flex-column ; padding-left: 20px;"
                             style="flex-shrink: 0; width: 90px; cursor: pointer; margin-top: 10px; margin-bottom:10px;"
@@ -61,7 +60,6 @@
                             <img src="{{ asset('storage/' . $selectedHighlight->image) }}"
                                 class="w-100 h-100 object-fit-contain">
                         </div>
-
                         <div class="position-absolute bottom-0 start-0 w-100 mt-2">
                             <div class="progress" style="height: 5px;">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
@@ -91,7 +89,6 @@
                         width: 100%;
                     }
                 }
-       
             </style>
         @endif
 

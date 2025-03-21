@@ -50,12 +50,13 @@
                                         @enderror
                                     </div>
                                     <div class="form-outline form-white mb-2">
-                                        <input type="number" wire:model="nomer" class="form-control form-control-lg"
-                                            placeholder="No Tlp" style="font-size: 18px;" required />
-                                        @error('nomer')
+                                        <input type="number" wire:model="phone_number"
+                                            class="form-control form-control-lg" placeholder="No Tlp"
+                                            style="font-size: 18px;" required />
+                                        @error('phone_number')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                    </div>                                    
+                                    </div>
                                     <div class="position-relative">
                                         <input type="password" wire:model="password" id="typePasswordX"
                                             class="form-control form-control-lg pr-5 mb-2" placeholder="Kata Sandi"
@@ -73,15 +74,19 @@
                                     <div class="form-outline form-white mb-3">
                                         <div class="d-flex align-items-center">
                                             <div class="form-check" class="mr-2">
-                                                <input class="form-check-input" type="radio" id="laki" wire:model="jenis_kelamin" name="jenis_kelamin" value="Laki-laki" required>
-                                                <label class="form-check-label text-secondary" for="laki">Laki-laki</label>
+                                                <input class="form-check-input" type="radio" id="laki"
+                                                    wire:model="gender" name="gender" value="laki-laki" required>
+                                                <label class="form-check-label text-secondary pt-1"
+                                                    for="laki">Laki-laki</label>
                                             </div>
                                             <div class="form-check ml-2">
-                                                <input class="form-check-input" type="radio" id="perempuan" wire:model="jenis_kelamin" name="jenis_kelamin" value="Perempuan" required>
-                                                <label class="form-check-label text-secondary" for="perempuan">Perempuan</label>
+                                                <input class="form-check-input" type="radio" id="perempuan"
+                                                    wire:model="gender" name="gender" value="Perempuan" required>
+                                                <label class="form-check-label text-secondary pt-1"
+                                                    for="perempuan">Perempuan</label>
                                             </div>
                                         </div>
-                                        @error('jenis_kelamin')
+                                        @error('gender')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -92,7 +97,7 @@
 
                                             if (passwordField.type === "password") {
                                                 passwordField.type = "text";
-                                                icon.classList.remove("fa-eye-slash");
+                                                icon.classList.remove("fa-eye-slash");.
                                                 icon.classList.add("fa-eye");
                                             } else {
                                                 passwordField.type = "password";
@@ -128,6 +133,35 @@
         a {
             color: inherit;
             text-decoration: none;
+        }
+
+        .form-check-input {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #44AD9F;
+            appearance: none;
+            background-color: white;
+
+            border: 2px solid #44AD9F;
+           
+            border-radius: 50%;
+        }
+
+        
+        .form-check-input:checked {
+            background-color: #44AD9F;
+           
+        }
+        .form-check-input:checked::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 

@@ -2,7 +2,8 @@
     <footer class="fixed-bottom py-2 d-flex justify-content-around border-top "
         style=" background-color: hsl(210, 17%, 93%); border-radius: 20px 20px 0 0;">
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/chatterfly" class="{{ request()->is('chatterfly') ? 'text-success' : 'text-secondary' }}">
+            <a href="/chatterfly" class="{{ request()->is('chatterfly') ? 'text-custom' : 'text-secondary' }}"
+                style="{{ request()->is('chatterfly') ? 'color: #44AD9F;' : '' }}">  
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                     class="icon icon-tabler icons-tabler-filled icon-tabler-message-chatbot">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

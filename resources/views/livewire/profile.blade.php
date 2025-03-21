@@ -3,6 +3,8 @@
         <div class="col-12 p-0">
             <div
                 style="
+                position: relative;
+    z-index: 10;
             border-bottom-right-radius: 15px; 
             border-bottom-left-radius: 15px; 
             height: 250px; 
@@ -15,7 +17,7 @@
 
                 <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
                     <p wire:click="togglePrivacy" class="mt-2" ">
-                         @if ($isPrivate)
+                            @if ($isPrivate)
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
@@ -109,7 +111,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <livewire:hightlight />
@@ -131,7 +132,7 @@
             </div>
         </div>
         <div class="card-body p-0 text-black bg-white"
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;z-index: 1;">
             <div class="d-flex justify-content-center mt-2 mb-0">
                 <div class="menu-item active" onclick="scrollToSection(0)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -197,18 +198,19 @@
                 <div class="content-section">
                     <div class="gallery">
                         @foreach ($postFotos as $index => $foto)
-                            <div class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
+                            <div
+                                class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
                                 @if ($foto->isBlurred)
                                     <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
                                 @else
-                                    <a href="{{ route('detailpostinganpribadi', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
+                                    <a
+                                        href="{{ route('detailpostinganpribadi', ['user' => $foto->user->id, 'post' => $foto->id]) }}">
                                         <img src="{{ asset('storage/' . $foto->image_path) }}" alt="Foto">
                                     </a>
                                 @endif
                             </div>
                         @endforeach
                     </div>
-                  
                 </div>
                 <div class="content-section d-flex flex-wrap justify-content-center">
                     @if ($postVideos->isEmpty())
@@ -218,8 +220,7 @@
                             <div class="video-container">
                                 @if ($video->isBlurred)
                                     <video class="blurred-video" style="filter: blur(10px);">
-                                        <source src="{{ asset('storage/' . $video->video_path) }}"
-                                            type="video/mp4">
+                                        <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
                                     </video>
                                 @else
                                     <a
@@ -241,7 +242,7 @@
                             <div
                                 class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
                                 <a href="{{ route('post.detail', ['post' => $post->id]) }}">
-                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto" >
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
                                 </a>
                             </div>
                         @endforeach
@@ -254,7 +255,7 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var header = document.getElementById("header");
                 window.addEventListener("scroll", function() {
-                    if (window.scrollY > 50) { // atur threshold sesuai kebutuhan
+                    if (window.scrollY > 50) { 
                         header.classList.add("scrolled");
                     } else {
                         header.classList.remove("scrolled");
@@ -292,6 +293,7 @@
                 position: relative;
 
             }
+
             .menu-item.active::after {
                 content: "";
                 position: absolute;
@@ -304,13 +306,18 @@
                 border-radius: 3px;
             }
 
-            .menu-item.active i, {
+            .menu-item.active i {
                 color: #44AD9F !important;
             }
 
+            .menu-item.active svg {
+                color: #44AD9F !important;
+            }
+
+
             .active-indicator {
                 position: absolute;
-                bottom: 5px;
+                bottom: 20px;
                 left: 0;
                 width: 50px;
                 height: 50px;
@@ -325,58 +332,57 @@
             }
 
             .content-container {
-                    display: flex;
-                    overflow-x: auto;
-                    scroll-snap-type: x mandatory;
-                    -webkit-overflow-scrolling: touch;
-                }
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
 
-                .content-section {
-                    min-width: 100%;
-                    scroll-snap-align: start;
-                    padding: 10px;
-                }
+            .content-section {
+                min-width: 100%;
+                scroll-snap-align: start;
+                padding: 10px;
+            }
 
-                .gallery {
+            .gallery {
 
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                    height: 600px;
-                   
-                }
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                height: 600px;
 
-                .gallery_b {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                }
+            }
 
-                .gallery img {
-                    width: 100%;
-                    border-radius: 15px;
-                    object-fit: cover;
-                }
+            .gallery_b {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
 
-                .large {
-                    grid-row: span 2;
-                    height: 100%;
-                }
+            .gallery img {
+                width: 100%;
+                border-radius: 15px;
+                object-fit: cover;
+            }
 
-                .small-images {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                }
+            .large {
+                grid-row: span 2;
+                height: 100%;
+            }
 
-                .small-images img {
-                    height: 50%;
-                }
+            .small-images {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
 
-
+            .small-images img {
+                height: 50%;
+            }
 
             .custom-navbar {
                 position: fixed;
+                z-index:2;
                 bottom: 60px;
                 left: 50%;
                 transform: translateX(-50%);
