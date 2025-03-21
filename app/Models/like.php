@@ -18,6 +18,6 @@ class like extends Model
 
     public function post()
     {
-        return $this->belongsTo(post_foto::class);
+        return $this->belongsTo(post_foto::class, 'post_foto_id');
     }
 }

@@ -1,7 +1,7 @@
 <div style="background-color: #CCFFE6;">
     <div class="">
         <div>
-            <div class="d-flex align-items-center" style="gap: 10px; overflow-x: auto; white-space: nowrap;">
+            <div class="no-scrollbar d-flex align-items-center" style="gap: 10px; overflow-x: auto; white-space: nowrap;">
                 @if (Auth::id() === $selectedUserId)
                     <div class="d-flex position-absolute align-items-center justify-content-center custom-upload"
                         style="background-color:#44ad9fc5; height: 145px; width: 60px; border-radius: 0 60px 60px 0; cursor: pointer; overflow: hidden; flex-shrink: 0;">
@@ -20,7 +20,7 @@
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
                     </div>
                     <div style="background-color: #44ad9fc5; width:66px;">
-                </div>
+                    </div>
                 @endif
                 <div class="d-flex ml-3" style="gap: 1px; overflow-x: auto;">
                     @foreach ($highlights as $highlight)
@@ -36,9 +36,8 @@
                                     class="rounded-circle"
                                     style="height: 80px; width: 80px; object-fit: cover; filter: blur(10px);">
                             @endif
-
                             <p class="mb-0 mt-1 text-center text-truncate" style="font-size:12px; max-width: 90px;">
-                                {{ Str::limit($highlight->title, 6, '...') }}
+                                {{ Str::limit($highlight->title, 8, '...') }}
                             </p>
                         </div>
                     @endforeach
@@ -84,10 +83,17 @@
                     from {
                         width: 0%;
                     }
-
                     to {
                         width: 100%;
                     }
+                }
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .no-scrollbar {
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
                 }
             </style>
         @endif

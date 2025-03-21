@@ -115,7 +115,7 @@
                 style="border-top-left-radius: 15px; border-top-right-radius: 15px; padding-bottom:50px;">
 
 
-                <div class="d-flex justify-content-center mt-2 mb-0">
+                <div class="d-flex justify-content-center mb-0">
                     <div class="menu-item active" onclick="scrollToSection(0)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
@@ -244,7 +244,7 @@
                     </div>
                 </div>
             </div>
-            <style>
+            <style> 
                 .menu-item.active svg {
                     color: #44AD9F !important;
                 }

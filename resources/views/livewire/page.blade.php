@@ -329,10 +329,10 @@ background-repeat: no-repeat;
     </script>
 
     <style>
-            a {
-                color: inherit;
-                text-decoration: none;
-            }
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                }
 
         #header {
             position: fixed;

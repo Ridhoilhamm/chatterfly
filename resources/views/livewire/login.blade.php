@@ -134,7 +134,7 @@
                             <div>
                                 <p class="mb-0">Belum Punya Akun?
                                     <a href="registrasi" class="text-white-50 fw-bold"
-                                        style="text-decoration: underline">Buat Akun</a>
+                                        style="text-decoration: underline; color:#44AD9F">Buat Akun</a>
                                 </p>
                             </div>
                         </div>

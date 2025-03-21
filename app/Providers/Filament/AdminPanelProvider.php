@@ -23,12 +23,16 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandLogo(asset('logo.png'))
+            ->brandName('Admin Dashboard')
+            ->brandLogoHeight('50px')
             ->default()
             ->id('admin')
             ->path('admin')
+            ->font('ubuntu')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Hex('#FFFFFF'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

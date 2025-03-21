@@ -3,8 +3,6 @@
         $currentUserId = auth()->id();
         $viewedUserId = request()->segment(2);
     @endphp
-
-    <!-- Tombol Obrolan -->
     <a
         href="{{ $friendshipStatus && optional($friendshipStatus)->status == 'approved' && (optional($friendshipStatus)->user_id == $currentUserId || optional($friendshipStatus)->friend_id == $currentUserId) ? url('/chatify/' . $viewedUserId) : 'javascript:void(0);' }}">
         <button class="btn fs-7 me-2 bg-transparent px-4"
@@ -14,8 +12,6 @@
             Obrolan
         </button>
     </a>
-
-    <!-- Tombol Undang -->
     <button class="btn fs-7"
     wire:click="invite({{ intval($viewedUserId) }})"
     style="width: 115px; border-radius: 10px; border: none; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color: white;">
@@ -29,7 +25,5 @@
         Berteman
     @endif
 </button>
-
-
 
 </div>

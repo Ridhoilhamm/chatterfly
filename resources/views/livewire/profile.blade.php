@@ -13,11 +13,9 @@
                         url('https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(116).webp'); 
             background-size: cover; 
             background-position: center;">
-
-
                 <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
                     <p wire:click="togglePrivacy" class="mt-2" ">
-                            @if ($isPrivate)
+                             @if ($isPrivate)
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
@@ -58,7 +56,6 @@
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                         </svg>
                     </div>
-
                 </div>
                 {{-- modals notifikasi --}}
                 <div class="d-flex justify-content-center" style="padding-top: 100px;">
@@ -93,7 +90,7 @@
                                 <a href="{{ route('like', $user->id) }}">
                                     <div>
                                         <p class="mb-1 h5" style="font-size:14px;">
-                                            {{ Auth::user()->following()->count() }}
+                                            {{ $user->totalLikes()->count() }}
                                         </p>
                                         <p class="small mb-0 me-1">Disenangi</p>
                                     </div>
@@ -255,7 +252,7 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var header = document.getElementById("header");
                 window.addEventListener("scroll", function() {
-                    if (window.scrollY > 50) { 
+                    if (window.scrollY > 50) {
                         header.classList.add("scrolled");
                     } else {
                         header.classList.remove("scrolled");
@@ -382,7 +379,7 @@
 
             .custom-navbar {
                 position: fixed;
-                z-index:2;
+                z-index: 2;
                 bottom: 60px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -592,7 +589,7 @@
             <div class="active-indicator" x-ref="indicator"></div>
         </div>
         <script>
-            function navbarHandler() {
+           function navbarHandler() {
                 return {
                     homeText: "Unggah",
                     activeIndex: 1,
@@ -660,6 +657,7 @@
                     }
                 };
             }
+
         </script>
 
     </div>

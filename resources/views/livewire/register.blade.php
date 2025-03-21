@@ -57,6 +57,17 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="form-outline form-white mb-3">
+                                        <select class="form-control form-control-lg" wire:model="gender" required
+                                            style="font-size:18px;">
+                                            <option value="" disabled selected>Pilih Gender</option>
+                                            <option class="" value="laki-laki">Laki-laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
+                                        @error('gender')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                     <div class="position-relative">
                                         <input type="password" wire:model="password" id="typePasswordX"
                                             class="form-control form-control-lg pr-5 mb-2" placeholder="Kata Sandi"
@@ -71,25 +82,8 @@
                                         <i class="fa fa-eye position-absolute" id="togglePassword"
                                             style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                                     </div>
-                                    <div class="form-outline form-white mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="form-check" class="mr-2">
-                                                <input class="form-check-input" type="radio" id="laki"
-                                                    wire:model="gender" name="gender" value="laki-laki" required>
-                                                <label class="form-check-label text-secondary pt-1"
-                                                    for="laki">Laki-laki</label>
-                                            </div>
-                                            <div class="form-check ml-2">
-                                                <input class="form-check-input" type="radio" id="perempuan"
-                                                    wire:model="gender" name="gender" value="Perempuan" required>
-                                                <label class="form-check-label text-secondary pt-1"
-                                                    for="perempuan">Perempuan</label>
-                                            </div>
-                                        </div>
-                                        @error('gender')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+
+
                                     <script>
                                         document.getElementById("togglePassword").addEventListener("click", function() {
                                             let passwordField = document.getElementById("typePasswordX");
@@ -116,7 +110,7 @@
                                 <div class="mt-4">
                                     <p class="mb-0">Sudah Punya Akun?
                                         <a href="{{ route('login') }} " class="text-white-50 fw-bold"
-                                            style="text-decoration: underline;">Masuk</a>
+                                            style="text-decoration: underline; color:#44AD9F">Masuk</a>
                                     </p>
                                 </div>
 
@@ -143,15 +137,16 @@
             background-color: white;
 
             border: 2px solid #44AD9F;
-           
+
             border-radius: 50%;
         }
 
-        
+
         .form-check-input:checked {
             background-color: #44AD9F;
-           
+
         }
+
         .form-check-input:checked::before {
             content: "";
             width: 8px;

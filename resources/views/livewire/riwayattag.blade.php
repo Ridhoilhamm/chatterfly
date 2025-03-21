@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-white d-flex align-items-center justify-content-between p-3 border-bottom shadow-sm ">
+    <div class="bg-white d-flex align-items-center fixed-top justify-content-between p-3 border-bottom shadow-sm ">
         <div class="d-flex align-items-center">
             <a href="/bio" class="mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -14,25 +14,34 @@
             <span class="px-3 py-1 rounded text-white"
                 style="
                 background: linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141));">
+                 {{ $taggedCount }}
             </span>
         </div>
     </div>
-    <div>
-        <div class="full-height bg-white">
-            @if ($taggedUsers->isEmpty())
-                <p>Tidak ada yang menandai Anda.</p>
+    <div style="margin-top:30px;">
+        <div class="full-height bg-white p-2 pt-5">
+            @if ($taggedPosts->isEmpty())
+                <p class="text-muted text-center">Tidak ada yang menandai Anda.</p>
             @else
-                <ul>
-                    @foreach ($taggedUsers as $tag)
-                        <div class="pt-2 pb-2">
-                            <img src="{{ $tag->post->user->avatar ?? 'https://via.placeholder.com/40' }}" 
-                            alt="Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;">
-                            <strong>{{ $tag->post->user->name ?? 'Unknown' }}</strong> menandai Anda dalam sebuah postingan.
+                <div class="list-group">
+                    @foreach ($taggedPosts as $tag)
+                    <div class="list-group-item d-flex align-items-center p-3 border-bottom">
+                        <img src="{{ asset('storage/users-avatar/' . ($tag->user->avatar ?? 'default.png')) }}"
+                            alt="Avatar" 
+                            class="rounded-circle"
+                            style="width: 40px; height: 40px; object-fit: cover; display: block; aspect-ratio: 1/1;">
+                        <div class="ml-4">
+                            <a href="{{ route('detailpengguna', $tag->user->id ?? '#') }}">
+                                <strong>{{ Str::limit($tag->user->name ?? 'Pengguna Tidak Diketahui', 15, '.') }}</strong>  
+                                <span class="text-muted">menandai Anda dalam sebuah postingannya.</span>
+                            </a>
                         </div>
-                    @endforeach
-                </ul>
+                    </div>
+                @endforeach
+                
+                </div>
             @endif
-        </div>
+        </div>  
     </div>
 
     <style>
