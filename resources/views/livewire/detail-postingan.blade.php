@@ -16,7 +16,7 @@
         @foreach ($posts as $post)
             <div style="position: relative; width: 100%; max-width: 600px;">
                 <img src="{{ asset('storage/' . $post->image_path) }}" alt="Foto Besar"
-                style="width: 100%; height: auto; object-fit: contain; border-radius: 0px;">
+                    style="width: 100%; height: auto; object-fit: contain; border-radius: 0px;">
                 <div class="d-flex justify-content-center"
                     style="position: absolute; bottom: 10px; left: 15%; transform: translateX(-50%);
                             display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.5);
@@ -52,6 +52,21 @@
                         <i class="fas fa-share" style="color: white; cursor: pointer; font-size: 20px;"></i>
                         <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">Share</p>
                     </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+                        data-bs-toggle="modal" data-bs-target="#laporkan">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-message-report">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path
+                                d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
+                            <path d="M12 8v3" />
+                            <path d="M12 14v.01" />
+                        </svg>
+
+                        <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">laporkan</p>
+                    </div>
                 </div>
             </div>
 
@@ -84,9 +99,48 @@
             </div>
         @endforeach
     </div>
+    {{-- modals laporkan --}}
+    <div wire:ignore.self class="modal fade" id="laporkan" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered custom-height-modal">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="d-flex justify-content-center mt-2">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
+                        style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-alert-square-rounded">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                            <path d="M12 8v4" />
+                            <path d="M12 16h.01" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-2 mb-2 d-flex justify-content-center">
+                    Apakah Anda Yakin Untuk Melaporkan?
+                </div>
+                <div class="mb-3 justify-content-center align-items-center text-center ">
+                    <button class="btn"
+                        style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                       color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;"
+                        data-bs-dismiss="modal">
+                        Batal
+                    </button>
+
+                    <button class="btn" wire:click="logout"
+                        style="background: linear-gradient(to right, rgba(255, 69, 58, 0.9), rgba(255, 69, 58, 0.7), rgba(255, 69, 58, 0.3)); 
+                       color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
+                        Laporkan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    {{--  --}}
+    {{-- pengaturan komentar  --}}
     <div class="modal fade" id="modal-setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-slide-half" role="document">
@@ -99,9 +153,9 @@
                     <div class="d-flex justify-content-between align-items-center py-2">
                         <p class="mb-0" style="font-size:12px;">Izinkan Semua Komentar</p>
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9 6l6 6l-6 6" />
@@ -112,9 +166,9 @@
                     <div class="d-flex justify-content-between align-items-center py-2">
                         <p class="mb-0" style="font-size:12px;">Batasi Komentar</p>
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9 6l6 6l-6 6" />
@@ -218,7 +272,9 @@
                     </div>
 
                     <div class="d-flex justify-content-center border-top pt-2">
-                        <button id="shareButton" class="btn btn-success w-100 mt-1 d-none">Bagikan</button>
+                        <button id="shareButton" class="btn w-100"
+                            style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                   color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Bagikan</button>
                     </div>
 
 
@@ -242,14 +298,12 @@
                 }
             }
 
-            // Contoh event ketika ada item yang dipilih
             document.querySelectorAll(".friend-item").forEach(item => {
                 item.addEventListener("click", function() {
                     toggleShareButton(true);
                 });
             });
 
-            // Jika tombol disembunyikan, ikon naik ke atas
             const observer = new MutationObserver(() => {
                 if (shareButton.classList.contains("d-none")) {
                     iconContainer.style.marginTop = "0px";
@@ -285,7 +339,15 @@
         }
 
         .friend-item.selected .friend-avatar {
-            border: 3px solid limegreen;
+            border: 3px solid #44AD9F;
+        }
+
+        #laporkan .modal-dialog {
+            max-height: 400px;
+        }
+
+        #laporkan .modal-content {
+            overflow-y: auto;
         }
 
         .modal-dialog-slide-up {
@@ -294,7 +356,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             animation: slideUp 0.3s ease-out;
         }
 
@@ -306,6 +368,18 @@
             to {
                 transform: translate(-50%, 0);
             }
+        }
+
+        .custom-height-modal .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            max-height: 180px;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         .collapsed {
@@ -355,7 +429,7 @@
         }
 
         .modal-content {
-            height: 400px;
+            height: 650px;
             display: flex;
             flex-direction: column;
         }

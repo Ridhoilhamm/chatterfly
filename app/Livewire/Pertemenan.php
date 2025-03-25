@@ -12,11 +12,13 @@ class Pertemenan extends Component
 
     public $userId;
     public $friendships;
+    public $totalPertemanan;
 
     public function mount($userId)
     {
         $this->userId = $userId;
-
+        session()->put('hideNavbar', true);
+        session()->put('hideFooter', true);
         $this->friendships = Friendship::where(function ($query) {
             $query->where('user_id', $this->userId)
                   ->orWhere('friend_id', $this->userId);
@@ -28,6 +30,11 @@ class Pertemenan extends Component
         }])
         ->orderByDesc('friend_count')   
         ->get();
+
+        $this->totalPertemanan = Friendship::where(function ($query) {
+            $query->where('user_id', $this->userId)
+                  ->orWhere('friend_id', $this->userId);
+        })->where('status', 'approved')->count();
     
     }
     public function hapusPertemanan($friendId)

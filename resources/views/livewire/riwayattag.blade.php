@@ -18,14 +18,14 @@
             </span>
         </div>
     </div>
-    <div style="margin-top:30px;">
-        <div class="full-height bg-white p-2 pt-5">
+    <div style="margin-top:24cm;">
+        <div class="full-height bg-white pt-5">
             @if ($taggedPosts->isEmpty())
                 <p class="text-muted text-center">Tidak ada yang menandai Anda.</p>
             @else
                 <div class="list-group">
                     @foreach ($taggedPosts as $tag)
-                    <div class="list-group-item d-flex align-items-center p-3 border-bottom">
+                    <div class="list-group-item d-flex align-items-center border-bottom">
                         <img src="{{ asset('storage/users-avatar/' . ($tag->user->avatar ?? 'default.png')) }}"
                             alt="Avatar" 
                             class="rounded-circle"

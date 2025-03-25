@@ -73,11 +73,11 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <p class="mb-0 mt-2 pb-2 pt-1" data-bs-toggle="modal" data-bs-target="#changePassword">Lihat Semua</p>
+                <p class="mb-0 mt-2 pb-2 pt-1" data-bs-toggle="modal" data-bs-target="#lihatsemua">Lihat Semua</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right" data-bs-toggle="modal"
-                    data-bs-target="#changePassword">
+                    data-bs-target="#lihatsemua">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M9 6l6 6l-6 6" />
                 </svg>
@@ -86,74 +86,47 @@
     </div>
 
     {{-- modals lihat semua anggota --}}
-    <div wire:ignore.self class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content px-3" style="border-radius: 15px; overflow: hidden;">
-            <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
-                <p class="mb-2 mt-2" style="font-size:18px;">Anggota</p>
-            </div>
-            <div class="container" style="max-height: 300px; overflow-y: auto;">
-                <div class="border-bottom">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Ikram</p>
-                    </div>
+    <div wire:ignore.self class="modal fade" id="lihatsemua" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-bottom">
+            <div class="modal-content px-3" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <p class="mb-2 mt-2" style="font-size:18px;">Anggota</p>
                 </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Jhoen Doe</p>
+                <div class="container" style="max-height: 300px; overflow-y: auto;">
+                    <div class="border-bottom">
+                        <div class="d-flex align-items-center pb-1">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
+                                class="rounded-circle" style="width:50px; height:50px;">
+                            <p style="margin-left:10px">Ikram</p>
+                        </div>
                     </div>
-                </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Doe Jhoen</p>
+                    <div class="border-bottom mt-2">
+                        <div class="d-flex align-items-center pb-1">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
+                                class="rounded-circle" style="width:50px; height:50px;">
+                            <p style="margin-left:10px">Jhoen Doe</p>
+                        </div>
                     </div>
-                </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Assep Muhammad</p>
+                    <div class="border-bottom mt-2">
+                        <div class="d-flex align-items-center pb-1">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
+                                class="rounded-circle" style="width:50px; height:50px;">
+                            <p style="margin-left:10px">Doe Jhoen</p>
+                        </div>
                     </div>
-                </div>
-                <div class="border-bottom">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Sholihin</p>
-                    </div>
-                </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Jhoen Doe</p>
-                    </div>
-                </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Doe Jhoen</p>
-                    </div>
-                </div>
-                <div class="border-bottom mt-2">
-                    <div class="d-flex align-items-center pb-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                            class="rounded-circle" style="width:50px; height:50px;">
-                        <p style="margin-left:10px">Assep Muhammad</p>
+                    <div class="border-bottom mt-2">
+                        <div class="d-flex align-items-center pb-1">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
+                                class="rounded-circle" style="width:50px; height:50px;">
+                            <p style="margin-left:10px">Assep Muhammad</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 
 
     {{-- modals logout  --}}
@@ -256,7 +229,8 @@
                             dan Keluar</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout " style="color: red">
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout "
+                            style="color: red">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
                             <path d="M9 12h12l-3 -3" />
@@ -271,7 +245,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle" style="color: red">
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"
+                            style="color: red">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 9v4" />
                             <path
@@ -291,18 +266,19 @@
             <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
                 <div class="d-flex justify-content-center mt-4">
                     <div class="d-flex justify-content-center position-relative">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" 
-                            alt="Gambar Grup" class="rounded-circle" style="width: 80px; height: 80px;">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="Gambar Grup"
+                            class="rounded-circle" style="width: 80px; height: 80px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit position-absolute"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-edit position-absolute"
                             style="bottom: 0; right: 0; background: white; border-radius: 50%; padding: 4px;">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
-                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
-                            <path d="M16 5l3 3"/>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                            <path d="M16 5l3 3" />
                         </svg>
-                    </div>         
+                    </div>
                 </div>
                 <div class="px-5">
                     <div class="mt-2 mb-2 p-2 d-flex justify-content-start border rounded"
@@ -322,10 +298,10 @@
                         Batal
                     </button>
                     <button class="btn" wire:click="updatePassword"
-                    style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                        style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
                        color: white; border: none; padding: 6px 20px; border-radius: 8px; font-weight: bold;">
-                    Simpan
-                </button>
+                        Simpan
+                    </button>
                 </div>
             </div>
         </div>
@@ -334,6 +310,20 @@
         a {
             color: inherit;
             text-decoration: none;
+        }
+
+        .modal-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal.show .modal-bottom {
+            transform: translateY(0);
         }
     </style>
 

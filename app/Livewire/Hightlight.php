@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\highlights;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,6 +20,7 @@ class Hightlight extends Component
     public $selectedUserId;
     public $userId;
     public $selectedHighlight;
+    public $newImage;
 
 
     public function mount($userId = null)
@@ -81,7 +83,6 @@ class Hightlight extends Component
 
     public function save()
     {
-        // dd($this->image);
         $this->validate([
             'image' => 'required|image|max:2048'
         ]);
@@ -130,6 +131,22 @@ class Hightlight extends Component
         $this->reset(['title', 'image', 'highlightId', 'oldImage', 'showEditModal']);
         $this->loadHighlights($this->selectedUserId);
         $this->alert('success', 'Sorotan berhasil diperbarui!');
+    }
+
+    public function updateHighlight()
+    {
+        $this->validate([
+            'selectedHighlight.title' => 'required|string|max:255',
+            'newImage' => 'nullable|image|max:2048',
+        ]);
+        dd('jdjdj');
+        if ($this->newImage) {
+            $path = $this->newImage->store('highlights', 'public');
+            Storage::disk('public')->delete($this->selectedHighlight->image);
+            $this->selectedHighlight->image = $path;
+        }
+        $this->selectedHighlight->save();
+        $this->emit('highlightUpdated');
     }
 
     public function closeModal()

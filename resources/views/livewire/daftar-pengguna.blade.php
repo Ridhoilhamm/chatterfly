@@ -106,8 +106,6 @@
 
             </div>
 
-
-
             {{-- <livewire:hightlight /> --}}
             @livewire('hightlight', ['userId' => $user->id])
 
@@ -239,7 +237,6 @@
                                 </div>
                             @endforeach
 
-
                         </div>
                     </div>
                 </div>
@@ -274,7 +271,6 @@
                     transform: translateX(-50%);
                     border-radius: 3px;
                 }
-
                 .menu-item.active i {
                     color: #44AD9F !important;
                 }
@@ -300,7 +296,6 @@
                     height: 600px;
 
                 }
-
                 .gallery_b {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
