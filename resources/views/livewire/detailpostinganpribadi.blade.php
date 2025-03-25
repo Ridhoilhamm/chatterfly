@@ -131,7 +131,8 @@
                                     Batal
                                 </button>
 
-                                <button class="btn custom-modal-button-logout" wire:click="logout">
+                                <button
+                                    class="btn custom-modal-button-logout"wire:click="hapusPostingan({{ $post->id }})">
                                     Hapus
                                 </button>
                             </div>
@@ -230,7 +231,6 @@
                             </svg>
                         </span>
                     </div>
-
                     <div class="d-flex justify-content-between align-items-center py-2">
                         <p class="mb-0" style="font-size:12px;">Nonaktifkan Komentar</p>
                         <span>
@@ -248,7 +248,7 @@
             </div>
         </div>
     </div>
-    {{-- modals share postingan --}}
+      {{-- modals share postingan --}}
     @php
         use App\Models\Friendship;
         use App\Models\User;
@@ -282,8 +282,6 @@
                         @endforeach
                     </div>
                     <div class="d-flex justify-content-center pt-3 mb-2" style="margin-top:100px; gap: 20px;">
-
-
                         <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2"
                             style="width: 50px; height: 50px;">
                             <a href="https://wa.me/08970915625">
@@ -339,6 +337,35 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editCaptionModal" tabindex="-1" aria-labelledby="editCaptionModalLabel"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog  modal-dialog-slide-up">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCaptionModalLabel">Edit Caption</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" style="padding: 70px;" wire:model="newCaption">
+                    <div class="mt-2 d-flex justify-content-end">
+                        <button type="button" class="btn mr-2"
+                            style="background: transparent; 
+                        color: rgba(0, 0, 0, 0.712); 
+                        border: 1px solid rgba(0, 0, 0, 0.712); 
+                        padding: 10px 20px; 
+                        border-radius: 8px; 
+                        font-weight: bold; 
+                        margin-right: 10px;"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn "
+                            style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                               color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;"
+                            wire:click.prevent="updateCaption">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const shareButton = document.getElementById("shareButton");
@@ -381,8 +408,6 @@
             document.getElementById('shareButton').style.display = 'block';
         }
     </script>
-
-
     <div class="modal fade" id="pengaturan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-slide-up">
             <div class="modal-content">
@@ -406,6 +431,22 @@
                             </p>
                             <p class="ml-2" data-bs-toggle="modal" data-bs-target="#arsippostingan">Arsipkan
                                 Postingan</p>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                            <p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                    <path d="M16 5l3 3" />
+                                </svg>
+                            </p>
+                            <p class="ml-2" data-bs-toggle="modal" data-bs-target="#editCaptionModal"
+                                wire:click="editCaption({{ $post->id }})">Edit Caption
+                            </p>
                         </div>
                         <div class="d-flex justify-content-start">
                             <p>
@@ -429,6 +470,7 @@
             </div>
         </div>
     </div>
+
     <style>
         .friend-item {
             cursor: pointer;
@@ -450,6 +492,14 @@
         }
 
         #exampleModal .modal-content {
+            overflow-y: auto;
+        }
+
+        #editCaptionModal .modal-dialog {
+            max-height: 350px;
+        }
+
+        #editCaptionModal .modal-content {
             overflow-y: auto;
         }
 
@@ -489,6 +539,23 @@
             border-radius: 8px;
             font-weight: bold;
         }
+
+        .edit-caption-modal {
+            max-width: 500px;
+        }
+
+        .edit-caption-modal .modal-content {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .edit-caption-modal .modal-body {
+            overflow-y: auto;
+            /* Agar kontennya bisa di-scroll jika lebih panjang */
+            max-height: 200px;
+            /* Batasi tinggi bagian body modal */
+        }
+
 
         .modal-dialog-slide-up {
             position: fixed;
@@ -578,6 +645,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             var modalElement = document.getElementById("hapuspostingan");
             var modalElement = document.getElementById("arsippostingan");
+            var modalElement = document.getElementById("editCaptionModal");
             modalElement.addEventListener("hidden.bs.modal", function() {
                 document.body.classList.remove("modal-open");
                 document.querySelector(".modal-backdrop")?.remove();

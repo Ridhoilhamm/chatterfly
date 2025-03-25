@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\post_foto;
+use App\Models\PostFoto;
 use App\Models\User;
 use Livewire\Component;
 
@@ -14,7 +15,10 @@ class DetailPostingan extends Component
     public function mount($user)
     {
         $this->user = User::findOrFail($user);
-        $this->posts = post_foto::where('user_id', $this->user->id)->get();
+        $this->posts = post_foto::where('user_id', $this->user->id)
+            ->with('likes.user') // Ambil user yang melakukan like
+            ->get();
+
         session()->put('hideNavbar', true);
         session()->put('hideFooter', true); 
     }
@@ -28,3 +32,4 @@ class DetailPostingan extends Component
           ->section('content');
     }
 }
+
