@@ -1,0 +1,21 @@
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
+
+@config 'tailwind.config.js';
+
+.fi-sidebar-nav {
+    background-color: #60A5FA !important;
+    color: white;
+}
+.span {
+    color: white;
+}
+
+/* .fi-section-content {
+    background-color: #6366F1 !important;
+    border-radius: 0.75rem !important; 
+    color: white;
+    padding: 2rem !important;
+    height: auto !important;
+    max-height: 250px !important;
+    overflow: auto;
+} */

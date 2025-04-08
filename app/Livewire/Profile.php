@@ -53,7 +53,6 @@ class Profile extends Component
             ->select('users.id', 'users.name', 'users.avatar')
             ->get();
 
-
         $this->friendshipsCount = DB::table('friendships')
             ->select('friend_id', DB::raw('COUNT(*) as total'))
             ->where('status', 'approved')

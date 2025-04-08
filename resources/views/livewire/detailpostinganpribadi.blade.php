@@ -180,7 +180,6 @@
                     </button>
                 </div>
             </div>
-
             {{-- Modal Komentar --}}
             <div class="modal fade" id="commentModal-{{ $post->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-slide-up">
@@ -196,7 +195,6 @@
             </div>
         @endforeach
     </div>
-
     <div class="modal fade" id="modal-setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-slide-half" role="document">
@@ -244,7 +242,6 @@
                         </span>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -294,7 +291,6 @@
                                     <path
                                         d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
                                 </svg>
-
                             </a>
                         </div>
                         <div
@@ -323,16 +319,12 @@
                             </svg>
                         </div>
                     </div>
-
                     <div class="d-flex justify-content-center border-top pt-2">
                         <button id="shareButton" class="btn w-100"
                             style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
                        color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Bagikan</button>
                     </div>
-
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -378,15 +370,11 @@
                     shareButton.classList.add("d-none");
                 }
             }
-
-            // Contoh event ketika ada item yang dipilih
             document.querySelectorAll(".friend-item").forEach(item => {
                 item.addEventListener("click", function() {
                     toggleShareButton(true);
                 });
             });
-
-            // Jika tombol disembunyikan, ikon naik ke atas
             const observer = new MutationObserver(() => {
                 if (shareButton.classList.contains("d-none")) {
                     iconContainer.style.marginTop = "0px";
@@ -400,11 +388,9 @@
                 attributeFilter: ["class"]
             });
         });
-
         function selectFriend(element) {
             document.querySelectorAll('.friend-item').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
-
             document.getElementById('shareButton').style.display = 'block';
         }
     </script>
@@ -551,9 +537,7 @@
 
         .edit-caption-modal .modal-body {
             overflow-y: auto;
-            /* Agar kontennya bisa di-scroll jika lebih panjang */
             max-height: 200px;
-            /* Batasi tinggi bagian body modal */
         }
 
 

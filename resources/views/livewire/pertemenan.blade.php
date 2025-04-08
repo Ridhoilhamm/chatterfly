@@ -23,7 +23,6 @@
         </div>
     </div>
 
-
     <div class="pt-1 full-height bg-white" style="margin-top:48px;">
 
         @php $shownFriends = []; @endphp
@@ -35,7 +34,6 @@
                     continue;
                 }
             @endphp
-
             {{-- <a style="color: inherit; text-decoration: none;" href="{{ route('detailpengguna', $friend->id) }}"> --}}
             <div
                 class="d-flex align-items-center justify-content-between bg-white p-2 rounded w-100 border-bottom shadow-sm">
@@ -47,28 +45,24 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn"
-                        style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3));  color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Pesan</button>
-
                     <button class="btn btn-light p-0 border-0 d-flex justify-content-center align-items-center bg-white"
-                        data-bs-toggle="modal" data-bs-target="#deletepertemanan">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-trash mr-2">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 7l16 0" />
-                            <path d="M10 11l0 6" />
-                            <path d="M14 11l0 6" />
-                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                        </svg>
-                    </button>
-
+                    data-bs-toggle="modal" data-bs-target="#deletepertemanan">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-trash mr-2">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 7l16 0" />
+                    <path d="M10 11l0 6" />
+                    <path d="M14 11l0 6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                </svg>
+            </button>
+            <button class="btn"
+                style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3));  color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Pesan</button>
                 </div>
             </div>
-
-
 
             @php $shownFriends[] = $friend->id; @endphp
         @endforeach
@@ -123,7 +117,6 @@
             display: flex;
             flex-direction: column;
         }
-
         a {
             color: inherit;
             text-decoration: none;

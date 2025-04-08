@@ -19,7 +19,8 @@
             <textarea wire:model="caption" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <button type="submit" class="btn " style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                               color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Upload</button>
     </form>
 
     @if ($video instanceof \Livewire\TemporaryUploadedFile)

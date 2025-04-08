@@ -37,13 +37,11 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
-                
+                @endforeach       
                 </div>
             @endif
         </div>  
     </div>
-
     <style>
         a {
             color: inherit;
