@@ -2,20 +2,14 @@
 
 @config 'tailwind.config.js';
 
-.fi-sidebar-nav {
-    background-color: #60A5FA !important;
-    color: white;
-}
+
 .span {
     color: white;
 }
 
-/* .fi-section-content {
-    background-color: #6366F1 !important;
-    border-radius: 0.75rem !important; 
+.fi-section-content {
+    background: linear-gradient(to left, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)) !important;
+    border-radius: 0.75rem !important;
     color: white;
-    padding: 2rem !important;
-    height: auto !important;
-    max-height: 250px !important;
-    overflow: auto;
-} */
+}
+

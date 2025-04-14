@@ -125,5 +125,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(post_foto::class, 'post_foto_tag', 'friend_id', 'post_foto_id');
     }
-    
+
+    public function reportsMade()
+    {
+        return $this->hasMany(Laporan::class, 'user_id');
+    }
+
+    public function appeals()
+    {
+        return $this->hasMany(Appeal::class);
+    }
 }

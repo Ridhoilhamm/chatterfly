@@ -1,31 +1,56 @@
 <div class="min-vh-100 bg-white">
-    <div id="header"
-        class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-3 bg-white"
-        style="color:black">
-        <div class="d-flex align-items-center">
-
-            <p class="d-flex align-items-center mt-3" style="margin-left:10px;">
-                Private Chat
-            </p>
+    <div x-data="{ searchOpen: false }">
+        <div id="header"
+            class="position-fixed w-100 top-0 start-0 transition-all d-flex justify-content-between align-items-center p-3 bg-white"
+            style="color:black">
+            <div class="d-flex align-items-center position-relative" style="width: 100%;">
+                <p class="d-flex align-items-center mt-3 position-absolute"
+                    style="margin-left: 10px; transition: opacity 0.3s ease-in-out;" x-show="!searchOpen" x-cloak>
+                    Private Chat
+                </p>
+                <div class="input-group rounded position-absolute w-100" style="transition: opacity 0.3s ease-in-out;"
+                    x-show="searchOpen" x-cloak x-transition>
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                        aria-describedby="search-addon">
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-search ml-2"
+                    style="margin-right:10px; cursor: pointer;" @click="searchOpen = !searchOpen">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    <path d="M21 21l-6 -6" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-filter" data-bs-toggle="modal"
+                    data-bs-target="#modalsfiltering" >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" />
+                </svg>
+            </div>
         </div>
-
-        <div class="d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-search"
-                style="margin-right:10px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                <path d="M21 21l-6 -6" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-filter" data-bs-toggle="modal"
-                data-bs-target="#modalsfiltering">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                    d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" />
-            </svg>
+        {{-- modals filtering --}}
+        <div class="modal fade" id="modalsfiltering" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="margin-top: 70px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px">Pilih Tanggal</h5>
+                    </div>
+                    <div class="modal-body d-flex">
+                        <input type="date" name="query"
+                            class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
+                            style="padding: 10px 10px; font-size: 14px; margin-right: 5px; color: black; width: 500px;">
+                        <button class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px;  font-size: 14px;"
+                            type="submit">
+                            Cari
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <section class="full-height " style="padding-top:40px;">

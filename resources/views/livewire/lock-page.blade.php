@@ -433,7 +433,7 @@
             var modal = document.getElementById('tambahpin');
 
             modal.addEventListener('hidden.bs.modal', function() {
-                document.body.classList.remove('modal-open'); // Hilangkan efek modal
+                document.body.classList.remove('modal-open');
                 var backdrop = document.querySelector('.modal-backdrop');
                 if (backdrop) {
                     backdrop.remove();
@@ -446,7 +446,7 @@
             var modal = document.getElementById('changepassword');
 
             modal.addEventListener('hidden.bs.modal', function() {
-                document.body.classList.remove('modal-open'); // Hilangkan efek modal
+                document.body.classList.remove('modal-open');
                 var backdrop = document.querySelector('.modal-backdrop');
                 if (backdrop) {
                     backdrop.remove();
@@ -463,32 +463,53 @@
                     <div class="d-flex justify-content-center">
                         <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
                             style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24"
-                                fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24"
+                                height="24" fill="currentColor">
                                 <path
                                     d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l362.8 0c-5.4-9.4-8.6-20.3-8.6-32l0-128c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7l-91.4 0zM528 240c17.7 0 32 14.3 32 32l0 48-64 0 0-48c0-17.7 14.3-32 32-32zm-80 32l0 48c-17.7 0-32 14.3-32 32l0 128c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
                             </svg>
                         </div>
                     </div>
                     <div class="mt-2">
-                        Pengaturan 
+                        Pengaturan
                     </div>
-                    <div class=" p-2 bg-light rounded">
+                    <div class=" p-2 bg-light rounded bg-white">
                         <div class="list-group">
                             <a href="/request">
-                                <button class="list-group-item list-group-item-action d-flex align-items-center"
+                                <button class="list-group-item list-group-item-action d-flex align-items-center mb-2"
                                     data-bs-toggle="modal" data-bs-target="#notifikasipertemanan">
                                     <i class="bi bi-bell-fill" style="margin-right:10px;"></i>
                                     <span class="fw-semibold">Notifikasi Pertemanan</span>
                                 </button>
                             </a>
-                            <a href="{{route('tag')}}">
-                                <button class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="{{ route('laporan') }}">
+                                <button class="list-group-item list-group-item-action d-flex align-items-center mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#notifikasipertemanan">
+                                    <i class="bi bi-bell-fill" style="margin-right:10px;"></i>
+                                    <span class="fw-semibold">Postingan dilaporkan</span>
+                                </button>
+                            </a>
+                            <a href="{{ route('listarsippostingan') }}">
+                                <button class="list-group-item list-group-item-action d-flex align-items-center mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#notifikasipertemanan">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-restore mr-2">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M3.06 13a9 9 0 1 0 .49 -4.087" />
+                                        <path d="M3 4.001v5h5" />
+                                        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                    </svg>
+                                    <span class="fw-semibold">Arsip Postingan</span>
+                                </button>
+                            </a>
+                            <a href="{{ route('tag') }}">
+                                <button class="list-group-item list-group-item-action d-flex align-items-center mb-2">
                                     <i class="bi bi-fingerprint fs-4 text-primary me-3" style="margin-right:10px"></i>
                                     <span class="fw-semibold">Riwayat Tag dari teman</span>
                                 </button>
                             </a>
-
                             <button class="list-group-item list-group-item-action d-flex align-items-center"
                                 data-bs-toggle="modal" data-bs-target="#tambahpin">
                                 <i class="bi bi-key-fill fs-4 text-danger me-3"></i>
@@ -500,7 +521,6 @@
             </div>
         </div>
     </div>
-
     {{-- modals Logout --}}
     <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -508,7 +528,7 @@
             <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
                 <div class="d-flex justify-content-center mt-2">
                     <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
-                    style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
+                        style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round"
@@ -520,9 +540,9 @@
                         </svg>
                     </div>
                 </div>
-                    <div class="mt-2 mb-2 d-flex justify-content-center">
-                        Apakah Anda Yakin Untuk Keluar?
-                    </div>
+                <div class="mt-2 mb-2 d-flex justify-content-center">
+                    Apakah Anda Yakin Untuk Keluar?
+                </div>
                 <div class="mb-3 justify-content-center align-items-center text-center ">
                     <button class="btn"
                         style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 

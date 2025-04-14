@@ -28,6 +28,10 @@ class post_foto extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Pastikan 'user_id' sesuai dengan nama kolom di tabel
+        return $this->belongsTo(User::class, 'user_id'); 
+    }
+    public function sharedPosts()
+    {
+        return $this->hasMany(shared_post::class, 'post_id');
     }
 }

@@ -18,6 +18,8 @@ class Detailvideo extends Component
         $this->user = User::findOrFail($user);
         $this->videos = post_video::where('user_id', $this->user->id)->get();
         $this->posts = post_video::where('user_id', $this->user->id)->get();
+        session()->put('hideNavbar', true);
+        session()->put('hideFooter', true); 
     }
     public function render()
     {

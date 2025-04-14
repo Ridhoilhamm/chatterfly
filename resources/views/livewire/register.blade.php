@@ -58,13 +58,13 @@
                                         @enderror
                                     </div>
                                     <div class="form-outline form-white mb-3">
-                                        <select class="form-control form-control-lg" wire:model="gender" required
+                                        <select class="form-control form-control-lg" wire:model="jenis_kelamin" required
                                             style="font-size:18px;">
                                             <option value="" disabled selected>Pilih Gender</option>
                                             <option class="" value="laki-laki">Laki-laki</option>
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
-                                        @error('gender')
+                                        @error('jenis_kelamin')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

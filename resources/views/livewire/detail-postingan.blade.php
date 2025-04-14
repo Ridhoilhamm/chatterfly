@@ -177,11 +177,12 @@
     </div>
     @endforeach
 </div>
+
 {{-- modals laporkan --}}
 <div wire:ignore.self class="modal fade" id="laporkan" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered custom-height-modal">
-        <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+        <div class="modal-content" style="border-radius: 15px; overflow: hidden; max-height: 25vh;">
             <div class="d-flex justify-content-center mt-2">
                 <div class="d-flex align-items-center justify-content-center rounded-circle shadow bg-gradient"
                     style="width: 60px; height: 60px; background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); color:white;">
@@ -196,27 +197,10 @@
                     </svg>
                 </div>
             </div>
-            <div class="mt-2 mb-2 d-flex justify-content-center">
-                Apakah Anda Yakin Untuk Melaporkan?
-            </div>
-            <div class="mb-3 justify-content-center align-items-center text-center ">
-                <button class="btn"
-                    style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
-                       color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;"
-                    data-bs-dismiss="modal">
-                    Batal
-                </button>
-
-                <button class="btn" wire:click="logout"
-                    style="background: linear-gradient(to right, rgba(255, 69, 58, 0.9), rgba(255, 69, 58, 0.7), rgba(255, 69, 58, 0.3)); 
-                       color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
-                    Laporkan
-                </button>
-            </div>
+            @livewire('laporkan-postingan', ['postId' => $post->id])
         </div>
     </div>
 </div>
-
 
 {{-- pengaturan komentar  --}}
 <div class="modal fade" id="modal-setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -305,7 +289,6 @@
                 </div>
                 <div class="d-flex justify-content-center pt-3 mb-2" style="margin-top:100px; gap: 20px;">
 
-
                     <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2"
                         style="width: 50px; height: 50px;">
                         <a href="https://wa.me/08970915625">
@@ -318,7 +301,6 @@
                                 <path
                                     d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
                             </svg>
-
                         </a>
                     </div>
                     <div
@@ -346,14 +328,11 @@
                         </svg>
                     </div>
                 </div>
-
                 <div class="d-flex justify-content-center border-top pt-2">
                     <button id="shareButton" class="btn w-100"
                         style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
                    color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Bagikan</button>
                 </div>
-
-
             </div>
 
         </div>

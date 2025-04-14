@@ -15,7 +15,7 @@
             background-position: center;">
                 <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
                     <p wire:click="togglePrivacy" class="mt-2" ">
-                             @if ($isPrivate)
+                              @if ($isPrivate)
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
@@ -96,7 +96,6 @@
                                     </div>
                                 </a>
                             </div>
-
                             <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
                                 <a href={{ route('page') }}>
                                     <div class="d-flex align-items-center justify-content-center p-2 text-center flex-grow-1 border border-success"
@@ -160,41 +159,34 @@
                     </p>
                 </div>
             </div>
-
-
             {{-- content --}}
             <div class="content-container" onscroll="highlightActiveSection()" style="padding-bottom:40px;">
-
                 <style>
                     .gallery {
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
                         gap: 10px;
                     }
-
                     .gallery-item {
                         overflow: hidden;
                         border-radius: 10px;
                     }
-
                     .gallery-item img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
                         border-radius: 10px;
                     }
-
                     .large {
                         grid-row: span 2;
                     }
-
                     .blurred img {
                         filter: blur(5px);
                     }
                 </style>
                 <div class="content-section">
                     <div class="gallery">
-                        @foreach ($postFotos as $index => $foto)
+                        @foreach ($postFotos->where('is_arsip', false) as $index => $foto)
                             <div
                                 class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $foto->isBlurred ? 'blurred' : '' }}">
                                 @if ($foto->isBlurred)
@@ -230,7 +222,6 @@
                                 @endif
                             </div>
                         @endforeach
-
                     @endif
                 </div>
                 <div class="content-section">
@@ -243,7 +234,6 @@
                                 </a>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
             </div>
@@ -267,21 +257,17 @@
                 transition: background 0.3s, color 0.3s;
                 z-index: 1000;
             }
-
             #header.scrolled {
                 background: white;
                 color: black;
             }
-
             #header svg {
                 transition: color 0.3s;
             }
-
             a {
                 color: inherit;
                 text-decoration: none;
             }
-
             .menu-item {
                 cursor: pointer;
                 padding: 50px;
@@ -290,7 +276,6 @@
                 position: relative;
 
             }
-
             .menu-item.active::after {
                 content: "";
                 position: absolute;
@@ -342,12 +327,10 @@
             }
 
             .gallery {
-
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
                 height: 600px;
-
             }
 
             .gallery_b {
@@ -480,9 +463,9 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                        <div class="modal-header w-100 text-center">
-                            <h5 class="modal-title w-100" id="exampleModalLabel">Upload Foto</h5>
-                        </div>
+                    <div class="modal-header w-100 text-center">
+                        <h5 class="modal-title w-100" id="exampleModalLabel">Upload Foto</h5>
+                    </div>
                     <div class="modal-body">
                         <livewire:uploadfoto />
                     </div>
@@ -586,7 +569,7 @@
             <div class="active-indicator" x-ref="indicator"></div>
         </div>
         <script>
-           function navbarHandler() {
+            function navbarHandler() {
                 return {
                     homeText: "Unggah",
                     activeIndex: 1,
@@ -654,10 +637,9 @@
                     }
                 };
             }
-
         </script>
 
     </div>
-    
+
 </div>
 </div>

@@ -15,8 +15,10 @@
             </div>
 
             <div class="d-flex align-items-center mt-3" style="margin-left:10px;">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-                class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong ml-2" width="45">
+                <a href="/detailprivate">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                    class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong ml-2" width="45">
+                </a>
                 <p class="d-flex align-items-center mt-2 ml-2">
                     Lara Croft
                 </p>

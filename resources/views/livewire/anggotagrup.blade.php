@@ -28,20 +28,29 @@
         <div class="px-3">
             <div class=" border rounded p-2 pb-5" style="background-color: hsl(210, 17%, 93%);">
                 <p class="px-1">Mohon Admin Grup Memasukkan Bio...</p>
-
             </div>
         </div>
     </div>
-    <div class="container d-flex align-items-center justify-content-between w-100 border-bottom pb-2">
-        <p class="mb-0">16 Anggota</p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-            <path d="M21 21l-6 -6" />
-        </svg>
+    <div x-data="{ searchOpen: false }">
+        <div class="container d-flex align-items-center justify-content-between w-100 border-bottom pb-2">
+            <p class="mb-0" x-show="!searchOpen" x-cloak>16 Anggota</p>
+            
+            <div x-show="searchOpen" x-cloak class="mt-2 w-100 mr-2">
+                <input type="text" class="form-control" placeholder="Cari anggota...">
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+                style="cursor: pointer;"
+                @click="searchOpen = !searchOpen">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                <path d="M21 21l-6 -6" />
+            </svg>
+        </div>
+    
     </div>
+    
     <div class="container">
         <div class="px-4 pt-2 pb-2 mt-2 rounded" style="background-color: hsl(210, 17%, 93%);">
             <div class="border-bottom">

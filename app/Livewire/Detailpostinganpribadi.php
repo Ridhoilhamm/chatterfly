@@ -49,7 +49,6 @@ class Detailpostinganpribadi extends Component
     }
     
 
-
     public function hapusPostingan($postId)
     {
         $post = post_foto::find($postId);
@@ -59,6 +58,19 @@ class Detailpostinganpribadi extends Component
             $this->alert('success', 'Postingan Anda Berhasil Dihapus');
         }
     }
+
+    public function arsipkan($postId)
+    {
+        $post = post_foto::find($postId);
+    
+        if ($post && !$post->is_arsip) {
+            $post->is_arsip = true;
+            $post->save();
+    
+            $this->alert('success', 'Foto berhasil diarsipkan ');
+        }
+    }
+    
 
     public function render()
     {

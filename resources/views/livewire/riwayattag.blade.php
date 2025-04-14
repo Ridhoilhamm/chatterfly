@@ -18,8 +18,8 @@
             </span>
         </div>
     </div>
-    <div style="margin-top:24cm;">
-        <div class="full-height bg-white pt-5">
+    <div style="margin-top:70px;">
+        <div class="full-height bg-white">
             @if ($taggedPosts->isEmpty())
                 <p class="text-muted text-center">Tidak ada yang menandai Anda.</p>
             @else

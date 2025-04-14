@@ -134,6 +134,4 @@ class Profile extends Component
             'taggedPosts' => $this->taggedPosts,
         ])->extends('layouts.app')->section('content');
     }
-    
-    
 }

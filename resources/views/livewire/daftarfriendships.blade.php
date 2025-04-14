@@ -7,9 +7,11 @@
             {{-- <a href="{{ route('detailpengguna', $request->id) }}"> --}}
                 <div class="container d-flex align-items-center justify-content-center p-1 mb-1 rounded shadow-sm">
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('storage/users-avatar/' . $request->avatar) }}"
-                            alt="Avatar {{ $request->name }}" width="90" height="90" class="rounded-circle me-2"
-                            style="margin-right: 10px;">
+                        <a href="{{ route('detailpengguna', $request->id) }}">
+                            <img src="{{ asset('storage/users-avatar/' . $request->avatar) }}"
+                                alt="Avatar {{ $request->name }}" width="90" height="90" class="rounded-circle me-2"
+                                style="margin-right: 10px;">
+                        </a>
 
                         <div>
                             <span class="fw-bold mb-2">{{ $request->name }}</span>
@@ -25,9 +27,10 @@
                                     @endphp
 
                                     @foreach ($request->mutualFriends->take($maxDisplay) as $mutual)
-                                        <img src="{{ asset('storage/users-avatar/' . $mutual->avatar) }}"
-                                            alt="Avatar {{ $mutual->name }}" width="20" height="20"
-                                            class="rounded-circle me-2">
+                                    
+                                            <img src="{{ asset('storage/users-avatar/' . $mutual->avatar) }}"
+                                                alt="Avatar {{ $mutual->name }}" width="20" height="20"
+                                                class="rounded-circle me-2">
                                         <p class="text-center mb-1">{{ Str::limit($mutual->name, 6, '...') }}</p>
                                     @endforeach
 

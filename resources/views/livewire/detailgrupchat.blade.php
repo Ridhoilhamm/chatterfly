@@ -30,10 +30,7 @@
                         aria-describedby="search-addon">
                 </div>
             </div>
-    
-            <!-- Bagian Kanan (Search & Filter) -->
             <div class="d-flex align-items-center">
-                <!-- Tombol Search -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icon-tabler-search ml-2"
@@ -45,7 +42,6 @@
                 </svg>
             </div>
         </div>
-
         <div class="position-absolute bg-white p-3 shadow rounded" 
             style="top: 70px; right: 10px; width: 200px; z-index: 999;"
             x-show="dateOpen" x-cloak x-transition 
@@ -54,9 +50,6 @@
             <input type="date" id="dateFilter" class="form-control">
         </div>
     </div>
-    
-
-
 
     <ul class="list-unstyled container pb-5" style="padding-top: 100px">
         <li class="d-flex justify-content-between mb-2">
@@ -110,22 +103,23 @@
         </li>
     </ul>
 
-    <form class="comment-form bg-white">
-        <input type="text" placeholder="Tulis komentar..." />
-        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    <form class="comment-form bg-white d-flex align-items-center gap-2">
+        <input type="text" class="form-control" placeholder="Tulis komentar..." />
+        <button type="submit" class="btn d-flex justify-content-center align-items-center p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
-            </svg></button>
+            </svg>
+        </button>
     </form>
-
     <style>
         a {
             color: inherit;
             text-decoration: none;
         }
-
         .comment-form {
             position: fixed;
             bottom: 0;

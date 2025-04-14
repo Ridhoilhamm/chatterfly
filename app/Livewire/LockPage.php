@@ -36,26 +36,32 @@ class LockPage extends Component
         : asset('default-avatar.png');
     }
     public function updatedAvatar()
-    {
-        $this->validate([
-            'avatar' => 'mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ]);
+{
+    $this->validate([
+        'avatar' => 'mimes:jpeg,png,jpg,gif,webp|max:2048',
+    ]);
 
-        $user = Auth::user();
-        if ($user->avatar) {
-            Storage::delete('public/users-avatar/' . $user->avatar);
-        }
+    $user = Auth::user();
 
-        $filename = uniqid() . '.' . $this->avatar->getClientOriginalExtension();
-        $this->avatar->storeAs('public/users-avatar', $filename);
-
-        $user->fill(['avatar' => $filename])->save();
-
-        $this->previewUrl = asset('storage/users-avatar/' . $filename);
-        // dd($this->avatar); 
-
-        $this->alert('success', 'Foto Profil Berhasil diganti');
+    // Hapus avatar lama kalau ada
+    if ($user->avatar) {
+        Storage::delete('public/users-avatar/' . $user->avatar);
     }
+
+    // Gunakan nama asli file
+    $filename = $this->avatar->getClientOriginalName();
+
+    // Simpan file ke storage
+    $this->avatar->storeAs('public/users-avatar', $filename);
+
+    // Update data user
+    $user->fill(['avatar' => $filename])->save();
+
+    // Buat preview URL
+    $this->previewUrl = asset('storage/users-avatar/' . $filename);
+
+    $this->alert('success', 'Foto Profil Berhasil diganti');
+}
 
     public function updateProfile()
     {
@@ -78,12 +84,9 @@ class LockPage extends Component
         return redirect()->route('bio');
         
     }
-
-
     public function updatePassword()
     {
         $user = Auth::user();
-
         $this->validate([
             'oldPassword' => 'required',
             'newPassword' => 'required|min:6',
@@ -95,12 +98,10 @@ class LockPage extends Component
             'confirmPassword.required' => 'Konfirmasi password harus diisi.',
             'confirmPassword.same' => 'Konfirmasi password tidak cocok dengan password baru.',
         ]);
-
         if (!Hash::check($this->oldPassword, $user->password)) {
             session()->flash('error', 'Password lama salah!');
             return;
         }
-
         $user->update([
             'password' => Hash::make($this->newPassword),
         ]);
@@ -109,7 +110,6 @@ class LockPage extends Component
 
         session()->flash('message', 'Password berhasil diubah!');
     }
-
     public function sendResetLink()
     {
         $this->validate([
@@ -124,7 +124,6 @@ class LockPage extends Component
             session()->flash('error', 'Email tidak ditemukan.');
         }
     }
-    
     public function logout()
     {
         Auth::logout();
@@ -132,8 +131,6 @@ class LockPage extends Component
         session()->regenerateToken();
         return redirect('/login');
     }
-
-    
 
     public function savePin()
     {

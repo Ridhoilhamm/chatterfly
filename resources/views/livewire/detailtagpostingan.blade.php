@@ -88,6 +88,8 @@
         </div>
     </div>
     {{-- modals share --}}
+
+    {{-- query digunakan ketikan user yang sudah bertemanan --}}
     @php
         $friends = \App\Models\Friendship::where(function ($query) {
             $query->where('user_id', auth()->id())->orWhere('friend_id', auth()->id());
@@ -95,6 +97,8 @@
             ->where('status', 'approved')
             ->get();
     @endphp
+
+
 
 
     <div class="modal fade" id="sharemodals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -167,8 +171,6 @@
             </div>
         </div>
     </div>
-
-
 @empty
     <p class="text-muted">Belum ada postingan yang menandai kamu.</p>
     @endforelse

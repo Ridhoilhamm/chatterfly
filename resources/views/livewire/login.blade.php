@@ -7,7 +7,7 @@
             class="d-flex justify-content-center">
             <div class="justify-content-center pt-2">
                 <img src="{{ asset('logo pictorial3.png') }}" style="height: 90px; width:90px;" alt="Icon Chatterly">
-                <p class="mt-2 text-center" style="font-size: 20px;">Chaterrfly</p>
+                <p class="mt-2 text-center" style="font-size: 20px;">Chaterfly</p>
             </div>
         </div>
         <div style="position: relative; width: 100%; height: 80px; overflow: hidden;">
@@ -48,7 +48,6 @@
                                         document.getElementById("togglePassword").addEventListener("click", function() {
                                             let passwordField = document.getElementById("typePasswordX");
                                             let icon = this;
-
                                             if (passwordField.type === "password") {
                                                 passwordField.type = "text";
                                                 icon.classList.remove("fa-eye-slash");
@@ -89,7 +88,6 @@
                                                         @elseif (session()->has('error'))
                                                             <div class="alert alert-danger">{{ session('error') }}</div>
                                                         @endif
-
                                                         <div class="position-relative mb-0">
                                                             <input type="email"
                                                                 class="form-control w-100 pe-5 mt-2 mb-0"
@@ -123,7 +121,7 @@
                                         Masuk
                                     </button>
                                 </form>
-                                <div class="d-flex justify-content-center text-center mt-2 pt-1">
+                                <div class="d-flex justify-content-center text-center mt-3 pt-1">
                                     <a href="https://www.facebook.com/?locale=id_ID" class="text-black"><i
                                             class="fab fa-facebook-f fa-lg"></i></a>
                                     <a href="https://www.instagram.com/" class="text-black"><i
@@ -145,17 +143,11 @@
                 $hideNavbar = true;
             @endphp
         </div>
-
-                
     </section>
-
-
     <style>
         a {
             color: inherit;
             text-decoration: none;
         }
     </style>
-
-
 </div>

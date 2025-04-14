@@ -24,6 +24,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->brandLogo(asset('logo.png'))
+            ->favicon(asset('logo.png'))
             ->brandName('Admin Dashboard')
             ->brandLogoHeight('50px')
             ->default()
@@ -32,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('ubuntu')
             ->login()
             ->colors([
-                // 'primary' => Color::Hex('#FFFFFF'),
+                'primary' => Color::Teal,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

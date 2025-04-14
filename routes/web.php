@@ -5,8 +5,12 @@ use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\sosmed;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\PostCard;
+use App\Http\Livewire\ReportPost;
 use App\Livewire\Anggotagrup;
+use App\Livewire\ArsipPostingan;
+use App\Livewire\Arsippostinganall;
 use App\Livewire\Auth\ResetPassword as AuthResetPassword;
+use App\Livewire\Bandinglaporan;
 use App\Livewire\Daftarfriendships;
 use App\Livewire\DaftarPengguna;
 use App\Livewire\Detailgrupchat;
@@ -15,6 +19,7 @@ use App\Livewire\Detailpostinganpribadi;
 use App\Livewire\Detailprivatechat;
 use App\Livewire\Detailtagpostingan;
 use App\Livewire\Detailvideo;
+use App\Livewire\Dibagikan;
 use App\Livewire\Group;
 use App\Livewire\HalamanAndaKenal;
 use App\Livewire\HalamanRequest;
@@ -40,6 +45,7 @@ Route::get('/login', Login::class)->name('login');
 Route::get('/registrasi', Register::class)->name('registrasi');
 use App\Livewire\LoginWithPin;
 use App\Livewire\Pertemenan;
+use App\Livewire\Privatedetail;
 use App\Livewire\Selebritis;
 use App\Livewire\Uploadfoto;
 use PhpParser\Node\Expr\PostDec;
@@ -64,6 +70,7 @@ Route::get('/detailpostinganpribadi/{user}/{post}', Detailpostinganpribadi::clas
 
 // halaman detail tag
 Route::get('/post/{post}',Detailtagpostingan::class)->name('post.detail');
+// Route::get('/laporkan',ReportPost::class)->name('laporkan');
 
 // halaman detail pertemanan 
 Route::get('/pertemanan/{userId}', Pertemenan::class)->name('pertemanan');
@@ -92,6 +99,22 @@ Route::get('/like/{userId}', LikedBy::class)->name('like');
 //Riwayat Tag 
 Route::get('/tag', Riwayattag::class)->name('tag');
 
+// halaman riwayat detailprivatechat
+Route::get('/detailprivate', Privatedetail::class)->name('detailprivate');
+
+// halaman laporan akan postingan kita
+Route::get('/laporan', Bandinglaporan::class)->name('laporan');
+
+
+//halaman action unarsip & delete postingan
+Route::get('/arsippostingan', ArsipPostingan::class)->name('arsippostingan');
+
+// halamanarsipostingan
+Route::get('/listarsippostingan', Arsippostinganall::class)->name('listarsippostingan');
+
+
+// halaman dibagikan postingan
+Route::get('/dibagikan', Dibagikan::class)->name('dibagikan');
 
 // halaman reset passwordF
 use Illuminate\Support\Facades\Password;

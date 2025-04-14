@@ -7,9 +7,17 @@ use App\Filament\Resources\PostinganResource\RelationManagers;
 use App\Models\post_foto;
 use App\Models\Postingan;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -19,12 +27,37 @@ class PostinganResource extends Resource
     protected static ?string $model = post_foto::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationLabel = 'Postingan';
+    protected static ?string $label = 'Postingan';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                FileUpload::make('image_path')
+                    ->label('Gambar')
+                    ->directory('uploads')
+                    ->image()
+                    ->imagePreviewHeight('200')
+                    ->required(),
+
+                TextInput::make('caption')
+                    ->label('Caption')
+                    ->required()
+                    ->maxLength(255),
+
+                Select::make('user_id')
+                    ->label('Diposting Oleh')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->required(),
+
+                Toggle::make('is_arsip')
+                    ->label('Arsip')
+                    ->inline(false)
+                    ->onColor('success')
+                    ->offColor('gray')
+                    ->default(false),
             ]);
     }
 
@@ -32,13 +65,39 @@ class PostinganResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image_path')
-                ->disk('public')
-                ->url(fn ($record) => asset('storage/' . $record->image_path)),            
-                Tables\Columns\TextColumn::make('caption')
+                ImageColumn::make('image_path')
+                    ->label('Gambar')
+                    ->getStateUsing(fn($record) => asset('storage/' . $record->image_path))
+                    ->height(100)
+                    ->width(100)
+                    ->alignCenter(),
+
+                TextColumn::make('user.name')
+                    ->label('Diposting Oleh')
+                    ->alignCenter(),
+
+                TextColumn::make('caption')
+                    ->label('Caption')
+                    ->alignCenter(),
+                TextColumn::make('likes_count')
+                    ->label('Jumlah Like')
+                    ->getStateUsing(fn($record) => $record->likes()->count())
+                    ->alignCenter(),
+
+
+                ToggleColumn::make('is_arsip')
+                    ->label('Arsip')
+                    ->onColor('success')
+                    ->offColor('gray')
+                    ->alignCenter(),
             ])
             ->filters([
-                //
+                SelectFilter::make('is_arsip')
+                    ->label('Filter Arsip')
+                    ->options([
+                        true => 'Diarsipkan',
+                        false => 'Tidak Diarsipkan',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

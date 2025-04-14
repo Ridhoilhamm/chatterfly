@@ -18,8 +18,10 @@ class FriendshipResource extends Resource
     protected static ?string $model = Friendship::class;
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationLabel = 'Pertemanan';
+    protected static ?string $label = 'Pertemanan';
+    protected static ?string $navigationGroup = 'User';
 
     public static function form(Form $form): Form
     {
@@ -33,7 +35,7 @@ class FriendshipResource extends Resource
     {
         return $table
             ->columns([
-                //
+                
             ])
             ->filters([
                 //
