@@ -9,6 +9,7 @@ class Gender extends Widget
 {
     protected static string $view = 'filament.widgets.gender';
 
+
     public $perempuanCount;
     public $laki_lakiCount;
 

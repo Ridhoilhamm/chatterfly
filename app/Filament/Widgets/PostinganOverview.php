@@ -10,6 +10,8 @@ class PostinganOverview extends Widget
 {
     protected static string $view = 'filament.widgets.postingan-overview';
 
+    protected int | string | array $columnSpan = '1/3';
+
     public $totalPostingan;
 
     public function mount(): void

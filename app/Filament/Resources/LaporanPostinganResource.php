@@ -24,6 +24,7 @@ class LaporanPostinganResource extends Resource
     protected static ?string $label = 'Laporan Postingan Foto';
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle';
+    protected static ?int $navigationSort = 90;
 
     public static function form(Form $form): Form
     {
@@ -61,9 +62,18 @@ class LaporanPostinganResource extends Resource
 
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Disetujui',
+                        'rejected' => 'Ditolak',
+                    ]),
             ])
+            
             ->actions([
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

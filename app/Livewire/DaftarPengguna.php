@@ -24,7 +24,6 @@ class DaftarPengguna extends Component
     {
         session()->put('hideNavbar', true);
         session()->put('hideFooter', true);
-
         $this->userId = $userId ?? Auth::id();
         $this->getFriendshipStatus();
         $this->getPostFotos();
@@ -104,9 +103,6 @@ class DaftarPengguna extends Component
                 return $foto;
             });
     }
-
-
-
     public function getPostVideos()
     {
         $authUserId = Auth::id();
@@ -130,7 +126,6 @@ class DaftarPengguna extends Component
                 return $video;
             });
     }
-
     public function render()
     {
         $user = $this->userId ? User::find($this->userId) : null;

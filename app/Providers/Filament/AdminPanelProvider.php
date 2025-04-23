@@ -17,6 +17,10 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Filament\Widgets\PostTypeChart;
+use App\Filament\Widgets\totalLaporan;
+use App\Filament\Widgets\UserOverview;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -42,9 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                \App\Filament\Widgets\UserOverview::class,
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                UserOverview::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -1,34 +1,3 @@
-<style>
-    .a-btn-secondary {
-    background-color: #b0b0b0; /* Warna abu-abu */
-    color: white; /* Warna teks */
-    padding: 8px 16px; /* Ukuran padding */
-    border-radius: 4px; /* Membuat sudut sedikit melengkung */
-    text-decoration: none; /* Menghilangkan underline */
-    display: inline-block;
-}
-    .a-btn-danger {
-    background-color: #f44a4a; 
-    color: white; 
-    padding: 8px 16px; 
-    border-radius: 4px; 
-    text-decoration: none; 
-    display: inline-block;
-}
-    .a-btn-success {
-    background-color: #f44a4a; /* Warna abu-abu */
-    color: white; /* Warna teks */
-    padding: 8px 16px; /* Ukuran padding */
-    border-radius: 4px; /* Membuat sudut sedikit melengkung */
-    text-decoration: none; /* Menghilangkan underline */
-    display: inline-block;
-}
-
-.a-btn-secondary:hover {
-    background-color: #9a9a9a; /* Warna abu-abu lebih gelap saat hover */
-}
-
-</style>
 {{-- ---------------------- Image modal box ---------------------- --}}
 <div id="imageModalBox" class="imageModal">
     <span class="imageModal-close">&times;</span>
@@ -39,11 +8,11 @@
   <div class="app-modal" data-name="delete">
       <div class="app-modal-container">
           <div class="app-modal-card" data-name="delete" data-modal='0'>
-              <div class="app-modal-header">Apakah Anda Ingin Menghapus Dokumen chat ini?</div>
-              <div class="app-modal-body">Anda bisa membatalkan aksi ini</div>
+              <div class="app-modal-header">Are you sure you want to delete this?</div>
+              <div class="app-modal-body">You can not undo this action</div>
               <div class="app-modal-footer">
-                <a href="javascript:void(0)" class="app-btn a-btn-secondary cancel">Cancel</a>
-                  <a href="javascript:void(0)" class="app-btn a-btn-danger delete">Hapus</a>
+                  <a href="javascript:void(0)" class="app-btn cancel">Cancel</a>
+                  <a href="javascript:void(0)" class="app-btn a-btn-danger delete">Delete</a>
               </div>
           </div>
       </div>
@@ -74,8 +43,8 @@
                       ></div>
                       <p class="upload-avatar-details"></p>
                       <label class="app-btn a-btn-primary update" style="background-color:{{$messengerColor}}">
-                        Update Gambar baru
-                          <input type="file" name="attachments[]" id="fileInput" multiple accept="image/*, video/*">
+                          Upload New
+                          <input class="upload-avatar chatify-d-none" accept="image/*" name="avatar" type="file" />
                       </label>
                       {{-- Dark/Light Mode  --}}
                       <p class="divider"></p>
@@ -95,8 +64,8 @@
                       </div>
                   </div>
                   <div class="app-modal-footer">
-                      <a href="javascript:void(0)" class="app-btn a-btn-secondary cancel">Batal</a>
-                      <input type="submit" class="app-btn a-btn-success update" value="Simpan" />
+                      <a href="javascript:void(0)" class="app-btn cancel">Cancel</a>
+                      <input type="submit" class="app-btn a-btn-success update" value="Save Changes" />
                   </div>
               </form>
           </div>

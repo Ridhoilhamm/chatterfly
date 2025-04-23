@@ -3,13 +3,21 @@
 @config 'tailwind.config.js';
 
 
-.span {
+/* .span {
     color: white;
 }
+
 
 .fi-section-content {
     background: linear-gradient(to left, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)) !important;
     border-radius: 0.75rem !important;
     color: white;
+} */
+
+.fi-sidebar-nav {
+    background-color: white;
 }
 
+.fi-ta-header-ctn{
+    background-color: rgba(68, 173, 159, 0.908);
+}

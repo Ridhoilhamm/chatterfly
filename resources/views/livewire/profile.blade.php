@@ -15,7 +15,7 @@
             background-position: center;">
                 <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
                     <p wire:click="togglePrivacy" class="mt-2" ">
-                              @if ($isPrivate)
+                               @if ($isPrivate)
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
@@ -36,12 +36,10 @@
                         </svg>
                         @endif
                     </p>
-
                     <p class="m-0 text-center"
                         style="font-size:16px; padding:5px 10px; border-radius:5px; position: absolute; left:50%; top:50%; transform: translate(-50%, -50%);">
                         {{ Str::title(Auth::user()->name) }}
                     </p>
-
                     <div data-bs-toggle="modal" data-bs-target="#notifikasi"
                         class="position-absolute d-flex align-items-center gap-2"
                         style="top:50%; right:5px; transform: translateY(-60%); cursor: pointer;">
@@ -167,19 +165,23 @@
                         grid-template-columns: repeat(2, 1fr);
                         gap: 10px;
                     }
+
                     .gallery-item {
                         overflow: hidden;
                         border-radius: 10px;
                     }
+
                     .gallery-item img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
                         border-radius: 10px;
                     }
+
                     .large {
                         grid-row: span 2;
                     }
+
                     .blurred img {
                         filter: blur(5px);
                     }
@@ -257,17 +259,21 @@
                 transition: background 0.3s, color 0.3s;
                 z-index: 1000;
             }
+
             #header.scrolled {
                 background: white;
                 color: black;
             }
+
             #header svg {
                 transition: color 0.3s;
             }
+
             a {
                 color: inherit;
                 text-decoration: none;
             }
+
             .menu-item {
                 cursor: pointer;
                 padding: 50px;
@@ -276,6 +282,7 @@
                 position: relative;
 
             }
+
             .menu-item.active::after {
                 content: "";
                 position: absolute;

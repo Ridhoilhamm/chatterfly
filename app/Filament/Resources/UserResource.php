@@ -24,45 +24,46 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationGroup = 'User';
+    protected static ?int $navigationSort = 110;
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            TextInput::make('name')
-                ->label('Nama')
-                ->required()
-                ->maxLength(255),
-    
-            TextInput::make('email')
-                ->label('Email')
-                ->email()
-                ->required()
-                ->maxLength(255),
-            Select::make('jenis_kelamin')
-                ->label('Jenis Kelamin')
-                ->required()
-                ->options([
-                    'Laki-laki' => 'Laki-laki',
-                    'Perempuan' => 'Perempuan',
-                ]),
-    
-            TextInput::make('phone_number')
-                ->label('Nomor HP')
-                ->tel()
-                ->required()
-                ->maxLength(20),
-    
-            FileUpload::make('avatar')
-                ->label('Foto Profil')
-                ->image()
-                ->directory('users-avatar')
-                ->disk('public')
-                ->imagePreviewHeight('100')
-                ->loadingIndicatorPosition('left')
-                ->uploadButtonPosition('right')
-                ->removeUploadedFileButtonPosition('right')
-                ->hint('Ukuran max: 2MB'),
-        ]);
+            ->schema([
+                TextInput::make('name')
+                    ->label('Nama')
+                    ->required()
+                    ->maxLength(255),
+
+                TextInput::make('email')
+                    ->label('Email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                Select::make('jenis_kelamin')
+                    ->label('Jenis Kelamin')
+                    ->required()
+                    ->options([
+                        'Laki-laki' => 'Laki-laki',
+                        'Perempuan' => 'Perempuan',
+                    ]),
+
+                TextInput::make('phone_number')
+                    ->label('Nomor HP')
+                    ->tel()
+                    ->required()
+                    ->maxLength(20),
+
+                FileUpload::make('avatar')
+                    ->label('Foto Profil')
+                    ->image()
+                    ->directory('users-avatar')
+                    ->disk('public')
+                    ->imagePreviewHeight('100')
+                    ->loadingIndicatorPosition('left')
+                    ->uploadButtonPosition('right')
+                    ->removeUploadedFileButtonPosition('right')
+                    ->hint('Ukuran max: 2MB'),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -87,6 +88,11 @@ class UserResource extends Resource
                 TextColumn::make('total_likes')
                     ->label('Disenangi')
                     ->getStateUsing(fn($record) => $record->totalLikes()->count())
+                    ->alignCenter(),
+
+                TextColumn::make('jumlah_postingan')
+                    ->label('Jumlah Postingan')
+                    ->getStateUsing(fn($record) => $record->postFoto()->count())
                     ->alignCenter(),
                 TextColumn::make('created_at')
                     ->label('Tanggal Registrasi')

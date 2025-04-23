@@ -22,6 +22,7 @@ class BandingLaporanUserResource extends Resource
     protected static ?string $model = Appeal::class;
     protected static ?string $navigationGroup = 'Banding User';
     protected static ?string $label = 'Banding Postingan';
+    protected static ?int $navigationSort = 100;
 
     protected static ?string $navigationIcon = 'heroicon-o-stop';
 

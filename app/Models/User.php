@@ -27,7 +27,8 @@ class User extends Authenticatable
         'pin',
         'is_private',
         'phone_number',
-        'gender'
+        'gender',
+        'role'
 
     ];
 
@@ -68,17 +69,16 @@ class User extends Authenticatable
     {
         return $this->following()->where('following_id', $user->id)->exists();
     }
-    // Permintaan yang dikirim user
-    public function followRequests(): HasMany
-    {
-        return $this->hasMany(FollowRequest::class, 'follower_id');
-    }
+    // public function followRequests(): HasMany
+    // {
+    //     return $this->hasMany(FollowRequest::class, 'follower_id');
+    // }
 
-    // Permintaan yang diterima user
-    public function pendingFollowRequests(): HasMany
-    {
-        return $this->hasMany(FollowRequest::class, 'followed_id');
-    }
+    // // Permintaan yang diterima user
+    // public function pendingFollowRequests(): HasMany
+    // {
+    //     return $this->hasMany(FollowRequest::class, 'followed_id');
+    // }
 
     public function hasSentFollowRequestTo(User $user): bool
     {
@@ -101,14 +101,12 @@ class User extends Authenticatable
         return $this->hasMany(post_foto::class, 'user_id', 'id');
     }
 
-    // rekomendasi teman
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
             ->wherePivot('status', 'accepted');
     }
 
-    // Mendapatkan "teman dari teman"
     public function friendsOfFriends()
     {
         return User::whereHas('friends', function ($query) {
@@ -134,5 +132,11 @@ class User extends Authenticatable
     public function appeals()
     {
         return $this->hasMany(Appeal::class);
+    }
+
+    // Di model User
+    public function postFoto()
+    {
+        return $this->hasMany(post_foto::class);
     }
 }

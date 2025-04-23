@@ -46,7 +46,6 @@ class LaporanPostinganVideoResource extends Resource
                 // ->getStateUsing(fn($record) => asset('storage/' . $record->post->video_path))
                 // ->height(80)
                 // ->width(80),
-
                 SelectColumn::make('status')
                 ->label('Status')
                 ->options([

@@ -1,6 +1,5 @@
 <div>
     <h4>Post yang Dibagikan Kepadamu</h4>
-
     @forelse($sharedPosts as $shared)
         <div class="card mb-3">
             <div class="card-body">
@@ -15,4 +14,3 @@
         <p>Tidak ada post yang dibagikan.</p>
     @endforelse
 </div>
-

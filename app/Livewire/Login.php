@@ -34,7 +34,7 @@ class Login extends Component implements HasForms
     public function mount()
     {
         session()->put('hideNavbar', true);
-        session()->put('hideFooter', true); 
+        session()->put('hideFooter', true);
     }
 
     public function sendResetLink()
@@ -61,7 +61,14 @@ class Login extends Component implements HasForms
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             session()->regenerate();
+
+            $user = auth()->user();
+
             $this->alert('success', 'Berhasil login');
+
+            if ($user->role === 'admin') {
+                return redirect('/admin');
+            }
 
             return redirect()->route('chatterfly');
         }
@@ -72,7 +79,7 @@ class Login extends Component implements HasForms
             ->danger()
             ->send();
     }
-
+    
     public function render()
     {
         return view('livewire.login')

@@ -86,7 +86,8 @@ class LoginWithPin extends Component
             Auth::login($user);
             session()->regenerate();
             $this->alert('success', 'Berhasil Login');
-            return redirect()->route('private');
+            return redirect('/chatterfly');
+
         }
 
         $this->alert('error', 'PIN yang Anda masukkan salah!');

@@ -184,7 +184,6 @@ background-repeat: no-repeat;
                                     </span>
                                 </div>
 
-
                                 <button class="btn btn-primary rounded"
                                     style="background:white; border: none; color:black ; font-size: 18px; padding: 2px; 
            position: absolute; top: 79px; left: 85%; transform: translateX(-60%);
@@ -206,7 +205,6 @@ background-repeat: no-repeat;
                         </div>
                     </a>
                 @endforeach
-
             </div>
         </div>
 
@@ -248,7 +246,6 @@ background-repeat: no-repeat;
                 @endforeach
             </div>
         </div>
-
     </section>
     <div class="container bg-white">
         <p class=" mb-2" style="padding-top: 10px; font-size:16px;">Cari Teman</p>
