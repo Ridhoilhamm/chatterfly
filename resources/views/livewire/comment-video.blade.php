@@ -5,8 +5,7 @@
                 class="rounded-circle me-2 text-center"
                 style="width: 50px; height: 50px; object-fit: cover; margin-right:10px;">
 
-            <div class="rounded"
-                style="max-width: 90%; border-radius: 20px 20px 20px 5px; min-width: 50%; padding: 8px;">
+            <div class="rounded" style="max-width: 90%; border-radius: 20px 20px 20px 5px; min-width: 50%; padding: 8px;">
                 <strong style="font-size: 14px;">{{ $comment->user->name }}</strong>
                 <p class="mb-1" style="font-size: 14px; line-height: 1.5;">{{ $comment->comment }}</p>
                 <small class="text-muted">
@@ -18,8 +17,7 @@
 
                 @if ($replyTo === $comment->id)
                     <form wire:submit.prevent="addReply({{ $comment->id }})" class="mt-2">
-                        <textarea wire:model.defer="replyText.{{ $comment->id }}" class="form-control"
-                            placeholder="Tulis balasan..."></textarea>
+                        <textarea wire:model.defer="replyText.{{ $comment->id }}" class="form-control" placeholder="Tulis balasan..."></textarea>
                         <div class="d-flex justify-content-end mt-1">
                             <button type="submit" class="btn"
                                 style="width: 60px; height: 40px;
@@ -59,9 +57,8 @@
         <button type="submit"
             class="btn btn-primary d-flex align-items-center justify-content-center p-2 rounded-circle"
             style="width: 40px; height: 40px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icon-tabler-brand-telegram">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />

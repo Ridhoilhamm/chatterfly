@@ -1,17 +1,13 @@
 <?php
 
-use App\Http\Controllers\sosialmedia as ControllersSosialmedia;
+
 use App\Http\Controllers\ChatGroupController;
-use App\Http\Controllers\sosmed;
-use App\Http\Livewire\Auth\ResetPassword;
-use App\Http\Livewire\PostCard;
-use App\Http\Livewire\ReportPost;
+use App\Livewire\Admin\ListPertemenan;
 use App\Livewire\Anggotagrup;
 use App\Livewire\ArsipPostingan;
 use App\Livewire\Arsippostinganall;
 use App\Livewire\Auth\ResetPassword as AuthResetPassword;
 use App\Livewire\Bandinglaporan;
-use App\Livewire\Daftarfriendships;
 use App\Livewire\DaftarPengguna;
 use App\Livewire\Detailgrupchat;
 use App\Livewire\DetailPostingan;
@@ -32,7 +28,6 @@ use App\Livewire\Privat;
 use App\Livewire\Profile;
 use App\Livewire\Register;
 use App\Livewire\Riwayattag;
-// use App\Livewire\SosialMedia;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,11 +38,13 @@ Route::get('/', function () {
 // auth 
 Route::get('/login', Login::class)->name('login');
 Route::get('/registrasi', Register::class)->name('registrasi');
+
 use App\Livewire\LoginWithPin;
 use App\Livewire\Pertemenan;
 use App\Livewire\Privatedetail;
 use App\Livewire\Selebritis;
 use App\Livewire\Uploadfoto;
+use Illuminate\Support\Facades\Broadcast;
 use PhpParser\Node\Expr\PostDec;
 
 Route::get('/login-pin', LoginWithPin::class)->name('login.pin');
@@ -64,12 +61,12 @@ Route::get('/private', Privat::class)->name('private')->middleware('auth');
 Route::get('/group', Group::class)->name('group')->middleware('auth');
 
 //halaman detail
-Route::get('/detailpengguna/{userId}',DaftarPengguna::class)->name('detailpengguna');
+Route::get('/detailpengguna/{userId}', DaftarPengguna::class)->name('detailpengguna');
 Route::get('/detailpostingan/{user}/{post}', DetailPostingan::class)->name('detailpostingan');
 Route::get('/detailpostinganpribadi/{user}/{post}', Detailpostinganpribadi::class)->name('detailpostinganpribadi');
 
 // halaman detail tag
-Route::get('/post/{post}',Detailtagpostingan::class)->name('post.detail');
+Route::get('/post/{post}', Detailtagpostingan::class)->name('post.detail');
 // Route::get('/laporkan',ReportPost::class)->name('laporkan');
 
 // halaman detail pertemanan 
@@ -82,8 +79,7 @@ Route::get('/detailchatgroup', Detailgrupchat::class)->name('detailchatgroup');
 Route::get('/anggotagroup', Anggotagrup::class)->name('anggotagroup');
 
 // halaman detail setting
-Route::get('/informasiPribadi',InformasiPribadi::class)->name('informasiPribadi');
-
+Route::get('/informasiPribadi', InformasiPribadi::class)->name('informasiPribadi');
 
 // halaman detail Mungkin Anda Kenal
 Route::get('/allUser', HalamanAndaKenal::class)->name('mungkinAndaKenal');
@@ -112,12 +108,12 @@ Route::get('/arsippostingan', ArsipPostingan::class)->name('arsippostingan');
 // halamanarsipostingan
 Route::get('/listarsippostingan', Arsippostinganall::class)->name('listarsippostingan');
 
-
 // halaman dibagikan postingan
 Route::get('/dibagikan', Dibagikan::class)->name('dibagikan');
 
 // halaman reset passwordF
 use Illuminate\Support\Facades\Password;
+
 Route::get('reset-password/{token}', AuthResetPassword::class)->name('password.reset');
 Route::get('upload', Uploadfoto::class)->name('upload');
 // Route::get('foto', PostCard::class)->name('foto');
@@ -128,3 +124,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/groups', [ChatGroupController::class, 'store']);
     Route::post('/groups/{groupId}/add-member', [ChatGroupController::class, 'addMember']);
 });
+
+
+// list pertemanan admin
+
+
+Route::get('/test', ListPertemenan::class)->name('test');

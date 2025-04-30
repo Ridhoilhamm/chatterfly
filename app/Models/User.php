@@ -69,16 +69,6 @@ class User extends Authenticatable
     {
         return $this->following()->where('following_id', $user->id)->exists();
     }
-    // public function followRequests(): HasMany
-    // {
-    //     return $this->hasMany(FollowRequest::class, 'follower_id');
-    // }
-
-    // // Permintaan yang diterima user
-    // public function pendingFollowRequests(): HasMany
-    // {
-    //     return $this->hasMany(FollowRequest::class, 'followed_id');
-    // }
 
     public function hasSentFollowRequestTo(User $user): bool
     {
@@ -136,6 +126,46 @@ class User extends Authenticatable
 
     // Di model User
     public function postFoto()
+    {
+        return $this->hasMany(post_foto::class);
+    }
+
+    public function friendships()
+    {
+        return $this->hasMany(Friendship::class, 'user_id');
+    }
+
+    public function inverseFriendships()
+    {
+        return $this->hasMany(Friendship::class, 'friend_id');
+    }
+
+    public function getFriendsAttribute()
+    {
+        $approved1 = $this->friendships()
+            ->where('status', 'approved')
+            ->with('friend')
+            ->get()
+            ->pluck('friend');
+        $approved2 = $this->inverseFriendships()
+            ->where('status', 'approved')
+            ->with('user')
+            ->get()
+            ->pluck('user');
+
+        return $approved1->merge($approved2);
+    }
+
+    public function totalFriends()
+    {
+        return Friendship::query()
+            ->where('status', 'approved')
+            ->where(function ($q) {
+                $q->where('user_id', $this->id)
+                    ->orWhere('friend_id', $this->id);
+            });
+    }
+    public function posts()
     {
         return $this->hasMany(post_foto::class);
     }

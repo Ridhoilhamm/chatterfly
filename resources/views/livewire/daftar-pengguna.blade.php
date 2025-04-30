@@ -56,13 +56,11 @@
                 </div>
 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
-
                 <div class="d-flex justify-content-center p-5">
                     <div class="d-flex justify-content-center align-items-center">
                         <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="User Avatar"
                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
-
                     <div class="ms-3 mt-0" style="margin-left:5px;">
                         <div class="justify-content-center text-center text-white">
                             <div class="d-flex justify-content-center text-center">
@@ -241,17 +239,20 @@
                     </div>
                 </div>
             </div>
-            <style> 
+            <style>
                 .menu-item.active svg {
                     color: #44AD9F !important;
                 }
+
                 .blurred img {
                     filter: blur(10px);
                     transition: filter 0.3s ease-in-out;
                 }
+
                 .a {
                     text-decoration: none;
                 }
+
                 .menu-item {
                     cursor: pointer;
                     padding: 55px;
@@ -271,6 +272,7 @@
                     transform: translateX(-50%);
                     border-radius: 3px;
                 }
+
                 .menu-item.active i {
                     color: #44AD9F !important;
                 }
@@ -296,6 +298,7 @@
                     height: 600px;
 
                 }
+
                 .gallery_b {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
@@ -387,9 +390,6 @@
                     });
                 }
             </script>
-
-
-
             {{-- modals --}}
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -410,7 +410,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- modals foto --}}
             <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
                 aria-hidden="true">
@@ -430,7 +429,6 @@
                     </div>
                 </div>
             </div>
-
             <style>
                 .active-indicator {
                     position: absolute;
@@ -490,6 +488,5 @@
                     border-radius: 20px;
                 }
             </style>
-
         </div>
     </div>

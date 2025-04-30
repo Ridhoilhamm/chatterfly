@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class friendship extends Model
+class Friendship extends Model
 {
     use HasFactory;
 
@@ -20,5 +20,4 @@ class friendship extends Model
     {
         return $this->belongsTo(User::class, 'friend_id');
     }
-
 }

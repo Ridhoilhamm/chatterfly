@@ -1,6 +1,6 @@
 <div>
     <button wire:click="arsipkan" class="btn custom-modal-button-logout">
-        Arsipkan
+        Arsipkanp
     </button>
 
     @if (session()->has('message'))

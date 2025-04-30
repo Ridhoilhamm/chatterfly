@@ -5,9 +5,9 @@ namespace App\Livewire;
 use App\Models\post_foto;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Uploadfoto extends Component
 {
@@ -24,9 +24,13 @@ class Uploadfoto extends Component
         $this->friends = User::where('id', '!=', Auth::id())->get();
     }
 
+    public function updatedPhoto()
+    {
+        $this->dispatch('show-photo-modal');
+    }
+
     public function uploadPhoto()
     {
-        // dd($this->video);
         $this->validate([
             'photo' => 'required|image|max:2048',
             'caption' => 'nullable|string|max:255',
@@ -38,7 +42,7 @@ class Uploadfoto extends Component
         $post = post_foto::create([
             'user_id' => Auth::id(),
             'image_path' => $path,
-            'caption' => $this->caption ?? null,
+            'caption' => $this->caption,
         ]);
 
         if (!empty($this->selectedFriends)) {
@@ -46,14 +50,16 @@ class Uploadfoto extends Component
         }
 
         $this->alert('success', 'Foto berhasil diunggah!');
-        $this->reset(['photo', 'caption', 'selectedFriends']);
-    }
 
+        $this->reset(['photo', 'caption', 'selectedFriends']);
+
+        $this->dispatch('hide-photo-modal');
+    }
 
     public function render()
     {
-        return view('livewire.uploadfoto', [
-            'friends' => User::all(),
-        ])->extends('layouts.app')->section('content');
+        return view('livewire.uploadfoto')
+            ->extends('layouts.app')
+            ->section('content');
     }
 }

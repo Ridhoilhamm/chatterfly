@@ -19,8 +19,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostinganResource extends Resource
 {
@@ -29,6 +27,7 @@ class PostinganResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $navigationLabel = 'Postingan';
     protected static ?string $label = 'Postingan';
+
 
     public static function form(Form $form): Form
     {
@@ -75,7 +74,6 @@ class PostinganResource extends Resource
                 TextColumn::make('user.name')
                     ->label('Diposting Oleh')
                     ->alignCenter(),
-
                 TextColumn::make('caption')
                     ->label('Caption')
                     ->alignCenter(),
@@ -83,8 +81,6 @@ class PostinganResource extends Resource
                     ->label('Jumlah Like')
                     ->getStateUsing(fn($record) => $record->likes()->count())
                     ->alignCenter(),
-
-
                 ToggleColumn::make('is_arsip')
                     ->label('Arsip')
                     ->onColor('success')

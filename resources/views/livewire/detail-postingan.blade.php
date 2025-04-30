@@ -30,11 +30,11 @@
 
                 </div>
                 <div
-                    style="position: absolute; bottom: 20px; right: 10px; 
+                    style="position: absolute; bottom: 10px; right: 25px; 
                        display: flex; flex-direction: column; align-items: center; 
-                       gap: 10px; background: 
+                       gap: 8px; background: 
                     linear-gradient(to top, rgba(68, 173, 159, 0.908), rgba(68, 173, 159, 0.726), rgba(68, 173, 159, 0.141)) bottom; 
-                       padding: 10px; border-radius: 10px; color: white;">
+                       padding: 5px; border-radius: 10px; color: white;">
 
                     <div class="mb-0">
                         <livewire:post-like :post="$post" />

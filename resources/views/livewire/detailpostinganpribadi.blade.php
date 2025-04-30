@@ -165,11 +165,18 @@
                     <p class="text-secondary text-center">Postingan yang diarsipkan dapat dipulihkan</p>
                 </div>
                 <div class="d-flex mb-3 justify-content-center align-items-center text-center">
-                    <button class="btn custom-modal-button-cancel mr-2" data-bs-dismiss="modal">
+                    <button class="btn" data-bs-dismiss="modal"
+                        style="background: transparent; 
+               color: rgba(0, 0, 0, 0.712); 
+               border: 1px solid rgba(0, 0, 0, 0.712); 
+               padding: 10px 20px; 
+               border-radius: 8px; 
+               font-weight: bold; 
+               margin-right: 10px;">
                         Batal
                     </button>
                     <button class="btn custom-modal-button-cancel mr-2" wire:click="arsipkan({{ $post->id }})">
-                        Hapus
+                        Arsipkan
                     </button>
                 </div>
             </div>
@@ -331,10 +338,14 @@
                                 class="rounded-circle friend-avatar me-2">
                             <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
                         </div>
-                        @livewire('post.share-button', [
-                            'receiverId' => $friendUser->id,
-                            'postId' => $post->id
-                        ], key($friendUser->id))
+                        @livewire(
+                            'post.share-button',
+                            [
+                                'receiverId' => $friendUser->id,
+                                'postId' => $post->id,
+                            ],
+                            key($friendUser->id)
+                        )
                     @endforeach
                 </div>
                 <div class="d-flex justify-content-center pt-3 mb-2" style="margin-top:100px; gap: 20px;">
@@ -474,7 +485,8 @@
                                 <path d="M22 19l-3 3l-3 -3" />
                             </svg>
                         </p>
-                        <p class="ml-2" data-bs-toggle="modal" data-bs-target="#arsippostingan" data-post-id="{{ $post->id }}">Arsipkan
+                        <p class="ml-2" data-bs-toggle="modal" data-bs-target="#arsippostingan"
+                            data-post-id="{{ $post->id }}">Arsipkan
                             Postingan</p>
                     </div>
                     <div class="d-flex justify-content-start">
@@ -514,7 +526,27 @@
             </div>
         </div>
     </div>
+
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchLike");
+        const likeItems = document.querySelectorAll("#likeList .like-item");
+
+        searchInput.addEventListener("input", function() {
+            const keyword = searchInput.value.toLowerCase();
+
+            likeItems.forEach(function(item) {
+                const name = item.querySelector(".user-name").textContent.toLowerCase();
+                if (name.includes(keyword)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
 
 <style>
     .friend-item {
@@ -570,7 +602,7 @@
         background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3));
         color: white;
         border: none;
-        padding: 10px 20px; 
+        padding: 10px 20px;
         border-radius: 8px;
         font-weight: bold;
         margin-right: 10px;

@@ -45,7 +45,7 @@
                     ->count();
             @endphp
             <a href="{{ route('detailpengguna', $user->id) }}">
-                <div class="px-2">
+                <div class="px-4">
                     <div style="flex-shrink: 0; width: 90px; display: flex; justify-content: center; align-items: center; flex-direction: column;"
                         class="mt-2 mr-2">
                         <img src="{{ asset('storage/users-avatar/' . $user->avatar) }}" alt="avatar user"
@@ -57,7 +57,8 @@
                                 fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user ">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
+                                <path
+                                    d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
                             </svg>
                             <span class="text-black">{{ $friendCount }}</span>
                         </div>
@@ -66,46 +67,46 @@
 
             </a>
         @endforeach
-            {{-- modals cari --}}
-            <div class="modal fade" id="cariteman" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="margin-top: 100px;">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
-                        </div>
-                        <div class="modal-body d-flex">
-                            <input type="text" wire:model.debounce.300ms="query"
-                                class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
-                                style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black"
-                                placeholder="Cari User">
-                            <button type="button" data-bs-dismiss="modal" wire:click="searchUser"
-                                class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px; font-size: 14px;">
-                                Cari
-                            </button>
-                        </div>
+        {{-- modals cari --}}
+        <div class="modal fade" id="cariteman" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="margin-top: 100px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
+                    </div>
+                    <div class="modal-body d-flex">
+                        <input type="text" wire:model.debounce.300ms="query"
+                            class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
+                            style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black"
+                            placeholder="Cari User">
+                        <button type="button" data-bs-dismiss="modal" wire:click="searchUser"
+                            class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px; font-size: 14px;">
+                            Cari
+                        </button>
                     </div>
                 </div>
             </div>
-            {{-- modals filtering --}}
-            <div class="modal fade" id="filtering" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="margin-top: 100px;">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
-                        </div>
-                        <div class="modal-body d-flex">
-                            <input type="text" wire:model.debounce.300ms="query"
-                                class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
-                                style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black"
-                                placeholder="Cari User">
-                            <button type="button" data-bs-dismiss="modal" wire:click="searchUser"
-                                class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px; font-size: 14px;">
-                                Cari
-                            </button>
-                        </div>
+        </div>
+        {{-- modals filtering --}}
+        <div class="modal fade" id="filtering" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="margin-top: 100px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cari User</h5>
+                    </div>
+                    <div class="modal-body d-flex">
+                        <input type="text" wire:model.debounce.300ms="query"
+                            class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
+                            style="padding: 10px 10px; font-size: 14px; margin-right:5px; color:black"
+                            placeholder="Cari User">
+                        <button type="button" data-bs-dismiss="modal" wire:click="searchUser"
+                            class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px; font-size: 14px;">
+                            Cari
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
 
         <script>
             window.addEventListener("scroll", function() {
@@ -137,6 +138,7 @@
                 background: white;
                 backdrop-filter: blur(10px);
             }
+
             #header .icon,
             #header P,
             #header svg,

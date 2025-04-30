@@ -75,7 +75,7 @@
             $('#exampleModal').modal('hide');
         });
     </script>
-    
+
     <style>
         ::-webkit-scrollbar {
             display: none;

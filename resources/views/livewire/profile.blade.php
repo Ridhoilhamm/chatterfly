@@ -15,7 +15,7 @@
             background-position: center;">
                 <div id="header" class="position-fixed w-100 top-0 start-0 p-2">
                     <p wire:click="togglePrivacy" class="mt-2" ">
-                               @if ($isPrivate)
+                                                       @if ($isPrivate)
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock mt-1">
@@ -94,6 +94,9 @@
                                     </div>
                                 </a>
                             </div>
+
+
+
                             <div class="d-flex gap-2 justify-content-end flex-wrap mt-4">
                                 <a href={{ route('page') }}>
                                     <div class="d-flex align-items-center justify-content-center p-2 text-center flex-grow-1 border border-success"
@@ -187,6 +190,7 @@
                     }
                 </style>
                 <div class="content-section">
+
                     <div class="gallery">
                         @foreach ($postFotos->where('is_arsip', false) as $index => $foto)
                             <div
@@ -429,6 +433,13 @@
                 .video-container {
                     width: 100%;
                 }
+
+                .hello {
+                    position: relative;
+                    z-index: 99999999999;
+                }
+
+
             }
         </style>
 
@@ -474,7 +485,7 @@
                         <h5 class="modal-title w-100" id="exampleModalLabel">Upload Foto</h5>
                     </div>
                     <div class="modal-body">
-                        <livewire:uploadfoto />
+
                     </div>
                 </div>
             </div>
@@ -486,10 +497,6 @@
                 });
             });
         </script>
-
-
-
-
         <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -560,10 +567,10 @@
 
         <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between"
             x-on:touchstart="startSwipe($event)" x-on:touchmove="moveSwipe($event)" x-on:touchend="endSwipe()">
-            <button class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
-                x-on:touchstart="setActive($event, 'photo')" data-modal="#exampleModal">
-                📷
-            </button>
+            <div class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
+                x-on:touchstart="setActive($event, 'photo')">
+                <livewire:uploadfoto />
+            </div>
             <button class="nav-home active" id="homeBtn" x-text="homeText"
                 x-on:mouseenter="setActive($event, 'home')" x-on:touchstart="setActive($event, 'home')">
                 Unggah
@@ -572,7 +579,6 @@
                 x-on:touchstart="setActive($event, 'video')" data-modal="#videoModal">
                 🎥
             </button>
-
             <div class="active-indicator" x-ref="indicator"></div>
         </div>
         <script>
@@ -603,7 +609,6 @@
                             indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
                         });
                     },
-
                     showModal(modalId) {
                         let modal = document.querySelector(modalId);
                         if (modal) {
@@ -615,11 +620,9 @@
                             });
                         }
                     },
-
                     startSwipe(event) {
                         this.startX = event.touches[0].clientX;
                     },
-
                     moveSwipe(event) {
                         this.endX = event.touches[0].clientX;
                     },
@@ -647,6 +650,5 @@
         </script>
 
     </div>
-
 </div>
 </div>

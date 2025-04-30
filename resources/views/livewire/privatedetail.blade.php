@@ -82,7 +82,7 @@
             <div class="d-flex justify-content-between align-items-center">
 
                 <p class="mb-0 mt-2 pb-2 pt-1 d-flex align-items-center gap-2" data-bs-toggle="modal"
-                    data-bs-target="#lihatsemua">
+                    data-bs-target="#pesanberbintang">
                     <span class="mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -121,36 +121,27 @@
         <div class="modal-dialog modal-dialog-centered modal-bottom">
             <div class="modal-content px-3" style="border-radius: 15px; overflow: hidden;">
                 <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
-                    <p class="mb-2 mt-2" style="font-size:18px;">Anggota</p>
+                    <p class="mb-2 mt-2" style="font-size:18px;">Media, Tautan, Doc</p>
                 </div>
                 <div class="container" style="max-height: 300px; overflow-y: auto;">
-                    <div class="border-bottom">
-                        <div class="d-flex align-items-center pb-1">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                                class="rounded-circle" style="width:50px; height:50px;">
-                            <p style="margin-left:10px">Ikram</p>
-                        </div>
+                    <div class="d-flex justify-content-center p-4 mb-2">
+                        Belum ada media yang dikirim
                     </div>
-                    <div class="border-bottom mt-2">
-                        <div class="d-flex align-items-center pb-1">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                                class="rounded-circle" style="width:50px; height:50px;">
-                            <p style="margin-left:10px">Jhoen Doe</p>
-                        </div>
-                    </div>
-                    <div class="border-bottom mt-2">
-                        <div class="d-flex align-items-center pb-1">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                                class="rounded-circle" style="width:50px; height:50px;">
-                            <p style="margin-left:10px">Doe Jhoen</p>
-                        </div>
-                    </div>
-                    <div class="border-bottom mt-2">
-                        <div class="d-flex align-items-center pb-1">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="icon foto"
-                                class="rounded-circle" style="width:50px; height:50px;">
-                            <p style="margin-left:10px">Assep Muhammad</p>
-                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modals pesan berbintang --}}
+    <div wire:ignore.self class="modal fade" id="pesanberbintang" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-bottom">
+            <div class="modal-content px-3" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <p class="mb-2 mt-2" style="font-size:18px;">Pesan Berbintang</p>
+                </div>
+                <div class="container" style="max-height: 300px; overflow-y: auto;">
+                    <div class="d-flex justify-content-center p-4 mb-2">
+                        Belum ada Pesan Berbintang
                     </div>
                 </div>
             </div>

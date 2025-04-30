@@ -26,7 +26,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-filter" data-bs-toggle="modal"
-                    data-bs-target="#modalsfiltering" >
+                    data-bs-target="#modalsfiltering">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path
                         d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" />
@@ -34,7 +34,8 @@
             </div>
         </div>
         {{-- modals filtering --}}
-        <div class="modal fade" id="modalsfiltering" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalsfiltering" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="margin-top: 70px;">
                     <div class="modal-header">
@@ -44,8 +45,8 @@
                         <input type="date" name="query"
                             class="form-control mt-2 ms-2 rounded btn btn-outline-dark bg-white"
                             style="padding: 10px 10px; font-size: 14px; margin-right: 5px; color: black; width: 500px;">
-                        <button class="btn btn-outline-dark ms-2 mt-2 me-2" style="padding: 10px 10px;  font-size: 14px;"
-                            type="submit">
+                        <button class="btn btn-outline-dark ms-2 mt-2 me-2"
+                            style="padding: 10px 10px;  font-size: 14px;" type="submit">
                             Cari
                         </button>
                     </div>
@@ -65,13 +66,13 @@
 
                             <ul class="list-unstyled mb-0">
                                 <li class="p-2 border-bottom bg-body-tertiary">
-                                    <a href="{{route('detailchat')}}" class="d-flex justify-content-between">
+                                    <a href="{{ route('detailchat') }}" class="d-flex justify-content-between">
                                         <div class="d-flex flex-row">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
                                                 alt="avatar"
                                                 class="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
                                                 width="60">
-                                            <div class="pt-1 ml-2" >
+                                            <div class="pt-1 ml-2">
                                                 <p class="fw-bold mb-0">John Doe</p>
                                                 <p class="small text-muted">Hello, Are you there?</p>
                                             </div>
@@ -236,38 +237,39 @@
             </div>
 
             <style>
-               a {
-                color: inherit;
-                text-decoration: none;
-            }
-            #header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                z-index: 9999 !important;
-                background: transparent;
-                transition: background 0.3s ease-in-out;
-            }
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                }
 
-            #header.scrolled {
-                background: white;
-                backdrop-filter: blur(10px);
-            }
+                #header {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    z-index: 9999 !important;
+                    background: transparent;
+                    transition: background 0.3s ease-in-out;
+                }
 
-            #header .icon,
-            #header P,
-            #header svg,
-            #header button {
-                transition: color 0.3s ease-in-out;
-            }
+                #header.scrolled {
+                    background: white;
+                    backdrop-filter: blur(10px);
+                }
 
-            #header.scrolled .icon,
-            #header.scrolled P,
-            #header.scrolled svg,
-            #header.scrolled button {
-                color: black !important;
-            }
+                #header .icon,
+                #header P,
+                #header svg,
+                #header button {
+                    transition: color 0.3s ease-in-out;
+                }
+
+                #header.scrolled .icon,
+                #header.scrolled P,
+                #header.scrolled svg,
+                #header.scrolled button {
+                    color: black !important;
+                }
             </style>
 
         </div>

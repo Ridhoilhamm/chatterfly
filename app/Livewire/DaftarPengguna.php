@@ -80,6 +80,7 @@ class DaftarPengguna extends Component
             ->toArray();
     }
 
+
     public function getPostFotos()
     {
         $authUserId = Auth::id();
@@ -103,6 +104,8 @@ class DaftarPengguna extends Component
                 return $foto;
             });
     }
+
+
     public function getPostVideos()
     {
         $authUserId = Auth::id();
@@ -126,6 +129,8 @@ class DaftarPengguna extends Component
                 return $video;
             });
     }
+
+    
     public function render()
     {
         $user = $this->userId ? User::find($this->userId) : null;

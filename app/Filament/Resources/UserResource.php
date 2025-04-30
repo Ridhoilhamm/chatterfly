@@ -14,8 +14,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\ActionsColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
@@ -46,7 +48,6 @@ class UserResource extends Resource
                         'Laki-laki' => 'Laki-laki',
                         'Perempuan' => 'Perempuan',
                     ]),
-
                 TextInput::make('phone_number')
                     ->label('Nomor HP')
                     ->tel()
@@ -66,30 +67,36 @@ class UserResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['friendships.friend', 'inverseFriendships.user', 'posts']);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('jenis_kelamin')->label('Jenis Kelamin'),
-                Tables\Columns\TextColumn::make('phone_number')->label('phone_number'),
-                TextColumn::make('friendships')
-                    ->label('Pertemanan')
-                    ->getStateUsing(function ($record) {
-                        return \App\Models\Friendship::where('status', 'approved')
-                            ->where(function ($query) use ($record) {
-                                $query->where('user_id', $record->id)
-                                    ->orWhere('friend_id', $record->id);
-                            })
-                            ->count();
-                    })
+                TextColumn::make('name')->label('Nama'),
+                TextColumn::make('email')->label('Email'),
+                TextColumn::make('jenis_kelamin')->label('Jenis Kelamin'),
+                TextColumn::make('phone_number')->label('Nomor HP'),
+                TextColumn::make('total_friends')
+                    ->label('Jumlah Pertemanan')
+                    ->getStateUsing(fn($record) => $record->totalFriends()->count())
                     ->alignCenter(),
+                ViewColumn::make('friendships')
+                    ->label('Berteman')
+                    ->view('filament.tables.columns.friendship-list'),
+                ViewColumn::make('posts')
+                    ->label('Postingan')
+                    ->view('filament.tables.columns.user-photo-list')
+                    ->alignCenter(),
+
                 TextColumn::make('total_likes')
                     ->label('Disenangi')
                     ->getStateUsing(fn($record) => $record->totalLikes()->count())
                     ->alignCenter(),
-
                 TextColumn::make('jumlah_postingan')
                     ->label('Jumlah Postingan')
                     ->getStateUsing(fn($record) => $record->postFoto()->count())
@@ -101,10 +108,16 @@ class UserResource extends Resource
                     ->label('Gambar Profil')
                     ->height(80)
                     ->width(80)
-                    ->getStateUsing(
-                        fn($record) =>
-                        $record->avatar ? asset('storage/users-avatar/' . $record->avatar) : asset('storage/users-avatar/avatar.png')
-                    )
+                    ->getStateUsing(fn($record) => $record->avatar ? asset('storage/users-avatar/' . $record->avatar) : asset('storage/users-avatar/avatar.png')),
+
+                // ActionsColumn::make('actions')
+                //     ->label('Aksi')
+                //     ->actions([
+                //         Tables\Actions\EditAction::make()->label('Ubah'),
+                //         Tables\Actions\DeleteAction::make()->label('Hapus'),
+                //         Tables\Actions\ViewAction::make()->label('Lihat'),
+                //     ])
+                //     ->alignCenter(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('jenis_kelamin')
@@ -117,13 +130,14 @@ class UserResource extends Resource
                     ->placeholder('Semua'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    // Menambahkan bulk action lainnya, jika perlu
                 ]),
             ]);
     }
