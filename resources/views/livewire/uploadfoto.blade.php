@@ -26,7 +26,7 @@
     ">
     <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true"
         wire:ignore>
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <!-- Preview Foto -->
@@ -61,6 +61,7 @@
             .modal-backdrop {
                 background-color: transparent !important;
             }
+
         </style>
     </div>
 

@@ -39,7 +39,8 @@
 
 
                             {{-- Share --}}
-                            <div data-bs-toggle="modal" data-bs-target="#modalshare"
+                            <div  data-bs-toggle="modal"
+                            data-bs-target="#share"
                                 class="d-flex flex-column align-items-center">
                                 <i class="fas fa-share" style="color: white; cursor: pointer; font-size: 20px;"></i>
                                 <p style="margin: 2px 0 0; font-size: 10px; text-align: center;">Share</p>
@@ -62,7 +63,7 @@
                             aria-labelledby="laporkanModalLabel-{{ $video->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content"
-                                    style="border-radius: 15px; overflow: hidden; max-height: 40vh;">
+                                style="border-radius: 15px; overflow: hidden; max-height: 35vh;">
 
                                     {{-- Icon SVG --}}
                                     <div class="d-flex justify-content-center mt-3">
@@ -82,23 +83,19 @@
                                     </div>
 
                                     {{-- Livewire Component --}}
-                                    <div class="p-3">
+                                    <div class="p-2">
                                         <livewire:laporkan-postingan-video :post-id="$video->id" :key="$video->id" />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
                         <!-- Modal Komentar -->
-                        <div class="modal fade" id="commentModal-{{ $video->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-slide-up modal-lg">
-                                {{-- bisa pakai modal-lg untuk lebar juga --}}
-                                <div class="modal-content mb-3" style="min-height: 800px;"> {{-- atur tinggi di sini --}}
+                        <div class="modal fade modal-halfscreen" id="commentModal-{{ $video->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content mb-3">
                                     <div class="modal-header">
                                         <h5 class="modal-title w-100 text-center" style="font-size: 14px;">Komentar</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body overflow-auto">
                                         <div class="d-flex justify-content-center">
@@ -109,8 +106,6 @@
                             </div>
                         </div>
 
-
-
                     </div>
                 @endforeach
             @endif
@@ -118,22 +113,119 @@
     </div>
 
     {{-- Modal Share --}}
-    <div class="modal fade" id="modalshare" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header d-flex justify-content-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Share</h5>
+    @php
+    use App\Models\Friendship;
+    use App\Models\User;
+
+    $friends = Friendship::where(function ($query) {
+        $query->where('user_id', auth()->id())->orWhere('friend_id', auth()->id());
+    })
+        ->where('status', 'approved')
+        ->get();
+@endphp
+
+<div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-slide-up">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center ">
+                <h5 class="modal-title" id="exampleModalLabel ">Share</h5>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px;">
+                <div class="d-flex flex-wrap">
+                    @foreach ($friends as $friend)
+                        @php
+                            $friendUser = $friend->user_id == auth()->id() ? $friend->friend : $friend->user;
+                        @endphp
+                        <div class="friend-item text-center" onclick="selectFriend(this)">
+                            <img src="{{ asset('storage/users-avatar/' . $friendUser->avatar) }}"
+                                alt="Avatar {{ $friendUser->name }}" width="80" height="80"
+                                class="rounded-circle friend-avatar me-2">
+                            <p>{{ Str::limit($friendUser->name, 5, '') }}</p>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="d-flex justify-content-center pt-3 mb-2" style="margin-top:100px; gap: 20px;">
+
+                    <div class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2"
+                        style="width: 50px; height: 50px;">
+                        <a href="https://wa.me/08970915625">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                <path
+                                    d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-link">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 15l6 -6" />
+                            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                            <path
+                                d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                        </svg>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center border border-dark rounded-circle p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center border-top pt-2">
+                    <button id="shareButton" class="btn w-100"
+                        style="background: linear-gradient(to right, rgba(68, 173, 159, 0.9), rgba(68, 173, 159, 0.7), rgba(68, 173, 159, 0.3)); 
+                   color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-right:10px;">Bagikan</button>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 
     <style>
+        .modal.modal-halfscreen .modal-dialog {
+        position: fixed;
+        bottom: 0;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        height: 50vh; /* setengah layar */
+        max-width: 800px;
+        transition: transform 0.3s ease-out;
+    }
+
+    .modal.modal-halfscreen .modal-content {
+        height: 100%;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .modal.modal-halfscreen.fade .modal-dialog {
+        transform: translateY(100%);
+    }
+
+    .modal.modal-halfscreen.fade.show .modal-dialog {
+        transform: translateY(0);
+    }
+
+
+
+
+
+
         .video-responsive {
             width: 100%;
             max-width: 385px;

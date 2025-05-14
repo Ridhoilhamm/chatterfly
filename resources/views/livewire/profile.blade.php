@@ -85,14 +85,14 @@
                                         <p class="small mb-0">Pertemanan</p>
                                     </div>
                                 </a>
-                                <a href="{{ route('like', $user->id) }}">
+                               
                                     <div>
                                         <p class="mb-1 h5" style="font-size:14px;">
                                             {{ $user->totalLikes()->count() }}
                                         </p>
                                         <p class="small mb-0 me-1">Disenangi</p>
                                     </div>
-                                </a>
+                               
                             </div>
 
 
@@ -111,7 +111,9 @@
             </div>
 
             <livewire:hightlight />
-
+            <div style="position: fixed; bottom: 75px; right: 290px; z-index: 1055;">
+                <livewire:uploadfoto />
+            </div>
             <div class="modal fade" id="notifikasi" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -233,11 +235,14 @@
                 <div class="content-section">
                     <div class="gallery">
                         @foreach ($taggedPosts as $index => $post)
-                            <div
-                                class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
-                                <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                            <div class="gallery-item {{ $index % 3 == 0 ? 'large' : '' }} {{ $post->isBlurred ? 'blurred' : '' }}">
+                                @if ($post->isBlurred)
                                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
-                                </a>
+                                @else
+                                    <a href="{{ route('post.detail', ['post' => $post->id]) }}">
+                                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="Tag Foto">
+                                    </a>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -565,89 +570,116 @@
         </div>
 
 
-        <div x-data="navbarHandler()" class="container custom-navbar d-flex justify-content-between"
-            x-on:touchstart="startSwipe($event)" x-on:touchmove="moveSwipe($event)" x-on:touchend="endSwipe()">
-            <div class="nav-btn" id="photoBtn" x-on:mouseenter="setActive($event, 'photo')"
-                x-on:touchstart="setActive($event, 'photo')">
-                <livewire:uploadfoto />
-            </div>
-            <button class="nav-home active" id="homeBtn" x-text="homeText"
-                x-on:mouseenter="setActive($event, 'home')" x-on:touchstart="setActive($event, 'home')">
-                Unggah
-            </button>
-            <button class="nav-btn" id="videoBtn" x-on:mouseenter="setActive($event, 'video')"
-                x-on:touchstart="setActive($event, 'video')" data-modal="#videoModal">
-                🎥
-            </button>
-            <div class="active-indicator" x-ref="indicator"></div>
-        </div>
-        <script>
-            function navbarHandler() {
-                return {
-                    homeText: "Unggah",
-                    activeIndex: 1,
-                    buttons: [],
-                    startX: 0,
-                    endX: 0,
+        <div x-data="navbarHandler()" x-init="init()" 
+     class="container custom-navbar d-flex justify-content-between"
+     x-on:touchstart="startSwipe($event)" 
+     x-on:touchmove="moveSwipe($event)" 
+     x-on:touchend="endSwipe()">
 
-                    setActive(event, type) {
-                        let btn = event.target;
-                        this.activeIndex = this.buttons.indexOf(btn);
-                        this.updateIndicator(btn);
-                        this.homeText = type === 'home' ? "Unggah" : "";
-                        let modalId = btn.getAttribute("data-modal");
-                        if (modalId) {
-                            this.showModal(modalId);
-                        }
-                    },
+    <!-- Tombol Foto -->
+    <div class="nav-btn" id="photoBtn" 
+         x-on:mouseenter="setActive($event, 'photo')" 
+         x-on:touchstart="setActive($event, 'photo')">
+        
+    </div>
 
-                    updateIndicator(btn) {
-                        this.$nextTick(() => {
-                            let indicator = this.$refs.indicator;
-                            indicator.style.width = `${btn.offsetWidth}px`;
-                            indicator.style.height = `${btn.offsetHeight}px`;
-                            indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
-                        });
-                    },
-                    showModal(modalId) {
-                        let modal = document.querySelector(modalId);
-                        if (modal) {
-                            $(modal).modal("show");
-                            $(modal).on("hidden.bs.modal", () => {
-                                this.setActive({
-                                    target: this.buttons[1]
-                                }, 'home');
-                            });
-                        }
-                    },
-                    startSwipe(event) {
-                        this.startX = event.touches[0].clientX;
-                    },
-                    moveSwipe(event) {
-                        this.endX = event.touches[0].clientX;
-                    },
+    <!-- Tombol Home -->
+    <button class="nav-home active" id="homeBtn" x-text="homeText"
+        x-on:mouseenter="setActive($event, 'home')" 
+        x-on:touchstart="setActive($event, 'home')">
+        Unggah
+    </button>
 
-                    endSwipe() {
-                        let direction = this.startX - this.endX;
-                        if (direction > 50) {
-                            this.activeIndex = Math.min(this.activeIndex + 1, this.buttons.length - 1);
-                        } else if (direction < -50) {
-                            this.activeIndex = Math.max(this.activeIndex - 1, 0);
-                        }
-                        this.setActive({
-                            target: this.buttons[this.activeIndex]
-                        }, this.buttons[this.activeIndex].id);
-                    },
+    <!-- Tombol Video -->
+    <button class="nav-btn" id="videoBtn" 
+        x-on:mouseenter="setActive($event, 'video')" 
+        x-on:touchstart="setActive($event, 'video')" 
+        data-modal="#videoModal">
+        🎥
+    </button>
 
-                    init() {
-                        this.buttons = Array.from(document.querySelectorAll('.nav-btn, .nav-home'));
-                        this.setActive({
-                            target: this.buttons[1]
-                        }, 'home');
-                    }
-                };
+    <!-- Indikator Aktif -->
+    <div class="active-indicator" x-ref="indicator"></div>
+</div>
+
+<script>
+    function navbarHandler() {
+        return {
+            homeText: "Unggah",
+            activeIndex: 1,
+            buttons: [],
+            startX: 0,
+            endX: 0,
+
+            setActive(event, type) {
+                const btn = event.target.closest('button, .nav-btn'); // lebih aman
+                if (!btn) return;
+
+                this.activeIndex = this.buttons.indexOf(btn);
+                this.updateIndicator(btn);
+                this.homeText = type === 'home' ? "Unggah" : "";
+
+                const modalId = btn.getAttribute("data-modal");
+                if (modalId) {
+                    this.showModal(modalId);
+                }
+            },
+
+            updateIndicator(btn) {
+                this.$nextTick(() => {
+                    const indicator = this.$refs.indicator;
+                    indicator.style.width = `${btn.offsetWidth}px`;
+                    indicator.style.height = `${btn.offsetHeight}px`;
+                    indicator.style.transform = `translateX(${btn.offsetLeft}px) translateY(10px)`;
+                });
+            },
+
+            showModal(modalId) {
+                const modal = document.querySelector(modalId);
+                if (modal) {
+                    // Gunakan Bootstrap 5 native API, lebih stabil
+                    this.$nextTick(() => {
+                        setTimeout(() => {
+                            const instance = bootstrap.Modal.getOrCreateInstance(modal);
+                            instance.show();
+
+                            modal.addEventListener("hidden.bs.modal", () => {
+                                this.setActive({ target: this.buttons[1] }, 'home');
+                            }, { once: true });
+                        }, 100); // Delay agar modal ter-render sempurna
+                    });
+                }
+            },
+
+            startSwipe(event) {
+                this.startX = event.touches[0].clientX;
+            },
+
+            moveSwipe(event) {
+                this.endX = event.touches[0].clientX;
+            },
+
+            endSwipe() {
+                const direction = this.startX - this.endX;
+                if (direction > 50) {
+                    this.activeIndex = Math.min(this.activeIndex + 1, this.buttons.length - 1);
+                } else if (direction < -50) {
+                    this.activeIndex = Math.max(this.activeIndex - 1, 0);
+                }
+
+                const btn = this.buttons[this.activeIndex];
+                this.setActive({ target: btn }, btn.id);
+            },
+
+            init() {
+                this.buttons = Array.from(document.querySelectorAll('.nav-btn, .nav-home'));
+                if (this.buttons[1]) {
+                    this.setActive({ target: this.buttons[1] }, 'home');
+                }
             }
-        </script>
+        };
+    }
+</script>
 
     </div>
 </div>

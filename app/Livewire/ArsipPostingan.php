@@ -13,8 +13,6 @@ class ArsipPostingan extends Component
     public $arsipPosts;
     public $postIdToDelete = null;
 
-
-
     public function mount()
     {
         session()->put('hideNavbar', true);
@@ -43,8 +41,6 @@ class ArsipPostingan extends Component
         $this->postIdToDelete = null;
         session()->flash('message', 'Postingan berhasil dihapus.');
     }
-    
-
 
     public function render()
     {
